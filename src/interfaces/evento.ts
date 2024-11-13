@@ -1,4 +1,4 @@
-import { Organizador, Moderador } from "./pessoas"; 
+import { Organizador, Moderador } from "./usuarios"; 
 
 export interface Evento 
 {
