@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AgendaCulturalService } from '../../services/agenda-cultural-service/agenda-cultural.service';
 
 @Component({
   selector: 'app-evento',
@@ -8,5 +9,14 @@ import { Component } from '@angular/core';
   styleUrl: './evento.component.scss'
 })
 export class EventoComponent {
+
+  constructor(private acService: AgendaCulturalService)
+  {
+    acService.getEvento(1).subscribe(
+      (result) => {
+        console.log(result);
+      }
+    )
+  }
 
 }

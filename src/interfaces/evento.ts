@@ -2,27 +2,27 @@ import { Organizador, Moderador } from "./usuarios";
 
 export interface Evento 
 {
-    id: Number
-    status: StatusEvento,
+    id?: Number
+    status?: StatusEvento,
     
-    nome: String,
-    descricao: String,
-    categoria: String,
-    imagem: String,
-    contato: String,
+    nome?: String,
+    descricao?: String,
+    categoria?: String,
+    imagem?: String,
+    contato?: String,
 
-    organizador: Organizador,
-    moderador: Moderador,
+    organizador?: Organizador,
+    moderador?: Moderador,
     
-    data: Date,
-    horarioInicio: Date,
-    horarioFim: Date,
+    data?: Date,
+    horarioInicio?: Date,
+    horarioFim?: Date,
     
-    regiao: String,
-    endereco: String,
-    enderecoLink: String
+    regiao?: String,
+    endereco?: String,
+    enderecoLink?: String
     
-    atualizacoes: AtualizacaoEvento[]
+    atualizacoes?: AtualizacaoEvento[]
 }
 
 export enum StatusEvento
@@ -35,10 +35,9 @@ export enum StatusEvento
 
 export interface AtualizacaoEvento
 {
-    id: Number
-    idEvento: Number,
+    id?: Number
     
-    titulo: String,
-    texto: String,
-    imagem: String
+    titulo?: String,
+    texto?: String,
+    imagem?: String
 }

@@ -17,13 +17,15 @@ export class HttpHandler {
 
   private getDefaultHeaders(): HttpHeaders
   {
-    return new HttpHeaders().set('content-type',  'aplication/json')
+    return new HttpHeaders()
+      .set('content-type',  'aplication/json')
+      .set('Access-Control-Allow-Origin',  '*');
   }
 
 
   protected httpGet<T>(
     endpoint: string, 
-    params?: { [key: string]: string }, 
+    params?: { [key: string]: string | number }, 
     headers?: { [key: string]: string },
   ): Observable<T> 
   {
@@ -34,13 +36,13 @@ export class HttpHandler {
     
     if(params){
       for(let k in params){
-        options.params.append(k, params[k]);
+        options.params = options.params.append(k, params[k]);
       }
     }
 
     if(headers){
       for(let k in headers){
-        options.headers.append(k, headers[k]);
+        options.headers = options.headers.append(k, headers[k]);
       }
     }
 

@@ -22,4 +22,14 @@ export class AgendaCulturalService extends HttpHandler {
   {
     return this.httpGet<unknown>(Configs.endpoints.ping);
   }
+
+
+  getEvento(id: number): Observable<Evento>
+  {
+    return this.httpGet<Evento>(
+      Configs.endpoints.evento, 
+      { 'id': id }, 
+      {}
+    );
+  }
 }
