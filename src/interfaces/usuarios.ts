@@ -1,12 +1,12 @@
 
 export interface Moderador extends Usuario
 {
-    cpf: String
+    cpf?: String
 }
 
 export interface Organizador extends Usuario
 {
-    cpf: String
+    cpf?: String
 }
 
 export interface Pessoa extends Usuario
@@ -16,6 +16,7 @@ export interface Pessoa extends Usuario
 
 interface Usuario
 {
-    id: Number
-    email: String
+    id?: Number,
+    email?: String,
+    nome?: String
 }

@@ -1,1 +1,64 @@
-<p>evento works!</p>
+<div class="evento-page">
+    <div class="evento-page--content">
+        <div class="evento-page--content--left">
+            <div class="evento-page--content--left--header">
+                <div class="evento-page--content--left--header--left">
+                    <h1>
+                        {{ evento ? evento.nome : '' }}
+                    </h1>
+                </div>
+
+                <div class="evento-page--content--left--header--right">
+                    <p>
+                        {{ evento && evento.organizador ? evento.organizador.nome : '' }}
+                    </p>
+                    <p>
+                        {{ evento ? evento.categoria : '' }}
+                    </p>
+                </div>
+            </div>
+            
+            <div class="evento-page--content--left--body">
+                {{ evento ? evento.descricao : '' }}
+            </div>
+
+            <div class="evento-page--content--left--body">
+                <img src="/src/assets/joia.png" alt="">
+            </div>
+            
+            <div class="evento-page--content--left--body">
+                mais umas galhofas
+            </div>
+        </div>
+
+        <div class="evento-page--content--right">
+            <div class="evento-page--content--right--content">
+                <h3 class="evento-page--content--right--content--title">
+                    QUANDO?
+                </h3>
+
+                <p class="evento-page--content--right--content--text">
+                    {{ evento ? evento.horarioInicio : '' }}
+                </p>
+
+                <p class="evento-page--content--right--content--text">
+                    {{ evento ? evento.horarioFim : '' }}
+                </p>
+            </div>
+
+            <div class="evento-page--content--right--content">
+                <h3 class="evento-page--content--right--content--title">
+                    ONDE?
+                </h3>
+
+                <p class="evento-page--content--right--content--text">
+                    {{ evento ? evento.endereco : '' }}
+                </p>
+
+                <div class="evento-page--content--right--content--map">
+                    {{ evento ? evento.enderecoLink : '' }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

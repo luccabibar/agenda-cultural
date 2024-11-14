@@ -6,6 +6,7 @@ import { Configs } from './agenda-cultural-configs';
 
 import { Evento } from '../../interfaces/evento';
 import { Observable } from 'rxjs';
+import {Resposta } from '../../interfaces/resposta';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,9 @@ export class AgendaCulturalService extends HttpHandler {
   }
 
 
-  getEvento(id: number): Observable<Evento>
+  getEvento(id: number): Observable<Resposta<Evento>>
   {
-    return this.httpGet<Evento>(
+    return this.httpGet<Resposta<Evento>>(
       Configs.endpoints.evento, 
       { 'id': id }, 
       {}

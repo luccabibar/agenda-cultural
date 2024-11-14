@@ -14,7 +14,6 @@ export interface Evento
     organizador?: Organizador,
     moderador?: Moderador,
     
-    data?: Date,
     horarioInicio?: Date,
     horarioFim?: Date,
     

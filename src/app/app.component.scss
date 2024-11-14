@@ -1,0 +1,20 @@
+.app {
+
+    display: flex;
+    flex-direction: column;
+
+    &--header {
+        background-color: sandybrown;
+    }
+
+    &--content {
+
+        flex-grow: 1;
+        
+        background-image: '/src/assets/bg.png';
+    }
+    
+    &--footer {
+        background-color: #333;
+    }
+}
