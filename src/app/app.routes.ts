@@ -9,7 +9,7 @@ export const routes: Routes =
 [
     { path: 'agenda', component: AgendaComponent },
     { path: 'buscar', component: BuscarComponent },
-    { path: 'evento', component: EventoComponent },
+    { path: 'evento/:id', component: EventoComponent },
     { path: 'home', redirectTo: '' },
     { path: '', component: HomeComponent },
     { path: '**', redirectTo: '' },

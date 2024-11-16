@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { AgendaCulturalService } from '../../services/agenda-cultural-service/agenda-cultural.service';
 import { Evento } from '../../interfaces/evento';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-evento',
   standalone: true,
-  imports: [],
+  imports: [ CommonModule ],
   templateUrl: './evento.component.html',
   styleUrl: './evento.component.scss'
 })
@@ -13,17 +15,31 @@ export class EventoComponent {
 
   evento: Evento | null;
 
-  constructor(private acService: AgendaCulturalService)
-  {
+  constructor(
+    private acService: AgendaCulturalService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    // inicializa objetos
     this.evento = null;
 
-    acService.getEvento(1).subscribe(
-      (result) => {
-        console.log(result);
+    // recebe parametros
+    let id: string | null = activatedRoute.snapshot.paramMap.get('id')
+    if(id == null){
+      return;
+    }
+    
+    // processa parametros
+    let idNum: number = parseInt(id);
+    if(isNaN(idNum)){
+      return;
+    }
 
-        this.evento = result.response;
-      }
-    )
+    // realiza requests necessarios
+    acService.getEvento(idNum).subscribe(
+    (result) => {
+      console.log(result);
+      this.evento = result.response;
+    });
   }
 
 }
