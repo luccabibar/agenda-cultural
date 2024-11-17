@@ -25,8 +25,8 @@ export class HttpHandler {
 
   protected httpGet<T>(
     endpoint: string, 
-    params?: { [key: string]: string | number }, 
-    headers?: { [key: string]: string },
+    params?: { [key: string]: string | number | null }, 
+    headers?: { [key: string]: string | null },
   ): Observable<T> 
   {
     let options = {
@@ -35,14 +35,18 @@ export class HttpHandler {
     };
     
     if(params){
-      for(let k in params){
-        options.params = options.params.append(k, params[k]);
+      for(let pp in params){
+        if(params[pp] != null){
+          options.params = options.params.append(pp, params[pp]);
+        }
       }
     }
 
     if(headers){
-      for(let k in headers){
-        options.headers = options.headers.append(k, headers[k]);
+      for(let hh in headers){
+        if(headers[hh] != null){
+          options.headers = options.headers.append(hh, headers[hh]);
+        }
       }
     }
 

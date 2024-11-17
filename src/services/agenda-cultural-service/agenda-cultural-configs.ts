@@ -3,6 +3,7 @@ export abstract class Configs {
     static port = "5000";
     static endpoints = {
         evento: "evento",
-        ping: "ping"
+        ping: "ping",
+        buscarEventos: "buscarEventos",
     }
 }

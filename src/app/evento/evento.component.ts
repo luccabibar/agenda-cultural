@@ -37,9 +37,9 @@ export class EventoComponent {
     // realiza requests necessarios
     acService.getEvento(idNum).subscribe(
     (result) => {
+      // TODO: catch 404
       console.log(result);
       this.evento = result.response;
     });
   }
-
 }

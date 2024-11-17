@@ -1,1 +1,39 @@
-<p>buscar works!</p>
+<div class="buscar-page">
+    <div class="buscar-page--content">
+        <div class="buscar-page--content--left">
+            <div class="buscar-page--content--left--header">
+                <h3> Mais Filtros </h3>
+            </div>
+
+            <div class="buscar-page--content--left--parameter">
+                <h5> Categoria: </h5>
+            </div>
+            
+            <div class="buscar-page--content--left--parameter">
+                <h5> Data: </h5>
+            </div>
+            
+            <div class="buscar-page--content--left--parameter">
+                <h5> Horário: </h5>
+            </div>
+            
+            <div class="buscar-page--content--left--parameter">
+                <h5> Região: </h5>
+            </div>
+        </div>
+
+        <div class="buscar-page--content--right">
+            <div class="buscar-page--content--right--parameter">
+                <input type="text">
+                <button> Bbuscar </button>
+            </div>
+
+            <div class="buscar-page--content--right--results">
+                <div *ngFor="let ev of eventos" 
+                class="buscar-page--content--right--results--evento">
+                    {{ ev.nome }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
