@@ -3,7 +3,8 @@
 // definicoes
 
 * {
-    font-family: $fonte-title;
+    font-family: $fonte-body;
+    color: $cor-texto;
 }
 
 
@@ -22,6 +23,19 @@ p {
 
     font-family: $fonte-body;
     color: $cor-texto;
+}
+
+label {
+
+    margin-top: 0;
+    margin-bottom: 5px;
+    
+    font-family: $fonte-title;
+    color: $cor-texto;
+}
+
+input {
+    padding: 5px;
 }
 
 .light {

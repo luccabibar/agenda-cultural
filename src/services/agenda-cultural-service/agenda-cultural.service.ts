@@ -7,6 +7,7 @@ import { Configs } from './agenda-cultural-configs';
 import { Evento } from '../../interfaces/evento';
 import { Observable } from 'rxjs';
 import { Resposta } from '../../interfaces/resposta';
+import { buscarParams } from '../../interfaces/buscarParams';
 
 @Injectable({
   providedIn: 'root'
@@ -61,5 +62,10 @@ export class AgendaCulturalService extends HttpHandler {
       params, 
       { }
     );
+  }
+
+  buscarParams(): Observable<Resposta<buscarParams>>
+  {
+    return this.httpGet<Resposta<buscarParams>>(Configs.endpoints.getBuscarParams);
   }
 }

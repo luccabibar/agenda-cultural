@@ -5,5 +5,6 @@ export abstract class Configs {
         evento: "evento",
         ping: "ping",
         buscarEventos: "buscarEventos",
+        getBuscarParams: "getBuscarParams"
     }
 }

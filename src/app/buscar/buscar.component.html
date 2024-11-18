@@ -6,19 +6,43 @@
             </div>
 
             <div class="buscar-page--content--left--parameter">
-                <h5> Categoria: </h5>
+                <label class="bold"> Categoria: </label>
+
+                <select multiple>
+                    <option *ngFor="let cc of buscarParams.categorias" [value]="cc"> {{ cc }} </option>
+                </select>
             </div>
             
             <div class="buscar-page--content--left--parameter">
-                <h5> Data: </h5>
+                <label class="bold"> Data: </label>
+                
+                <div class="buscar-page--content--left--parameter--input-content">
+                    <input class="buscar-page--content--left--parameter--input-content--input"
+                    type="text" placeholder="A partir">
+                    
+                    <input class="buscar-page--content--left--parameter--input-content--input"
+                    type="text" placeholder="Até">
+                </div>
             </div>
             
             <div class="buscar-page--content--left--parameter">
-                <h5> Horário: </h5>
+                <label class="bold"> Horário: </label>
+                
+                <div class="buscar-page--content--left--parameter--input-content">
+                    <input class="buscar-page--content--left--parameter--input-content--input"
+                    type="text" placeholder="A partir">
+                    
+                    <input class="buscar-page--content--left--parameter--input-content--input"
+                    type="text" placeholder="Até">
+                </div>
             </div>
             
             <div class="buscar-page--content--left--parameter">
-                <h5> Região: </h5>
+                <label class="bold"> Região: </label>
+                
+                <select multiple>
+                    <option *ngFor="let rr of buscarParams.regioes" [value]="rr"> {{ rr }} </option>
+                </select>
             </div>
         </div>
 
@@ -29,10 +53,31 @@
             </div>
 
             <div class="buscar-page--content--right--results">
-                <div *ngFor="let ev of eventos" 
+                <a *ngFor="let ev of eventos" href="http://localhost:4200/evento/{{ ev.id }}"
                 class="buscar-page--content--right--results--evento">
-                    {{ ev.nome }}
-                </div>
+                    <div class="buscar-page--content--right--results--evento--content">
+                    
+                        <div class="buscar-page--content--right--results--evento--content--left">
+                            <h4 class="buscar-page--content--right--results--evento--content--left--header"> 
+                                {{ ev.nome }} 
+                            </h4>
+
+                            <p class="buscar-page--content--right--results--evento--content--left--text"> 
+                                {{ ev.categoria + ' <> ' + ev.organizador?.nome }} 
+                            </p>
+                        </div>
+                        
+                        <div class="buscar-page--content--right--results--evento--content--right">
+                            <p class="buscar-page--content--right--results--evento--content--right--text text-align-right"> 
+                                {{ ev.regiao }} 
+                            </p>
+                            
+                            <p class="buscar-page--content--right--results--evento--content--right--text text-align-right"> 
+                                {{ ev.horarioInicio }} 
+                            </p>
+                        </div>
+                    </div>
+                </a>    
             </div>
         </div>
     </div>

@@ -1,22 +1,22 @@
 // variaveis 
 
-$cor-primary: #d3d;
-$cor-primary-dark: #919;
-$cor-primary-light: #e9e;
+$cor-primary: #d63a4a;
+$cor-primary-dark: #d63a4a;
+$cor-primary-light: #ff6300;
 
-$cor-secondary: #3dd;
-$cor-secondary-dark: #199;
-$cor-secondary-light: #9ee;
+$cor-secondary: #195a7b;
+$cor-secondary-dark: #5200ff;
+$cor-secondary-light: #428c6b;
 
-$cor-background: #ddc;
-$cor-body: #ffe;
-$cor-header: #ffe;
-$cor-footer: #222;
+$cor-background: #428c6b;
+$cor-body: #fff1e8;
+$cor-header: #ce8ce6;
+$cor-footer: #4a315a;
 
-$cor-texto: #222;
-$cor-texto-inv: #eee;
+$cor-texto: #4a315a;
+$cor-texto-inv: #fff1e8;
 
-$cor-shadow: #2228;
+$cor-shadow: #4a315a;
 
 // $fonte-body: Arial, Helvetica, sans-serif;
 // $fonte-title: Georgia, 'Times New Roman', Times, serif;
@@ -25,3 +25,5 @@ $fonte-body: "Fira Sans", sans-serif;
 $fonte-title: "Zilla Slab", serif;;
 
 $default-shadow: 0px 0px 10px -5px $cor-shadow;
+
+$default-radius: 5px;
