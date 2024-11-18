@@ -34,7 +34,9 @@ label {
     color: $cor-texto;
 }
 
-input {
+input,
+select,
+button {
     padding: 5px;
 }
 

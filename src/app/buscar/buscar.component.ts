@@ -2,19 +2,21 @@ import { Component } from '@angular/core';
 import { AgendaCulturalService } from '../../services/agenda-cultural-service/agenda-cultural.service';
 import { Evento } from '../../interfaces/evento';
 import { CommonModule } from '@angular/common';
-import { buscarParams } from '../../interfaces/buscarParams';
+import { FormGroup, FormsModule, NgForm }  from '@angular/forms';
+import { BuscarDados, BuscarParams } from '../../interfaces/buscar';
 
 @Component({
   selector: 'app-buscar',
   standalone: true,
-  imports: [ CommonModule ],
+  imports: [ CommonModule, FormsModule ],
   templateUrl: './buscar.component.html',
   styleUrl: './buscar.component.scss'
 })
 export class BuscarComponent {
 
   eventos: Evento[];
-  buscarParams: buscarParams;
+  buscarParams: BuscarParams;
+  buscarDados: BuscarDados;
 
   constructor(
     private acService: AgendaCulturalService
@@ -22,6 +24,15 @@ export class BuscarComponent {
     // inicializa objetos
     this.eventos = [];
     this.buscarParams = { 'categorias': [], 'regioes': [] };
+    this.buscarDados = {
+      'texto': '',
+      'regiao': null,
+      'categoria': null,
+      'diaUpper': '',
+      'diaLower': '',
+      'horaUpper': '',
+      'horaLower': ''
+    }
 
     // recebe parametros
     
@@ -33,12 +44,19 @@ export class BuscarComponent {
         console.log(result);
         this.buscarParams = result.response;
       });
-
-    acService.buscarEventos().subscribe(
-    (result) => {
-      console.log(result);
-      this.eventos = result.response;
-    });
   }
 
+
+  buscar(form: NgForm): void
+  {
+    if(form.invalid){
+      return;
+    } 
+
+    this.acService.buscarEventos(this.buscarDados).subscribe(
+      (result) => {
+        console.log(result);
+        this.eventos = result.response;
+      });
+  }
 }

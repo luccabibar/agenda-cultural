@@ -1,14 +1,30 @@
 <div class="buscar-page">
-    <div class="buscar-page--content">
+    <form #dadosBusca="ngForm" (ngSubmit)="buscar(dadosBusca)" 
+    class="buscar-page--content">
         <div class="buscar-page--content--left">
             <div class="buscar-page--content--left--header">
-                <h3> Mais Filtros </h3>
+                <h2> Buscar </h2>
+            </div>
+            
+            <div class="buscar-page--content--left--parameter">
+                <label class="bold"> Busca por texto: </label>
+
+                <input type="text" name="texto" [(ngModel)]="buscarDados.texto">
+            </div>
+
+            <div class="buscar-page--content--left--parameter">
+                <button> Buscar </button>
+            </div>
+
+            <div class="buscar-page--content--left--header">
+                <h2> Mais Filtros </h2>
             </div>
 
             <div class="buscar-page--content--left--parameter">
                 <label class="bold"> Categoria: </label>
 
-                <select multiple>
+                <select name="categoria" [(ngModel)]="buscarDados.categoria">
+                    <option [value]="">  </option>
                     <option *ngFor="let cc of buscarParams.categorias" [value]="cc"> {{ cc }} </option>
                 </select>
             </div>
@@ -18,10 +34,10 @@
                 
                 <div class="buscar-page--content--left--parameter--input-content">
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="A partir">
+                    type="text" placeholder="A partir" name="diaUpper" [(ngModel)]="buscarDados.diaUpper">
                     
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="Até">
+                    type="text" placeholder="Até" name="diaLower" [(ngModel)]="buscarDados.diaLower">
                 </div>
             </div>
             
@@ -30,28 +46,24 @@
                 
                 <div class="buscar-page--content--left--parameter--input-content">
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="A partir">
+                    type="text" placeholder="A partir" name="horaUpper" [(ngModel)]="buscarDados.horaUpper">
                     
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="Até">
+                    type="text" placeholder="Até" name="horaLower" [(ngModel)]="buscarDados.horaLower">
                 </div>
             </div>
             
             <div class="buscar-page--content--left--parameter">
                 <label class="bold"> Região: </label>
                 
-                <select multiple>
+                <select name="regiao" [(ngModel)]="buscarDados.regiao">
+                    <option [value]="">  </option>
                     <option *ngFor="let rr of buscarParams.regioes" [value]="rr"> {{ rr }} </option>
                 </select>
             </div>
         </div>
 
         <div class="buscar-page--content--right">
-            <div class="buscar-page--content--right--parameter">
-                <input type="text">
-                <button> Bbuscar </button>
-            </div>
-
             <div class="buscar-page--content--right--results">
                 <a *ngFor="let ev of eventos" href="http://localhost:4200/evento/{{ ev.id }}"
                 class="buscar-page--content--right--results--evento">
@@ -63,7 +75,7 @@
                             </h4>
 
                             <p class="buscar-page--content--right--results--evento--content--left--text"> 
-                                {{ ev.categoria + ' <> ' + ev.organizador?.nome }} 
+                                {{ ev.categoria + ' - ' + ev.organizador?.nome }} 
                             </p>
                         </div>
                         
@@ -80,5 +92,5 @@
                 </a>    
             </div>
         </div>
-    </div>
+    </form>
 </div>

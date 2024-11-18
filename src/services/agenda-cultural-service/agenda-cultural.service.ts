@@ -7,7 +7,7 @@ import { Configs } from './agenda-cultural-configs';
 import { Evento } from '../../interfaces/evento';
 import { Observable } from 'rxjs';
 import { Resposta } from '../../interfaces/resposta';
-import { buscarParams } from '../../interfaces/buscarParams';
+import { BuscarDados, BuscarParams } from '../../interfaces/buscar';
 
 @Injectable({
   providedIn: 'root'
@@ -36,26 +36,17 @@ export class AgendaCulturalService extends HttpHandler {
   }
 
 
-  buscarEventos(
-    texto: string | null = null, 
-    categoria: string | null = null,
-    diaUpper: string | null = null,
-    diaLower: string | null = null,
-    horaUpper: string | null = null,
-    horaLower: string | null = null,
-    regiao: string | null = null
-  ): Observable<Resposta<Evento[]>> {
-
-      let params = {
-        'texto': texto,
-        'categoria': categoria,
-        'diaUpper': diaUpper,
-        'diaLower': diaLower,
-        'horaUpper': horaUpper,
-        'horaLower': horaLower,
-        'regiao': regiao
-      };
-
+  buscarEventos(dados: BuscarDados): Observable<Resposta<Evento[]>> {
+      
+    let params: { [key: string]: string | null } = {};
+    
+    let ddk: keyof BuscarDados;
+    for (ddk in dados) {
+      if(dados[ddk]){
+        console.log(dados[ddk]);
+        params[ddk] = dados[ddk];
+      }
+    }
 
     return this.httpGet<Resposta<Evento[]>>(
       Configs.endpoints.buscarEventos, 
@@ -64,8 +55,8 @@ export class AgendaCulturalService extends HttpHandler {
     );
   }
 
-  buscarParams(): Observable<Resposta<buscarParams>>
+  buscarParams(): Observable<Resposta<BuscarParams>>
   {
-    return this.httpGet<Resposta<buscarParams>>(Configs.endpoints.getBuscarParams);
+    return this.httpGet<Resposta<BuscarParams>>(Configs.endpoints.getBuscarParams);
   }
 }
