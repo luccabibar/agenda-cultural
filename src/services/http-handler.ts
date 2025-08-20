@@ -12,14 +12,14 @@ export class HttpHandler {
     port: String, 
     private http: HttpClient
   ) {
-    this.address = `http://${url}:${port}/`
+    this.address = `http://${url}:${port}`
   }
 
   private getDefaultHeaders(): HttpHeaders
   {
     return new HttpHeaders()
-      .set('content-type',  'aplication/json')
-      .set('Access-Control-Allow-Origin',  '*');
+      .set('content-type',  'aplication/json');
+      // .set('Access-Control-Allow-Origin',  '*');
   }
 
 

@@ -20,24 +20,25 @@ export class AgendaCulturalService extends HttpHandler {
   }
 
 
-  ping(): Observable<unknown>
+  ping(): Observable<Resposta<string>>
   {
-    return this.httpGet<unknown>(Configs.endpoints.ping);
+    let url: string = Configs.endpoints.ping();
+
+    return this.httpGet<Resposta<string>>(url);
   }
 
 
   getEvento(id: number): Observable<Resposta<Evento>>
   {
-    return this.httpGet<Resposta<Evento>>(
-      Configs.endpoints.evento, 
-      { 'id': id }, 
-      { }
-    );
+    let url: string = Configs.endpoints.evento(id);
+
+    return this.httpGet<Resposta<Evento>>(url);
   }
 
 
-  buscarEventos(dados: BuscarDados): Observable<Resposta<Evento[]>> {
-      
+  buscarEventos(dados: BuscarDados): Observable<Resposta<Evento[]>>
+  {
+    let url: string = Configs.endpoints.buscarEventos();  
     let params: { [key: string]: string | null } = {};
     
     let ddk: keyof BuscarDados;
@@ -49,7 +50,7 @@ export class AgendaCulturalService extends HttpHandler {
     }
 
     return this.httpGet<Resposta<Evento[]>>(
-      Configs.endpoints.buscarEventos, 
+      url, 
       params, 
       { }
     );
@@ -57,6 +58,8 @@ export class AgendaCulturalService extends HttpHandler {
 
   buscarParams(): Observable<Resposta<BuscarParams>>
   {
-    return this.httpGet<Resposta<BuscarParams>>(Configs.endpoints.getBuscarParams);
+    let url: string = Configs.endpoints.getBuscarParams();  
+
+    return this.httpGet<Resposta<BuscarParams>>(url);
   }
 }
