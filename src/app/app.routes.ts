@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
-
-import { AgendaComponent } from './agenda/agenda.component';
-import { BuscarComponent } from './buscar/buscar.component';
-import { EventoComponent } from './evento/evento.component';
-import { HomeComponent } from './home/home.component';
+import { AgendaComponent } from './paginas/agenda/agenda.component';
+import { BuscarComponent } from './paginas/buscar/buscar.component';
+import { EventoComponent } from './paginas/evento/evento.component';
+import { HomeComponent } from './paginas/home/home.component';
 
 export const routes: Routes = 
 [

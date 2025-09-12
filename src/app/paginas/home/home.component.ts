@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AgendaCulturalService } from '../../services/agenda-cultural-service/agenda-cultural.service';
+import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
 
 @Component({
   selector: 'app-home',

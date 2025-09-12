@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AgendaCulturalService } from '../../services/agenda-cultural-service/agenda-cultural.service';
-import { Evento } from '../../interfaces/evento';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
+import { Evento } from '../../../interfaces/evento';
 
 @Component({
   selector: 'app-evento',

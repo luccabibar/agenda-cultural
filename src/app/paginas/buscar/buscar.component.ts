@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AgendaCulturalService } from '../../services/agenda-cultural-service/agenda-cultural.service';
-import { Evento } from '../../interfaces/evento';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, NgForm }  from '@angular/forms';
-import { BuscarDados, BuscarParams } from '../../interfaces/buscar';
+import { Evento } from '../../../interfaces/evento';
+import { BuscarDados, BuscarParams } from '../../../interfaces/buscar';
+import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
 
 @Component({
   selector: 'app-buscar',
