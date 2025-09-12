@@ -9,6 +9,8 @@
 
     padding-top: 75px;
     
+    background-color: $cor-background;
+    
     &--content {
         
         width: 60%;
@@ -17,7 +19,7 @@
         flex-direction: row;
         justify-content: center;
         
-        background-color: $cor-background;
+        background-color: $cor-body;
     
         box-shadow: $default-shadow;
         
@@ -29,7 +31,6 @@
     
             padding: 20px 20px;
 
-            background-color: $cor-body;
         }
     
         &--left {

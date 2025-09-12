@@ -1,26 +1,26 @@
 <div class="evento-page">
-    <div class="evento-page--content">  
+    <div *ngIf="evento; else notfound" class="evento-page--content">  
         <div class="evento-page--content--left">
             <div class="evento-page--content--left--header">
                 <div class="evento-page--content--left--header--left">
                     <h1>
-                        {{ evento ? evento.nome : '' }}
+                        {{ evento.nome }}
                     </h1>
                 </div>
     
                 <div class="evento-page--content--left--header--right">
                     <p class="text-align-right">
-                        {{ evento && evento.organizador ? evento.organizador.nome : '' }}
+                        {{ evento.organizador ? evento.organizador.nome : '' }}
                     </p>
                     <p class="text-align-right">
-                        {{ evento ? evento.categoria : '' }}
+                        {{ evento.categoria }}
                     </p>
                 </div>
             </div>
             
             <div class="evento-page--content--left--body">
                 <p>
-                    {{ evento ? evento.descricao : '' }}
+                    {{ evento.descricao }}
                 </p>
             </div>
     
@@ -33,7 +33,7 @@
                 <a [href]="evento.contato">Mais informações</a>
             </div>
 
-            <div *ngIf="evento && evento.atualizacoes && evento.atualizacoes.length > 0"
+            <div *ngIf="evento.atualizacoes && evento.atualizacoes.length > 0"
             class="evento-page--content--left--body">
                 <h3> ATUALIZAÇÕES: </h3>
 
@@ -56,11 +56,11 @@
                 </h3>
     
                 <p class="evento-page--content--right--content--text">
-                    {{ evento ? evento.horarioInicio : '' }}
+                    {{ evento.horarioInicio }}
                 </p>
     
                 <p class="evento-page--content--right--content--text">
-                    {{ evento ? evento.horarioFim : '' }}
+                    {{ evento.horarioFim }}
                 </p>
             </div>
     
@@ -70,13 +70,19 @@
                 </h3>
     
                 <p class="evento-page--content--right--content--text">
-                    {{ evento ? evento.endereco : '' }}
+                    {{ evento.endereco }}
                 </p>
     
                 <div class="evento-page--content--right--content--map">
-                    {{ evento ? evento.enderecoLink : '' }}
+                    {{ evento.enderecoLink }}
                 </div>
             </div>
         </div>
     </div>
+
+    <ng-template #notfound>
+        <div class="evento-page--content">
+            <h1>404??</h1>
+        </div>
+    </ng-template>
 </div>
