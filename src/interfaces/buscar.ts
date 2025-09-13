@@ -1,15 +1,15 @@
 
-export interface BuscarParams {
-    regioes: string[]
-    categorias: string[]
+export class BuscarParams {
+    regioes: string[] = [];
+    categorias: string[] = [];
 }
 
-export interface BuscarDados {
-    'texto': string | null
-    'categoria': string | null
-    'diaUpper': string | null
-    'diaLower': string | null
-    'horaUpper': string | null
-    'horaLower': string | null
-    'regiao': string | null
+export class BuscarDados {
+    texto: string | null = null;
+    categoria: string | null = null;
+    diaUpper: string | null = null;
+    diaLower: string | null = null;
+    horaUpper: string | null = null;
+    horaLower: string | null = null;
+    regiao: string | null = null;
 }

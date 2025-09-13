@@ -1,27 +1,33 @@
 import { Organizador, Moderador } from "./usuarios"; 
 
-export interface Evento 
+export class Evento 
 {
-    id?: Number
-    status?: StatusEvento,
+    id: Number | null = null;
+    status: StatusEvento | null = null;
     
-    nome?: String,
-    descricao?: String,
-    categoria?: String,
-    imagem?: String,
-    contato?: String,
+    nome: String | null = null;
+    descricao: String | null = null;
+    categoria: String | null = null;
+    imagem: String | null = null;
+    contato: String | null = null;
 
-    organizador?: Organizador,
-    moderador?: Moderador,
+    organizador: Organizador | null = null;
+    moderador: Moderador | null = null;
     
-    horarioInicio?: Date,
-    horarioFim?: Date,
+    horarioInicio: Date | null = null;
+    horarioFim: Date | null = null;
     
-    regiao?: String,
-    endereco?: String,
-    enderecoLink?: String
+    regiao: String | null = null;
+    endereco: String | null = null;
+    enderecoLink: String | null = null;
     
-    atualizacoes?: AtualizacaoEvento[]
+    atualizacoes: AtualizacaoEvento[] = [];
+
+    public getEventoResource(): string
+    {
+        // TODO: pegar dinamicamente endereco
+        return `http://localhost:4200/evento/${this.id}`;
+    }
 }
 
 export enum StatusEvento
@@ -32,11 +38,11 @@ export enum StatusEvento
     Cancelado
 }
 
-export interface AtualizacaoEvento
+export class AtualizacaoEvento
 {
-    id?: Number
+    id: Number | null = null;
     
-    titulo?: String,
-    texto?: String,
-    imagem?: String
+    titulo: String | null = null;
+    texto: String | null = null;
+    imagem: String | null = null;
 }

@@ -1,22 +1,22 @@
 
-export interface Moderador extends Usuario
+class Usuario
 {
-    cpf?: String
+    id: Number | null = null;
+    email: String | null = null;
+    nome: String | null = null;
 }
 
-export interface Organizador extends Usuario
+export class Moderador extends Usuario
 {
-    cpf?: String
+    cpf: String | null = null;
 }
 
-export interface Pessoa extends Usuario
+export class Organizador extends Usuario
 {
-
+    cpf: String | null = null;
 }
 
-interface Usuario
+export class Pessoa extends Usuario
 {
-    id?: Number,
-    email?: String,
-    nome?: String
+
 }
