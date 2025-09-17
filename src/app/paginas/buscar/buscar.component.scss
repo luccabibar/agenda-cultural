@@ -77,35 +77,7 @@
 
                 &--evento {
 
-                    display: block;
-
-                    padding: 0;
                     margin-bottom: 10px;
-
-                    text-decoration: none;
-
-                    &--content {
-
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: space-between;
-    
-                        padding: 15px 20px 0 20px;
-    
-                        background-color: $cor-primary-light;
-                        color: $cor-texto-inv;
-    
-                        border-radius: $default-radius;
-    
-                        &--left,
-                        &--right {
-                            &--header,
-                            &--text {
-                                
-                                color: $cor-texto-inv;
-                            }
-                        }
-                    }
                 }
             }
         }

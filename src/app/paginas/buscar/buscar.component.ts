@@ -4,11 +4,12 @@ import { FormGroup, FormsModule, NgForm }  from '@angular/forms';
 import { Evento } from '../../../interfaces/evento';
 import { BuscarDados, BuscarParams } from '../../../interfaces/buscar';
 import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
+import { EventoCardComponent } from './evento-card/evento-card.component';
 
 @Component({
   selector: 'app-buscar',
   standalone: true,
-  imports: [ CommonModule, FormsModule ],
+  imports: [ CommonModule, FormsModule, EventoCardComponent ],
   templateUrl: './buscar.component.html',
   styleUrl: './buscar.component.scss'
 })
@@ -42,7 +43,8 @@ export class BuscarComponent {
     acService.buscarParams().subscribe(
       (result) => {
         console.log(result);
-        this.buscarParams = result.response;
+        if(result.response)
+          this.buscarParams = result.response;
       });
   }
 
@@ -56,7 +58,8 @@ export class BuscarComponent {
     this.acService.buscarEventos(this.buscarDados).subscribe(
       (result) => {
         console.log(result);
-        this.eventos = result.response;
+        if(result.response)
+          this.eventos = result.response;
       });
   }
 }

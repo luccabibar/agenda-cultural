@@ -1,0 +1,31 @@
+<a *ngIf="evento; else notFound" [href]="eventoUrl" class="evento-component">
+    <div class="evento-component--content">
+    
+        <div class="evento-component--content--left">
+            <h4 class="evento-component--content--left--header"> 
+                {{ evento.nome }} 
+            </h4>
+
+            <p class="evento-component--content--left--text"> 
+                {{ evento.categoria + ' - ' + evento.organizador?.nome }} 
+            </p>
+        </div>
+        
+        <div class="evento-component--content--right">
+            <p class="evento-component--content--right--text text-align-right"> 
+                {{ evento.regiao }} 
+            </p>
+            
+            <p class="evento-component--content--right--text text-align-right"> 
+                {{ evento.horarioInicio }} 
+            </p>
+        </div>
+    </div>
+</a>
+
+<ng-template #notFound>
+    <div class="evento-component">
+        <!-- TODO: 404 -->
+        <h2> 404??? </h2> 
+    </div>
+</ng-template>

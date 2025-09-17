@@ -1,15 +1,16 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { Resposta } from '../interfaces/resposta';
 
 
 export class HttpHandler {
 
-  private address: String;
+  private address: string;
 
   constructor(
-    url: String, 
-    port: String, 
+    url: string, 
+    port: string, 
     private http: HttpClient
   ) {
     this.address = `http://${url}:${port}`
@@ -26,8 +27,8 @@ export class HttpHandler {
   protected httpGet<T>(
     endpoint: string, 
     params?: { [key: string]: string | number | null }, 
-    headers?: { [key: string]: string | null },
-  ): Observable<T> 
+    headers?: { [key: string]: string | null }
+  ): Observable<Resposta<T>> 
   {
     let options = {
       params: new HttpParams(),
@@ -50,6 +51,7 @@ export class HttpHandler {
       }
     }
 
-    return this.http.get<T>(this.address + endpoint, options);
+    return this.http
+      .get<Resposta<T>>(this.address + endpoint, options);
   }
 }

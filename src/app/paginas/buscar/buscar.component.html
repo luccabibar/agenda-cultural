@@ -65,31 +65,9 @@
 
         <div class="buscar-page--content--right">
             <div class="buscar-page--content--right--results">
-                <a *ngFor="let ev of eventos" href="http://localhost:4200/evento/{{ ev.id }}"
+                <app-evento-card *ngFor="let ev of eventos" [evento]="ev"
                 class="buscar-page--content--right--results--evento">
-                    <div class="buscar-page--content--right--results--evento--content">
-                    
-                        <div class="buscar-page--content--right--results--evento--content--left">
-                            <h4 class="buscar-page--content--right--results--evento--content--left--header"> 
-                                {{ ev.nome }} 
-                            </h4>
-
-                            <p class="buscar-page--content--right--results--evento--content--left--text"> 
-                                {{ ev.categoria + ' - ' + ev.organizador?.nome }} 
-                            </p>
-                        </div>
-                        
-                        <div class="buscar-page--content--right--results--evento--content--right">
-                            <p class="buscar-page--content--right--results--evento--content--right--text text-align-right"> 
-                                {{ ev.regiao }} 
-                            </p>
-                            
-                            <p class="buscar-page--content--right--results--evento--content--right--text text-align-right"> 
-                                {{ ev.horarioInicio }} 
-                            </p>
-                        </div>
-                    </div>
-                </a>    
+                </app-evento-card>    
             </div>
         </div>
     </form>

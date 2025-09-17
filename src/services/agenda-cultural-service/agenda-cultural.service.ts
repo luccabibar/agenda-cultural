@@ -5,7 +5,7 @@ import { HttpHandler } from '../http-handler';
 import { Configs } from './agenda-cultural-configs';
 
 import { Evento } from '../../interfaces/evento';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Resposta } from '../../interfaces/resposta';
 import { BuscarDados, BuscarParams } from '../../interfaces/buscar';
 
@@ -24,7 +24,7 @@ export class AgendaCulturalService extends HttpHandler {
   {
     let url: string = Configs.endpoints.ping();
 
-    return this.httpGet<Resposta<string>>(url);
+    return this.httpGet<string>(url);
   }
 
 
@@ -32,7 +32,8 @@ export class AgendaCulturalService extends HttpHandler {
   {
     let url: string = Configs.endpoints.evento(id);
 
-    return this.httpGet<Resposta<Evento>>(url);
+    return this.httpGet<Evento>(url, { }, { })
+      .pipe(map((res: Resposta<Evento>) => Resposta.of<Evento>(res, Evento)));
   }
 
 
@@ -49,17 +50,15 @@ export class AgendaCulturalService extends HttpHandler {
       }
     }
 
-    return this.httpGet<Resposta<Evento[]>>(
-      url, 
-      params, 
-      { }
-    );
+    return this.httpGet<Evento[]>(url, params, { })
+      .pipe(map((res: Resposta<Evento[]>) => Resposta.ofArray<Evento>(res, Evento)));
   }
 
   buscarParams(): Observable<Resposta<BuscarParams>>
   {
     let url: string = Configs.endpoints.getBuscarParams();  
 
-    return this.httpGet<Resposta<BuscarParams>>(url);
+    return this.httpGet<BuscarParams>(url, { }, { })
+      .pipe(map((res: Resposta<BuscarParams>) => Resposta.of<BuscarParams>(res, BuscarParams)));
   }
 }
