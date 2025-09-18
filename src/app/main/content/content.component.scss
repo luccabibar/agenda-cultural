@@ -1,0 +1,12 @@
+@import "../../../variables.scss";
+
+.content {
+
+    display: flex;
+    flex-direction: column;
+    
+    height: 100%;
+
+    background-color: $cor-background;
+    
+}
