@@ -1,5 +1,5 @@
 
-class Usuario
+export class Usuario
 {
     id: Number | null = null;
     email: string | null = null;

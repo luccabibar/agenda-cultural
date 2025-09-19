@@ -1,0 +1,7 @@
+<div class="usuario-header">
+    <a href="/perfil" *ngIf="user && user != null; else noLogin"> {{ user.nome }} </a>
+    
+    <ng-template #noLogin>
+        <a href="/login"> Login </a> | <a href="/cadastro"> Cadastro </a>
+    </ng-template>
+</div>
