@@ -39,7 +39,8 @@ export class BuscarDados
             return res;
         }
 
-        Object.assign(res, source);
+        Object.assign(res, source);       
+
         return res;
     }
 }

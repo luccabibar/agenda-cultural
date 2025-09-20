@@ -17,7 +17,6 @@ export class BuscarComponent {
 
   eventos: Evento[];
   buscarParams: BuscarParams;
-  buscarDados: BuscarDados;
 
   constructor(
     private acService: AgendaCulturalService
@@ -25,15 +24,6 @@ export class BuscarComponent {
     // inicializa objetos
     this.eventos = [];
     this.buscarParams = { 'categorias': [], 'regioes': [] };
-    this.buscarDados = {
-      'texto': '',
-      'regiao': null,
-      'categoria': null,
-      'diaUpper': '',
-      'diaLower': '',
-      'horaUpper': '',
-      'horaLower': ''
-    }
 
     // recebe parametros
     
@@ -55,7 +45,9 @@ export class BuscarComponent {
       return;
     } 
 
-    this.acService.buscarEventos(this.buscarDados).subscribe(
+    let dados: BuscarDados = BuscarDados.of(form.value as BuscarDados);
+
+    this.acService.buscarEventos(dados).subscribe(
       (result) => {
         console.log(result);
         if(result.response)

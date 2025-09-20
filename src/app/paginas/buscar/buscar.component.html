@@ -1,7 +1,7 @@
 <div class="buscar-page">
-    <form #dadosBusca="ngForm" (ngSubmit)="buscar(dadosBusca)" 
-    class="buscar-page--content">
-        <div class="buscar-page--content--left">
+    <div class="buscar-page--content">
+        <form #dadosBusca="ngForm" (ngSubmit)="buscar(dadosBusca)" 
+        class="buscar-page--content--left">
             <div class="buscar-page--content--left--header">
                 <h2> Buscar </h2>
             </div>
@@ -9,7 +9,7 @@
             <div class="buscar-page--content--left--parameter">
                 <label class="bold"> Busca por texto: </label>
 
-                <input type="text" name="texto" [(ngModel)]="buscarDados.texto">
+                <input type="text" name="texto" ngModel>
             </div>
 
             <div class="buscar-page--content--left--parameter">
@@ -23,7 +23,7 @@
             <div class="buscar-page--content--left--parameter">
                 <label class="bold"> Categoria: </label>
 
-                <select name="categoria" [(ngModel)]="buscarDados.categoria">
+                <select name="categoria" ngModel>
                     <option [value]="">  </option>
                     <option *ngFor="let cc of buscarParams.categorias" [value]="cc"> {{ cc }} </option>
                 </select>
@@ -34,10 +34,10 @@
                 
                 <div class="buscar-page--content--left--parameter--input-content">
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="A partir" name="diaUpper" [(ngModel)]="buscarDados.diaUpper">
+                    type="text" placeholder="A partir" name="diaUpper" ngModel>
                     
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="Até" name="diaLower" [(ngModel)]="buscarDados.diaLower">
+                    type="text" placeholder="Até" name="diaLower" ngModel>
                 </div>
             </div>
             
@@ -46,22 +46,22 @@
                 
                 <div class="buscar-page--content--left--parameter--input-content">
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="A partir" name="horaUpper" [(ngModel)]="buscarDados.horaUpper">
+                    type="text" placeholder="A partir" name="horaUpper" ngModel>
                     
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="Até" name="horaLower" [(ngModel)]="buscarDados.horaLower">
+                    type="text" placeholder="Até" name="horaLower" ngModel>
                 </div>
             </div>
             
             <div class="buscar-page--content--left--parameter">
                 <label class="bold"> Região: </label>
                 
-                <select name="regiao" [(ngModel)]="buscarDados.regiao">
+                <select name="regiao" ngModel>
                     <option [value]="">  </option>
                     <option *ngFor="let rr of buscarParams.regioes" [value]="rr"> {{ rr }} </option>
                 </select>
             </div>
-        </div>
+        </form>
 
         <div class="buscar-page--content--right">
             <div class="buscar-page--content--right--results">
@@ -70,5 +70,5 @@
                 </app-evento-card>    
             </div>
         </div>
-    </form>
+    </div>
 </div>
