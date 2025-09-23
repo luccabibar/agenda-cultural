@@ -3,6 +3,7 @@ import { AgendaComponent } from './paginas/agenda/agenda.component';
 import { BuscarComponent } from './paginas/buscar/buscar.component';
 import { EventoComponent } from './paginas/evento/evento.component';
 import { HomeComponent } from './paginas/home/home.component';
+import { LoginCadastroComponent } from './paginas/login-cadastro/login-cadastro.component';
 
 export const routes: Routes = 
 [
@@ -11,8 +12,8 @@ export const routes: Routes =
     { path: 'evento/:id',    component: EventoComponent },
     { path: 'home',          redirectTo: '' },
     { path: 'perfil',        component: HomeComponent /* PerfilComponent */ },
-    { path: 'login',         component: HomeComponent /* LoginComponent */ },
-    { path: 'cadsatro',      component: HomeComponent /* LoginComponent */ },
+    { path: 'login',         component: LoginCadastroComponent },
+    { path: 'cadsatro',      component: LoginCadastroComponent },
     { path: '',              component: HomeComponent },
     { path: '**',            redirectTo: '' },
 ];

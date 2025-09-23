@@ -1,0 +1,22 @@
+<form #dadosLogin="ngForm" (ngSubmit)="login(dadosLogin)"
+class="login-form">
+    <div class="login-form--header">
+        <h2> Login </h2>
+    </div>
+    
+    <div class="login-form--parameter">
+        <label class="bold"> Email: </label>
+
+        <input type="email" name="email" ngModel>
+    </div>
+
+    <div class="login-form--parameter">
+        <label class="bold"> Senha: </label>
+
+        <input type="password" name="senha" ngModel>
+    </div>
+
+    <div class="login-form--parameter">
+        <button> Login </button>
+    </div>
+</form>

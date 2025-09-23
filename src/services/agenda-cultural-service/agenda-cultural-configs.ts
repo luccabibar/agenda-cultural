@@ -6,5 +6,6 @@ export abstract class Configs {
         ping:               (() => `/ping`),
         buscarEventos:      (() => `/eventos`),
         getBuscarParams:    (() => `/eventos/filtros`),
+        login:              (() => `/usuarios/login`)
     }
 }

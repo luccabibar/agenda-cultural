@@ -1,0 +1,64 @@
+@import "../../../variables.scss";
+
+.login-cadastro-page {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 75px;
+    
+    background-color: $cor-background;
+    
+    &--content {
+        
+        width: 60%;
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        
+        background-color: $cor-body;
+    
+        box-shadow: $default-shadow;
+        
+        &--login,
+        &--cadastro {
+            
+            display: flex;
+            flex-direction: column;
+    
+            padding: 20px 20px;
+
+        }
+    
+        &--login {
+    
+            width: 35%;
+    
+            // &--header,
+            // &--body {
+    
+            //     margin: 0 0 20px 0;                
+            // }
+    
+            // &--header {
+    
+            //     display: flex;
+            //     flex-direction: row;
+            //     justify-content: space-between;
+            // }
+        }
+    
+        &--cadastro {
+            
+            width: 65%;
+    
+            // &--content {
+                
+            //     margin: 0 0 20px 0;    
+            // }
+        }
+    }
+}
