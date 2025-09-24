@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AgendaCulturalService } from '../../../../services/agenda-cultural-service/agenda-cultural.service';
 import { LoginBody } from '../../../../interfaces/cadastro-login';
+import { UsuarioService } from '../../../../services/usuario-service/usuario.service';
+import { Resposta } from '../../../../interfaces/resposta';
+import { Usuario } from '../../../../interfaces/usuarios';
 
 @Component({
   selector: 'app-login-form',
@@ -13,10 +16,9 @@ import { LoginBody } from '../../../../interfaces/cadastro-login';
 export class LoginFormComponent
 {
   constructor(
-      private acService: AgendaCulturalService
-  ) {
-
-  }
+      private acService: AgendaCulturalService,
+      private userService: UsuarioService
+  ) { }
 
   login(dados: NgForm): void
   {
@@ -28,8 +30,13 @@ export class LoginFormComponent
     let body: LoginBody = LoginBody.of(dados.value);
 
     this.acService.login(body).subscribe(
-    (response) => {
+    (response: Resposta<Usuario>) => {
       console.log(response);
+
+      if(response.response)
+        this.userService.login(response.response);
+      
+      // TODO: navegar pra fora
     });
   }
 }

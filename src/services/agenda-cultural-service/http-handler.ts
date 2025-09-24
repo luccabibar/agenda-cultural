@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { map, Observable } from 'rxjs';
-import { Resposta } from '../interfaces/resposta';
+import { Observable } from 'rxjs';
+import { Resposta } from '../../interfaces/resposta';
 
 
 export class HttpHandler {

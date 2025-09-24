@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpHandler } from '../http-handler';
+import { HttpHandler } from './http-handler';
 
 import { Configs } from './agenda-cultural-configs';
 
@@ -9,6 +9,7 @@ import { map, Observable } from 'rxjs';
 import { Resposta } from '../../interfaces/resposta';
 import { BuscarDados, BuscarParams } from '../../interfaces/buscar';
 import { LoginBody } from '../../interfaces/cadastro-login';
+import { Usuario } from '../../interfaces/usuarios';
 
 @Injectable({
   providedIn: 'root'
@@ -36,12 +37,12 @@ export class AgendaCulturalService extends HttpHandler
   }
 
 
-  login(dados: LoginBody): Observable<Resposta<string>>
+  login(dados: LoginBody): Observable<Resposta<Usuario>>
   {
     let url: string = Configs.endpoints.login();
     
-    return this.httpPost<string>(url, dados, this.defaultHeaders)
-      .pipe(map((res: Resposta<string>) => Resposta.of<string>(res)));
+    return this.httpPost<Usuario>(url, dados, this.defaultHeaders)
+      .pipe(map((res: Resposta<Usuario>) => Resposta.of<Usuario>(res, Usuario)));
   }
 
 
