@@ -1,7 +1,7 @@
-<div class="usuario-header">
-    <a href="/perfil" *ngIf="user && user != null; else noLogin"> {{ user.nome }} </a>
-    
-    <ng-template #noLogin>
-        <a href="/login"> Login </a> | <a href="/cadastro"> Cadastro </a>
-    </ng-template>
+<div class="usuario-header" *ngIf="user && user != null; else noLogin">
+    <a [routerLink]="['/perfil']"> {{ user.nome }} </a> <button (click)="logout()"> Sair </button>
 </div>
+
+<ng-template #noLogin><div class="usuario-header" >
+    <a [routerLink]="['/login']"> Login </a> | <a [routerLink]="['/cadastro']"> Cadastro </a>
+</div></ng-template>

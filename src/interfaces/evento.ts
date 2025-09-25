@@ -23,10 +23,14 @@ export class Evento
     
     atualizacoes: AtualizacaoEvento[] = [];
 
-    public getEventoResource(): string
+    public getEventoRoute(): string[]
     {
         // TODO: pegar dinamicamente endereco
-        return `http://localhost:4200/evento/${this.id}`;
+        if(this.id)
+            return ['/evento', this.id.toString()];
+        
+        else
+            return ['/home'];
     }
     
 

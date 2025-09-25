@@ -30,7 +30,7 @@
             
             <div *ngIf="evento && evento.contato" 
             class="evento-page--content--left--body">
-                <a [href]="evento.contato">Mais informações</a>
+                <a [href]="evento.contato" target="_blank">Mais informações</a>
             </div>
 
             <div *ngIf="evento.atualizacoes && evento.atualizacoes.length > 0"

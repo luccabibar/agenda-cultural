@@ -1,23 +1,24 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Evento } from '../../../../interfaces/evento';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-evento-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './evento-card.component.html',
   styleUrl: './evento-card.component.scss'
 })
 export class EventoCardComponent
 {
   evento!: Evento;
-  eventoUrl : string = ""; 
+  eventoUrl : string[] = ["/home"]; 
 
   @Input("evento") set setEvento(ev: Evento){
     if(ev){
       this.evento = ev;
-      this.eventoUrl = ev.getEventoResource();
+      this.eventoUrl = ev.getEventoRoute();
     }
   }
 }

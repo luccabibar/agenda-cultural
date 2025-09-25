@@ -19,7 +19,8 @@ export class LoginCadastroComponent
   {
     let curr: Usuario | null = userService.getUsuario();
 
+    // TODO: navegar pra FORA
     if(curr)
-      curr = curr;// TODO: navegar pra FORA
+      curr = curr;
   }
 }
