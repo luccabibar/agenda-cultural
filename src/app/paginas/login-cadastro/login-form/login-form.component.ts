@@ -5,6 +5,7 @@ import { LoginBody } from '../../../../interfaces/cadastro-login';
 import { UsuarioService } from '../../../../services/usuario-service/usuario.service';
 import { Resposta } from '../../../../interfaces/resposta';
 import { Usuario } from '../../../../interfaces/usuarios';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -17,7 +18,8 @@ export class LoginFormComponent
 {
   constructor(
       private acService: AgendaCulturalService,
-      private userService: UsuarioService
+      private userService: UsuarioService,
+      private router: Router
   ) { }
 
   login(dados: NgForm): void
@@ -34,9 +36,8 @@ export class LoginFormComponent
       console.log(response);
 
       if(response.response)
-        this.userService.login(response.response);
-      
-      // TODO: navegar pra fora
+        if(this.userService.login(response.response))
+          this.router.navigate(['/home']);    
     });
   }
 }

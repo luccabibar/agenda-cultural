@@ -13,9 +13,6 @@ export class UsuarioService
 
   constructor()
   {
-    console.log("UsuarioService: inicializado usando null");
-    
-
     this.subject = new Subject<Usuario | null>();
     this.usuario = null; // source from sstorage
 

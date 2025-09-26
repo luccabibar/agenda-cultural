@@ -33,10 +33,7 @@ export class UsuarioHeaderComponent
 
   logout()
   {
-    if(this.userService.logout())
-      // this.router.navigateByUrl('/home')
-      // TODO: navegra pra fora
-      this.user = this.user;
-    
+    if(this.userService.logout() && this.router.url === '/perfil')
+      this.router.navigate(['/home']);    
   }
 }

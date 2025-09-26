@@ -24,15 +24,13 @@ export class EventoComponent {
 
     // recebe parametros
     let id: string | null = activatedRoute.snapshot.paramMap.get('id')
-    if(id == null){
+    if(id == null)
       return;
-    }
-    
+      
     // processa parametros
     let idNum: number = parseInt(id);
-    if(isNaN(idNum)){
+    if(isNaN(idNum))
       return;
-    }
 
     // realiza requests necessarios
     acService.getEvento(idNum).subscribe(

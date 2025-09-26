@@ -25,7 +25,6 @@ export class Evento
 
     public getEventoRoute(): string[]
     {
-        // TODO: pegar dinamicamente endereco
         if(this.id)
             return ['/evento', this.id.toString()];
         
