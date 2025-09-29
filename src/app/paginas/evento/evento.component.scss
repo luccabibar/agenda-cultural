@@ -21,7 +21,7 @@
         
         background-color: $cor-body;
     
-        box-shadow: $default-shadow;
+        box-shadow: $shadow-default;
         
         &--left,
         &--right {
@@ -29,7 +29,7 @@
             display: flex;
             flex-direction: column;
     
-            padding: 20px 20px;
+            padding: $spacing-default;
 
         }
     
@@ -40,7 +40,7 @@
             &--header,
             &--body {
     
-                margin: 0 0 20px 0;                
+                margin: 0 0 $spacing-default 0;                
             }
     
             &--header {
@@ -57,7 +57,7 @@
     
             &--content {
                 
-                margin: 0 0 20px 0;    
+                margin: 0 0 $spacing-default 0;    
             }
         }
     }

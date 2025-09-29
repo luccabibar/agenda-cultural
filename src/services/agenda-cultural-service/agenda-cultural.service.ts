@@ -8,7 +8,7 @@ import { Evento } from '../../interfaces/evento';
 import { map, Observable } from 'rxjs';
 import { Resposta } from '../../interfaces/resposta';
 import { BuscarDados, BuscarParams } from '../../interfaces/buscar';
-import { LoginBody } from '../../interfaces/cadastro-login';
+import { CadastroOrganizadorBody, CadastroPessoaBody, LoginBody } from '../../interfaces/cadastro-login';
 import { Usuario } from '../../interfaces/usuarios';
 
 @Injectable({
@@ -46,9 +46,27 @@ export class AgendaCulturalService extends HttpHandler
   }
 
 
+  cadastrarOrganizador(dados: CadastroOrganizadorBody): Observable<Resposta<boolean>>
+  {
+    let url: string = Configs.endpoints.organizador();
+    
+    return this.httpPost<boolean>(url, dados, this.defaultHeaders)
+      .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
+  }
+
+
+  cadastrarPessoa(dados: CadastroPessoaBody): Observable<Resposta<boolean>>
+  {
+    let url: string = Configs.endpoints.pessoa();
+    
+    return this.httpPost<boolean>(url, dados, this.defaultHeaders)
+      .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
+  }
+
+
   getEvento(id: number): Observable<Resposta<Evento>>
   {
-    let url: string = Configs.endpoints.evento(id);
+    let url: string = Configs.endpoints.eventoById(id);
 
     return this.httpGet<Evento>(url, { }, this.defaultHeaders)
       .pipe(map((res: Resposta<Evento>) => Resposta.of<Evento>(res, Evento)));
@@ -57,7 +75,7 @@ export class AgendaCulturalService extends HttpHandler
 
   buscarEventos(dados: BuscarDados): Observable<Resposta<Evento[]>>
   {
-    let url: string = Configs.endpoints.buscarEventos();  
+    let url: string = Configs.endpoints.eventos();  
     let params: { [key: string]: string | null } = {};
     
     let ddk: keyof BuscarDados;
@@ -71,9 +89,9 @@ export class AgendaCulturalService extends HttpHandler
   }
 
 
-  buscarParams(): Observable<Resposta<BuscarParams>>
+  filtrosEventos(): Observable<Resposta<BuscarParams>>
   {
-    let url: string = Configs.endpoints.getBuscarParams();  
+    let url: string = Configs.endpoints.eventosFiltros();  
 
     return this.httpGet<BuscarParams>(url, { }, this.defaultHeaders)
       .pipe(map((res: Resposta<BuscarParams>) => Resposta.of<BuscarParams>(res, BuscarParams)));

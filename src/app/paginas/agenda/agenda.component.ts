@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './agenda.component.html',
   styleUrl: './agenda.component.scss'
 })
-export class AgendaComponent {
+export class AgendaComponent 
+{
 
 }

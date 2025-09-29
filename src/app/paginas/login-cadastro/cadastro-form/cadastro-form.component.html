@@ -1,3 +1,58 @@
-<div class="cadastro-form">
-    <h2> Cadastro </h2>
-</div>
+<form #dadosCadastro="ngForm"
+class="cadastro-form">
+    <div class="cadastro-form--header">
+        <h2> Cadastro </h2>
+    </div>
+    
+    <div class="cadastro-form--parameter">
+        <p> Cadastrando-se como <span class="bold"> {{ isOrganizador ? "Organizador" : "Usuário" }} </span> </p>
+
+        <button (click)="setOrganizador(!isOrganizador)"> 
+            Cadastrar-se como <span class="bold"> {{ !isOrganizador ? "Organizador" : "Usuário" }} </span> 
+        </button>
+    </div>
+
+    <div class="cadastro-form--parameter">
+        <label class="bold"> Nome de usuário: </label>
+
+        <input type="text" name="nome" ngModel>
+    </div>
+
+    <div class="cadastro-form--parameter">
+        <label class="bold"> Email: </label>
+
+        <input type="email" name="email" ngModel>
+    </div>
+
+    <div class="cadastro-form--parameter">
+        <label class="bold"> Senha: </label>
+
+        <input type="password" name="senha" ngModel>
+    </div>
+
+    <div class="cadastro-form--parameter">
+        <label class="bold"> Confirme a senha: </label>
+
+        <input type="password" name="senhaConfirm" ngModel>
+    </div>
+
+    <div class="cadastro-form--parameter" [style]="'visibility:' + (isOrganizador ? 'visible' : 'hidden')">
+        <label class="bold"> CPF ou CNPJ: </label>
+
+        <input type="text" name="cpf" ngModel>
+    </div>
+
+    <div class="cadastro-form--message-box">
+        <div class="cadastro-form--message-box--message__error" [style]="(errorMsg.length == 0) ? 'display: none' : 'display: block'">
+            <p class="cadastro-form--message-box--message__error--text"> {{ errorMsg }} </p>
+        </div>
+    
+        <div class="cadastro-form--message-box--message" [style]="(sucessMsg.length == 0) ? 'display: none' : 'display: block'">
+            <p class="cadastro-form--message-box--message--text"> {{ sucessMsg }} </p>
+        </div>
+    </div>
+
+    <div class="cadastro-form--parameter">
+        <button (click)="cadastrar(dadosCadastro)"> Cadastro </button>
+    </div>
+</form>

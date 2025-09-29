@@ -13,7 +13,7 @@ export const routes: Routes =
     { path: 'home',          redirectTo: '' },
     { path: 'perfil',        component: HomeComponent /* PerfilComponent */ },
     { path: 'login',         component: LoginCadastroComponent },
-    { path: 'cadsatro',      component: LoginCadastroComponent },
+    { path: 'cadastro',      component: LoginCadastroComponent },
     { path: '',              component: HomeComponent },
     { path: '**',            redirectTo: '' },
 ];

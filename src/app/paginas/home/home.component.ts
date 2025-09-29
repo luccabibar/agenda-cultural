@@ -8,7 +8,8 @@ import { AgendaCulturalService } from '../../../services/agenda-cultural-service
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent 
+{
 
   constructor(private acService: AgendaCulturalService)
   {

@@ -13,7 +13,8 @@ import { EventoCardComponent } from './evento-card/evento-card.component';
   templateUrl: './buscar.component.html',
   styleUrl: './buscar.component.scss'
 })
-export class BuscarComponent {
+export class BuscarComponent 
+{
 
   eventos: Evento[];
   buscarParams: BuscarParams;
@@ -30,7 +31,7 @@ export class BuscarComponent {
     // processa parametros
 
     // realiza requests necessarios
-    acService.buscarParams().subscribe(
+    acService.filtrosEventos().subscribe(
       (result) => {
         console.log(result);
         if(result.response)

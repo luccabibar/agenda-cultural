@@ -21,7 +21,7 @@
         
         background-color: $cor-body;
     
-        box-shadow: $default-shadow;
+        box-shadow: $shadow-default;
         
         &--login,
         &--cadastro {
@@ -29,7 +29,7 @@
             display: flex;
             flex-direction: column;
     
-            padding: 20px 20px;
+            padding: $spacing-default;
 
         }
     

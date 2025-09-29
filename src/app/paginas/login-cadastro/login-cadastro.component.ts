@@ -14,16 +14,26 @@ import { Router } from '@angular/router';
 })
 export class LoginCadastroComponent
 {
-  order: boolean = Math.floor(Math.random() * 2) ? true : false; // we gamblin
+  order: boolean;
 
   constructor(
     private userService: UsuarioService,
     private router: Router
   ) {
+    
     let curr: Usuario | null = userService.getUsuario();
-
+    
     // se user ja esta logado
     if(curr)
-      this.router.navigate(['/home']);    
+      this.router.navigate(['/home']);
+    
+    
+    if(router.url === '/login')
+      this.order = true;
+    else if(router.url === '/cadastro')
+      this.order = false;
+    else
+      this.order = Math.floor(Math.random() * 2) ? true : false; // we gamblin;
   }
+
 }

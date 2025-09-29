@@ -11,7 +11,8 @@ import { Evento } from '../../../interfaces/evento';
   templateUrl: './evento.component.html',
   styleUrl: './evento.component.scss'
 })
-export class EventoComponent {
+export class EventoComponent 
+{
 
   evento: Evento | null;
 

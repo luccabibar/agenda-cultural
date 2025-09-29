@@ -24,6 +24,16 @@ $cor-shadow: #4a315a;
 $fonte-body: "Fira Sans", sans-serif;
 $fonte-title: "Zilla Slab", serif;;
 
-$default-shadow: 0px 0px 10px -5px $cor-shadow;
+$fonte-size-bigger: 20pt;
+$fonte-size-big: 16pt;
+$fonte-size-default: 12pt;
+$fonte-size-small: 10pt;
+$fonte-size-tiny: 8pt;
 
-$default-radius: 5px;
+
+$shadow-default: 0px 0px 10px -5px $cor-shadow;
+
+$border-radius-default: 5px;
+
+$spacing-default: 20px;
+$spacing-half: 10px;

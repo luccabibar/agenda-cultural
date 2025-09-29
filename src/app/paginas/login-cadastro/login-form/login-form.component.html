@@ -16,6 +16,10 @@ class="login-form">
         <input type="password" name="senha" ngModel>
     </div>
 
+    <div class="login-form--message__error" [style]="(errorMsg.length == 0) ? 'display: none' : 'display: block'">
+        <p class="login-form--message__error--text"> {{ errorMsg }} </p>
+    </div>
+
     <div class="login-form--parameter">
         <button> Login </button>
     </div>

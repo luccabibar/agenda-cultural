@@ -1,0 +1,48 @@
+@import "../../../../variables.scss";
+
+
+.login-form{
+    
+    &--parameter, 
+    &--error {
+
+        margin-bottom: $spacing-default;
+    }
+
+    &--header{
+
+        margin-bottom: 0;
+    }
+
+    &--parameter{
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    &--message__error,
+    &--message {
+
+        margin-bottom: $spacing-default;
+
+        padding: 5px;
+        border-radius: $border-radius-default;
+        
+        background-color: $cor-secondary;
+        
+        transition: 0.2s;
+
+        &--text {
+
+            color:  $cor-texto-inv;
+            font-size: $fonte-size-small;
+
+            margin: 0;
+        }
+    }
+
+    &--message__error {
+        
+        background-color: $cor-primary;
+    }
+}

@@ -6,6 +6,7 @@ import { UsuarioService } from '../../../../services/usuario-service/usuario.ser
 import { Resposta } from '../../../../interfaces/resposta';
 import { Usuario } from '../../../../interfaces/usuarios';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -16,28 +17,69 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent
 {
+  errorMsg: string;
+
   constructor(
       private acService: AgendaCulturalService,
       private userService: UsuarioService,
       private router: Router
-  ) { }
+  ) { 
+    this.errorMsg = "";
+  }
+
 
   login(dados: NgForm): void
   {
     console.log(dados.value);
     
-    if(!dados.valid)
+    this.errorMsg = "";
+    
+    if(!dados.valid){
+      this.errorMsg = "??";
       return;
+    }
 
     let body: LoginBody = LoginBody.of(dados.value);
 
-    this.acService.login(body).subscribe(
-    (response: Resposta<Usuario>) => {
-      console.log(response);
+    this.acService.login(body).subscribe({
+      next: this.loginNext,
+      error: this.loginError
+    });    
+  }
 
-      if(response.response)
-        if(this.userService.login(response.response))
-          this.router.navigate(['/home']);    
-    });
+
+  // callbacks nao devem ser metodos direto da classe, devem ser definidos como variaveis 
+  loginNext = (res: Resposta<Usuario>): void =>
+  {
+    console.log("next: ", res);
+
+    if(res.response)
+      if(this.userService.login(res.response))
+        this.router.navigate(['/home']);
+      else
+        this.errorMsg = "Erro inesperado ao realizar login (voce ja nao esta logado?)"
+  }
+
+
+  // callbacks nao devem ser metodos direto da classe, devem ser definidos como variaveis 
+  loginError = (res: HttpResponse<unknown>): void =>
+  {
+    console.log("error: ", res);
+
+    switch(res.status)
+    {
+    case 500:
+      this.errorMsg = "Erro inesperado ao realizar login";
+      break;
+
+    case 401:
+    case 404:
+      this.errorMsg = "Email ou senha incorreto";
+      break;
+    
+    default:
+      this.errorMsg = "Erro ao realizar login";
+    }
+    
   }
 }
