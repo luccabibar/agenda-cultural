@@ -1,0 +1,20 @@
+<div class="notfound-page">
+    <div class="notfound-page--content" [ngSwitch]="mode">
+        <h1> Hmmm... não tem nada aqui</h1>
+
+        <p *ngSwitchCase="modeList.EVENTO"> 
+            parece que o evento <span class="bold"> {{ resource }} </span> não pode ser encontrado 
+        </p>
+
+        <p *ngSwitchCase="modeList.LOGINCADASTRO"> 
+            a página <span class="bold"> {{ resource }} </span> não pode ser acessada, pois você já fez login
+        </p>
+        
+        <!-- <p *ngSwitchCase="modeList.DEFAULT">  -->
+        <p *ngSwitchDefault> 
+            parece que a página <span class="bold"> {{ resource }} </span> não pode ser encontrada 
+        </p>
+        
+        <a [routerLink]="['/home']"> voltar para a página principal </a>
+    </div>
+</div>

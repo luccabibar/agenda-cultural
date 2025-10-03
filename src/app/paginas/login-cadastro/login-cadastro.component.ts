@@ -4,6 +4,8 @@ import { CadastroFormComponent } from './cadastro-form/cadastro-form.component';
 import { Usuario } from '../../../interfaces/usuarios';
 import { UsuarioService } from '../../../services/usuario-service/usuario.service';
 import { Router } from '@angular/router';
+import { NotFoundMode } from '../notfound/notFoundMode';
+import { NotfoundComponent } from '../notfound/notfound.component';
 
 @Component({
   selector: 'app-login-cadastro',
@@ -20,12 +22,14 @@ export class LoginCadastroComponent
     private userService: UsuarioService,
     private router: Router
   ) {
-    
+    this.order = true;
     let curr: Usuario | null = userService.getUsuario();
     
     // se user ja esta logado
-    if(curr)
-      this.router.navigate(['/home']);
+    if(curr){
+      NotfoundComponent.navegarParaNotFound(router, NotFoundMode.LOGINCADASTRO, router.url);
+      return;
+    }
     
     
     if(router.url === '/login')

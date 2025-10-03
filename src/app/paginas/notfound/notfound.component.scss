@@ -1,0 +1,29 @@
+@import "../../../variables.scss";
+
+.notfound-page {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 75px;
+    
+    background-color: $cor-background;
+    
+    &--content {
+        
+        width: 60%;
+
+        padding: 75px;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        background-color: $cor-body;
+    
+        box-shadow: $shadow-default;
+    }
+}
