@@ -5,6 +5,7 @@ import { Evento } from '../../../interfaces/evento';
 import { BuscarDados, BuscarParams } from '../../../interfaces/buscar';
 import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
 import { EventoCardComponent } from './evento-card/evento-card.component';
+import { DatetimeUtil } from '../../../utils/datetime';
 
 @Component({
   selector: 'app-buscar',
@@ -47,6 +48,15 @@ export class BuscarComponent
     } 
 
     let dados: BuscarDados = BuscarDados.of(form.value as BuscarDados);
+
+    if(dados.horaLower) 
+      dados.horaLower = DatetimeUtil.formatTime(dados.horaLower); 
+
+    if(dados.horaUpper) 
+      dados.horaUpper = DatetimeUtil.formatTime(dados.horaUpper);
+
+    console.log(form.value, dados);
+    
 
     this.acService.buscarEventos(dados).subscribe(
       (result) => {

@@ -34,10 +34,10 @@
                 
                 <div class="buscar-page--content--left--parameter--input-content">
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="A partir" name="diaUpper" ngModel>
+                    type="date" placeholder="A partir" name="diaLower" ngModel>
                     
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="Até" name="diaLower" ngModel>
+                    type="date" placeholder="Até" name="diaUpper" ngModel>
                 </div>
             </div>
             
@@ -46,10 +46,10 @@
                 
                 <div class="buscar-page--content--left--parameter--input-content">
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="A partir" name="horaUpper" ngModel>
+                    type="time" placeholder="A partir" name="horaLower" ngModel>
                     
                     <input class="buscar-page--content--left--parameter--input-content--input"
-                    type="text" placeholder="Até" name="horaLower" ngModel>
+                    type="time" placeholder="Até" name="horaUpper" ngModel>
                 </div>
             </div>
             
@@ -64,11 +64,9 @@
         </form>
 
         <div class="buscar-page--content--right">
-            <div class="buscar-page--content--right--results">
-                <app-evento-card *ngFor="let ev of eventos" [evento]="ev"
-                class="buscar-page--content--right--results--evento">
-                </app-evento-card>    
-            </div>
+            <app-evento-card *ngFor="let ev of eventos" [evento]="ev"
+            class="buscar-page--content--right--evento">
+            </app-evento-card>
         </div>
     </div>
 </div>

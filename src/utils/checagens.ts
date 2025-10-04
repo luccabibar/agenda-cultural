@@ -1,4 +1,4 @@
-export class ckeckCpfCnpj
+export class CkeckCpfCnpj
 {
     public static limpaCpfCnpj(str: string): string
     {

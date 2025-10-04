@@ -6,7 +6,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Resposta } from '../../../../interfaces/resposta';
 import { HttpResponse } from '@angular/common/http';
 import { CadastroOrganizadorBody, CadastroPessoaBody } from '../../../../interfaces/cadastro-login';
-import { ckeckCpfCnpj } from '../../../../utils/checagens';
+import { CkeckCpfCnpj } from '../../../../utils/checagens';
 
 @Component({
   selector: 'app-cadastro-form',
@@ -53,7 +53,7 @@ export class CadastroFormComponent
       return;
     }
 
-    if(this.isOrganizador && !ckeckCpfCnpj.isCpfCnpjValid(dados.value.cpf)){
+    if(this.isOrganizador && !CkeckCpfCnpj.isCpfCnpjValid(dados.value.cpf)){
       this.errorMsg = "O CPF ou CNPJ é invalido";
       return;
     }
@@ -66,7 +66,7 @@ export class CadastroFormComponent
     if(this.isOrganizador){
       let body: CadastroOrganizadorBody = CadastroOrganizadorBody.of(dados.value);
 
-      body.cpf = ckeckCpfCnpj.limpaCpfCnpj(body.cpf ? body.cpf : "  ");
+      body.cpf = CkeckCpfCnpj.limpaCpfCnpj(body.cpf ? body.cpf : "  ");
       
       this.acService.cadastrarOrganizador(body).subscribe({
         next: this.cadastroNext,
