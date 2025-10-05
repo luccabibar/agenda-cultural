@@ -6,10 +6,20 @@
             parece que o evento <span class="bold"> {{ resource }} </span> não pode ser encontrado 
         </p>
 
-        <p *ngSwitchCase="modeList.LOGINCADASTRO"> 
+        <p *ngSwitchCase="modeList.LOGIN"> 
             a página <span class="bold"> {{ resource }} </span> não pode ser acessada, pois você já fez login
         </p>
+
+        <p *ngSwitchCase="modeList.AUTHORGANIZADOR">
+            para acessar a página <span class="bold"> {{ resource }} </span>, 
+            você deve fazer login como um <a [routerLink]="['/login']" class="bold"> organizador </a>
+        </p>
         
+        <p *ngSwitchCase="modeList.AUTHMODERADOR">
+            para acessar a página <span class="bold"> {{ resource }} </span>, 
+            você deve fazer login como um <a [routerLink]="['/login']" class="bold"> moderador </a>
+        </p>
+
         <!-- <p *ngSwitchCase="modeList.DEFAULT">  -->
         <p *ngSwitchDefault> 
             parece que a página <span class="bold"> {{ resource }} </span> não pode ser encontrada 

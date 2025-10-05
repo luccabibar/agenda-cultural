@@ -1,5 +1,5 @@
 <div class="usuario-header" *ngIf="user && user != null; else noLogin">
-    <a [routerLink]="['/perfil']"> {{ user.nome }} </a> <button (click)="logout()"> Sair </button>
+    <a [routerLink]="['/perfil']"> {{ user.usuario?.nome }} </a> <button (click)="logout()"> Sair </button>
 </div>
 
 <ng-template #noLogin><div class="usuario-header" >

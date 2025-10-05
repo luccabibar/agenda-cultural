@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AgendaCulturalService } from '../../../../services/agenda-cultural-service/agenda-cultural.service';
-import { UsuarioService } from '../../../../services/usuario-service/usuario.service';
+import { LoginService } from '../../../../services/login-service/login.service';
 import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Resposta } from '../../../../interfaces/resposta';
@@ -23,7 +23,7 @@ export class CadastroFormComponent
 
   constructor(
       private acService: AgendaCulturalService,
-      private userService: UsuarioService,
+      private loginService: LoginService,
       private router: Router
   ) { 
     this.isOrganizador = false;

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Usuario } from '../../../../interfaces/usuarios';
+import { Usuario } from '../../../../interfaces/usuario/usuarios';
 import { CommonModule } from '@angular/common';
-import { UsuarioService } from '../../../../services/usuario-service/usuario.service';
+import { LoginService } from '../../../../services/login-service/login.service';
 import { Router, RouterLink } from '@angular/router';
+import { UsuarioAutenticado } from '../../../../interfaces/usuario/usuairo-autenticado';
 
 @Component({
   selector: 'app-usuario-header',
@@ -13,13 +14,13 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class UsuarioHeaderComponent
 {
-  user: Usuario | null = null;
+  user: UsuarioAutenticado | null = null;
 
   constructor(
-    private userService: UsuarioService,
+    private loginService: LoginService,
     private router: Router
   ) {
-    userService
+    loginService
       .getSubject()
       .subscribe(
         (val) => {
@@ -33,7 +34,7 @@ export class UsuarioHeaderComponent
 
   logout()
   {
-    if(this.userService.logout() && this.router.url === '/perfil')
+    if(this.loginService.logout() && this.router.url === '/perfil')
       this.router.navigate(['/home']);    
   }
 }

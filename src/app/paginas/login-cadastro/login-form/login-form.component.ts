@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AgendaCulturalService } from '../../../../services/agenda-cultural-service/agenda-cultural.service';
 import { LoginBody } from '../../../../interfaces/cadastro-login';
-import { UsuarioService } from '../../../../services/usuario-service/usuario.service';
+import { LoginService } from '../../../../services/login-service/login.service';
 import { Resposta } from '../../../../interfaces/resposta';
-import { Usuario } from '../../../../interfaces/usuarios';
+import { Usuario } from '../../../../interfaces/usuario/usuarios';
 import { Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
+import { UsuarioAutenticado } from '../../../../interfaces/usuario/usuairo-autenticado';
 
 @Component({
   selector: 'app-login-form',
@@ -21,7 +22,7 @@ export class LoginFormComponent
 
   constructor(
       private acService: AgendaCulturalService,
-      private userService: UsuarioService,
+      private loginService: LoginService,
       private router: Router
   ) { 
     this.errorMsg = "";
@@ -49,12 +50,12 @@ export class LoginFormComponent
 
 
   // callbacks nao devem ser metodos direto da classe, devem ser definidos como variaveis 
-  loginNext = (res: Resposta<Usuario>): void =>
+  loginNext = (res: Resposta<UsuarioAutenticado>): void =>
   {
-    console.log("next: ", res);
+    console.log("loginNext: ", res);
 
     if(res.response)
-      if(this.userService.login(res.response))
+      if(this.loginService.login(res.response))
         this.router.navigate(['/home']);
       else
         this.errorMsg = "Erro inesperado ao realizar login (voce ja nao esta logado?)"
@@ -64,7 +65,7 @@ export class LoginFormComponent
   // callbacks nao devem ser metodos direto da classe, devem ser definidos como variaveis 
   loginError = (res: HttpResponse<unknown>): void =>
   {
-    console.log("error: ", res);
+    console.log("loginError: ", res);
 
     switch(res.status)
     {

@@ -1,4 +1,4 @@
-import { Organizador, Moderador } from "./usuarios"; 
+import { Organizador, Moderador } from "./usuario/usuarios"; 
 
 export class Evento 
 {

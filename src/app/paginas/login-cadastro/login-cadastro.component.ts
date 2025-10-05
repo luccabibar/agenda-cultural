@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CadastroFormComponent } from './cadastro-form/cadastro-form.component';
-import { Usuario } from '../../../interfaces/usuarios';
-import { UsuarioService } from '../../../services/usuario-service/usuario.service';
+import { LoginService } from '../../../services/login-service/login.service';
 import { Router } from '@angular/router';
 import { NotFoundMode } from '../notfound/notFoundMode';
 import { NotfoundComponent } from '../notfound/notfound.component';
+import { UsuarioAutenticado } from '../../../interfaces/usuario/usuairo-autenticado';
 
 @Component({
   selector: 'app-login-cadastro',
@@ -19,15 +19,15 @@ export class LoginCadastroComponent
   order: boolean;
 
   constructor(
-    private userService: UsuarioService,
+    private loginService: LoginService,
     private router: Router
   ) {
     this.order = true;
-    let curr: Usuario | null = userService.getUsuario();
+    let curr: UsuarioAutenticado | null = loginService.getUsuario();
     
     // se user ja esta logado
     if(curr){
-      NotfoundComponent.navegarParaNotFound(router, NotFoundMode.LOGINCADASTRO, router.url);
+      NotfoundComponent.navegarParaNotFound(router, NotFoundMode.LOGIN, router.url);
       return;
     }
     

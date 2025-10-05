@@ -1,3 +1,4 @@
+import { TipoUsuario } from "./tipo-usuario";
 
 export class Usuario
 {
@@ -5,8 +6,7 @@ export class Usuario
     email: string | null = null;
     nome: string | null = null;
 
-    authToken: string | null = null;
-
+    tipoUsuario: TipoUsuario | null = null;
 
     static of(source: Usuario): Usuario
     {
@@ -20,18 +20,6 @@ export class Usuario
         Object.assign(res, source);
         return res;
     }
-
-    // // TODO: apague.
-    // static getMock(): Usuario
-    // {
-    //     let nomes: string[] = ["bibop", "bibaro", "bibar", "blilbi", "bobobo", "bibs"]
-
-    //     return Usuario.of({
-    //         id: 10,
-    //         email: "mockerson@gmailson.com",
-    //         nome: nomes[Math.floor(Math.random() * nomes.length)]
-    //     } as unknown as Usuario);
-    // }
 }
 
 export class Moderador extends Usuario

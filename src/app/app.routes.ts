@@ -5,11 +5,13 @@ import { EventoComponent } from './paginas/evento/evento.component';
 import { HomeComponent } from './paginas/home/home.component';
 import { LoginCadastroComponent } from './paginas/login-cadastro/login-cadastro.component';
 import { NotfoundComponent } from './paginas/notfound/notfound.component';
+import { NovoEventoComponent } from './paginas/novo-evento/novo-evento.component';
 
 export const routes: Routes = 
 [
     { path: 'agenda',        component: AgendaComponent },
     { path: 'buscar',        component: BuscarComponent },
+    { path: 'evento/novo',   component: NovoEventoComponent },
     { path: 'evento/:id',    component: EventoComponent },
     { path: 'perfil',        component: HomeComponent /* PerfilComponent */ },
     { path: 'login',         component: LoginCadastroComponent },
