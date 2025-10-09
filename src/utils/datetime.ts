@@ -1,17 +1,128 @@
+import { formatDate } from "@angular/common";
+
 export class DatetimeUtil
 {
-    static formatTime(str: string): string
+    static timeToISO(str: string): string
     {
-        if(str.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/g))
+        if(str.match(/^(\d{4}-\d{2}-\d{2}T)?([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/g))
             return (str);
 
-        else if(str.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/g))
+        else if(str.match(/^(\d{4}-\d{2}-\d{2}T)?([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/g))
             return (str + ':00');
 
-        else if(str.match(/^([0-1]?[0-9]|2[0-3])$/g))
+        else if(str.match(/^(\d{4}-\d{2}-\d{2}T)?([0-1]?[0-9]|2[0-3])$/g))
             return (str + ':00:00');
 
         else
             return "";
+    }
+
+
+    static isDateTimeValid(str: string, strictTime: boolean = false)
+    {
+        if(!str)
+            return false;
+
+        //yyyy-MM-ddThh:mm:ss
+        let dt: string[] = str.split('T');
+
+        if(dt.length == 2 && this.isDateValid(dt[0]) && this.isTimeValid(dt[1], strictTime))
+            return true;
+        else
+            return false;
+    }
+
+
+
+    static isDateValid(str: string): boolean
+    {
+        if(!str)
+            return false;
+
+        // yyyy-mm-dd com restricoes 
+        if(str.match(/^\d{4}-(1[0-2]|0\d)-(3[0-1]|[0-2]\d)$/g) != null){
+            let ymd: number[] = str.split('-').map(Number);
+
+            let ehMultiplo = (xx: number, yy: number):boolean => xx % yy == 0;
+            // https://www.folhape.com.br/noticias/por-que-1900-e-2100-nao-sao-anos-bissextos/131771/
+            let bissexto: boolean = (ehMultiplo(ymd[0], 4) && (!ehMultiplo(ymd[0], 100) || ehMultiplo(ymd[0], 400)))
+        
+            // jan, mar, mai, jul, ago, out, dez => 31 dias
+            if ([1, 3, 5, 7, 8, 10, 12].includes(ymd[1])){
+                if(ymd[2] > 31)
+                    return false
+            }
+            // abr, jun, set, nov
+            else if([4, 6, 9, 11].includes(ymd[1])){
+                if(ymd[2] > 30)
+                    return false;
+            }
+            // fev => 28 (+ 1/4) dias
+            else if(ymd[1] == 2){
+                if(ymd[2] > 28 || (bissexto && ymd[2] > 29))
+                    return false
+            }
+            // nao mes???
+            else{
+                return false
+            }
+        }
+        else{
+            return false;
+        }
+
+        return true;
+    }
+
+
+    static isTimeValid(str: string, strict: boolean = false): boolean
+    {
+        if(!str)
+            return false;
+
+        if(strict)
+            return str.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/g) != null;
+        else
+            return str.match(/^([0-1]?[0-9]|2[0-3])((:[0-5][0-9])?:[0-5][0-9])?$/g) != null;
+    }
+
+
+    static compareDate(aa: string, bb: string): number
+    {
+        if(!this.isDateValid(aa) || !this.isDateValid(bb))
+            return NaN;
+
+        let da: Date = new Date(aa);
+        let db: Date = new Date(bb);
+
+        if(da < db)
+            return -1;
+        else if (da > db)
+            return 1;
+        else 
+            return 0;
+    }
+
+
+    static compareDateTime(aa: string, bb: string): number
+    {
+        if(!this.isDateTimeValid(aa) || !this.isDateTimeValid(bb))
+            return NaN;
+
+        let da: Date = new Date(aa);
+        let db: Date = new Date(bb);
+
+        if(da < db)
+            return -1;
+        else if (da > db)
+            return 1;
+        else 
+            return 0;
+    }
+
+
+    static agora(): string
+    {
+        return formatDate(Date.now(), "YYYY-MM-ddTHH:mm:ss", "en_US");
     }
 }

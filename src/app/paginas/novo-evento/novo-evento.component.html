@@ -1,14 +1,82 @@
 <div class="novo-evento-page">
+    <form #dadosEvento="ngForm" class="novo-evento-page--content">
+        
+        <h2> Crie seu Evento </h2>
 
-    <pre style="margin: 300px 50px 50px 50px">
-        <h3> TODO: </h3>
-        <p> String nome </p> 
-        <p> String descricao </p> 
-        <p> String categoria </p> 
-        <p> String contato </p> 
-        <p> String horaIni </p> 
-        <p> String horaFim </p> 
-        <p> String regiao </p> 
-        <p> String endereco </p> 
-    </pre>
+        <div class="novo-evento-page--content--form-inputs">
+            <div class="novo-evento-page--content--form-inputs--left">
+                <h3> O Que? </h3>
+            
+                <div class="novo-evento-page--content--form-inputs--left--parameter">
+                    <label class="bold"> Nome: </label>
+            
+                    <input type="text" name="nome" ngModel>
+                </div>
+                
+                <div class="novo-evento-page--content--form-inputs--left--parameter">
+                    <label class="bold"> Descrição: </label>
+            
+                    <textarea type="text" name="descricao" rows="3" ngModel></textarea>
+                </div>
+                
+                <div class="novo-evento-page--content--form-inputs--left--parameter">
+                    <label class="bold"> Categoria: </label>
+            
+                    <select name="categoria" ngModel>
+                        <option [value]="">  </option>
+                        <option *ngFor="let cc of droprowns.categorias" [value]="cc"> {{ cc }} </option>
+                    </select>
+                </div>
+                
+                <div class="novo-evento-page--content--form-inputs--left--parameter">
+                    <label class="bold"> Link para contato: </label>
+            
+                    <input type="text" name="contato" ngModel>
+                </div>
+            </div>
+    
+            
+            <div class="novo-evento-page--content--form-inputs--right">
+                <h3> Quando? </h3>
+                
+                <div class="novo-evento-page--content--form-inputs--right--parameter">
+                    <label class="bold"> Início do evento: </label>
+            
+                    <input type="datetime-local" name="horaIni" ngModel>
+                </div>
+                
+                <div class="novo-evento-page--content--form-inputs--right--parameter">
+                    <label class="bold"> Fim do evento: </label>
+            
+                    <input type="datetime-local" name="horaFim" ngModel>
+                </div>
+                
+                <h3> Onde? </h3>
+        
+                <div class="novo-evento-page--content--form-inputs--right--parameter">
+                    <label class="bold"> Região: </label>
+            
+                    <select name="regiao" ngModel>
+                        <option [value]="">  </option>
+                        <option *ngFor="let rr of droprowns.regioes" [value]="rr"> {{ rr }} </option>
+                    </select>
+                </div>
+                
+                <div class="novo-evento-page--content--form-inputs--right--parameter">
+                    <label class="bold"> Endereco: </label>
+            
+                    <input type="text" name="endereco" ngModel>
+                </div>
+    
+
+                <div class="novo-evento-page--content--form-inputs--right--message-box">
+                    <div class="novo-evento-page--content--form-inputs--right--message-box--message__error" [style]="(errorMsg.length == 0) ? 'display: none' : 'display: block'">
+                        <p class="novo-evento-page--content--form-inputs--right--message-box--message__error--text"> {{ errorMsg }} </p>
+                    </div>
+                </div>
+
+                <button (click)="enviar(dadosEvento)"> Enviar! </button>
+            </div>
+        </div>
+    </form>
 </div>

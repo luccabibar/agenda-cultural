@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Resposta } from '../../../../interfaces/resposta';
 import { HttpResponse } from '@angular/common/http';
-import { CadastroOrganizadorBody, CadastroPessoaBody } from '../../../../interfaces/cadastro-login';
+import { CadastroOrganizadorBody, CadastroPessoaBody } from '../../../../interfaces/request-body/cadastro-login';
 import { CkeckCpfCnpj } from '../../../../utils/checagens';
 
 @Component({
@@ -41,19 +41,26 @@ export class CadastroFormComponent
   }
 
 
+  validaSenha(dados: NgForm): boolean { return dados.value.senha != dados.value.senhaConfirm; }
+  validaCpf(dados: NgForm): boolean { return CkeckCpfCnpj.isCpfCnpjValid(dados.value.cpf); }
+
+
   cadastrar(dados: NgForm): void
   {
     this.errorMsg = "";
     this.sucessMsg = "";
 
     console.log(dados.value);
+
+    // TODO: verificacoes mais robustas
     
-    if(dados.value.senha != dados.value.senhaConfirm){
+    // verificacoes
+    if(!this.validaSenha(dados)){
       this.errorMsg = "A senha não corresponde à sua confirmação";
       return;
     }
 
-    if(this.isOrganizador && !CkeckCpfCnpj.isCpfCnpjValid(dados.value.cpf)){
+    if(this.isOrganizador && !this.validaCpf(dados)){
       this.errorMsg = "O CPF ou CNPJ é invalido";
       return;
     }
@@ -63,6 +70,7 @@ export class CadastroFormComponent
       return;
     }
 
+    // detalehs ligeiramente diferentes para organizador ou nao
     if(this.isOrganizador){
       let body: CadastroOrganizadorBody = CadastroOrganizadorBody.of(dados.value);
 

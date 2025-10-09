@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AgendaCulturalService } from '../../../../services/agenda-cultural-service/agenda-cultural.service';
-import { LoginBody } from '../../../../interfaces/cadastro-login';
+import { LoginBody } from '../../../../interfaces/request-body/cadastro-login';
 import { LoginService } from '../../../../services/login-service/login.service';
 import { Resposta } from '../../../../interfaces/resposta';
 import { Usuario } from '../../../../interfaces/usuario/usuarios';

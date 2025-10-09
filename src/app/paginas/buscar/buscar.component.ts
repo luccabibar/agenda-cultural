@@ -25,7 +25,7 @@ export class BuscarComponent
   ) {
     // inicializa objetos
     this.eventos = [];
-    this.buscarParams = { 'categorias': [], 'regioes': [] };
+    this.buscarParams = new BuscarParams();
 
     // recebe parametros
     
@@ -50,10 +50,10 @@ export class BuscarComponent
     let dados: BuscarDados = BuscarDados.of(form.value as BuscarDados);
 
     if(dados.horaLower) 
-      dados.horaLower = DatetimeUtil.formatTime(dados.horaLower); 
+      dados.horaLower = DatetimeUtil.timeToISO(dados.horaLower); 
 
     if(dados.horaUpper) 
-      dados.horaUpper = DatetimeUtil.formatTime(dados.horaUpper);
+      dados.horaUpper = DatetimeUtil.timeToISO(dados.horaUpper);
 
     console.log(form.value, dados);
     

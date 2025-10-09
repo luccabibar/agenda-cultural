@@ -8,23 +8,28 @@ import { Evento } from '../../interfaces/evento';
 import { map, Observable } from 'rxjs';
 import { Resposta } from '../../interfaces/resposta';
 import { BuscarDados, BuscarParams } from '../../interfaces/buscar';
-import { CadastroOrganizadorBody, CadastroPessoaBody, LoginBody } from '../../interfaces/cadastro-login';
+import { CadastroOrganizadorBody, CadastroPessoaBody, LoginBody } from '../../interfaces/request-body/cadastro-login';
 import { UsuarioAutenticado } from '../../interfaces/usuario/usuairo-autenticado';
+import { NovoEventoBody } from '../../interfaces/request-body/evento';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgendaCulturalService extends HttpHandler
 {
-  private defaultHeaders: { [name: string]: string };
-
   constructor(http: HttpClient) 
   { 
-    super(Configs.url, Configs.port, http)
+    super(Configs.url, Configs.port, http) 
+  }
 
-    this.defaultHeaders = {
-      'content-type': 'application/json'
-    }
+  private defaultHeaders(): { [name: string]: string }
+  {
+    return { 'content-type': 'application/json' }
+  }
+
+  private authHeader(token: string | null): { [name: string]: string }
+  {
+    return { 'Authorization': 'bearer ' + token }
   }
 
 
@@ -32,7 +37,7 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.ping();
 
-    return this.httpGet<string>(url, { }, this.defaultHeaders)
+    return this.httpGet<string>(url, { }, this.defaultHeaders())
       .pipe(map((res: Resposta<string>) => Resposta.of<string>(res)));
   }
 
@@ -41,7 +46,7 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.login();
     
-    return this.httpPost<UsuarioAutenticado>(url, dados, this.defaultHeaders)
+    return this.httpPost<UsuarioAutenticado>(url, dados, this.defaultHeaders())
       .pipe(map((res: Resposta<UsuarioAutenticado>) => Resposta.of<UsuarioAutenticado>(res, UsuarioAutenticado)));
   }
 
@@ -50,7 +55,7 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.organizador();
     
-    return this.httpPost<boolean>(url, dados, this.defaultHeaders)
+    return this.httpPost<boolean>(url, dados, this.defaultHeaders())
       .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
   }
 
@@ -59,7 +64,7 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.pessoa();
     
-    return this.httpPost<boolean>(url, dados, this.defaultHeaders)
+    return this.httpPost<boolean>(url, dados, this.defaultHeaders())
       .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
   }
 
@@ -68,8 +73,20 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.eventoById(id);
 
-    return this.httpGet<Evento>(url, { }, this.defaultHeaders)
+    return this.httpGet<Evento>(url, { }, this.defaultHeaders())
       .pipe(map((res: Resposta<Evento>) => Resposta.of<Evento>(res, Evento)));
+  }
+
+
+  postEvento(dados: NovoEventoBody, user: UsuarioAutenticado): Observable<Resposta<number>>
+  {
+    let url: string = Configs.endpoints.eventos();
+    let headers: { [name: string]: string } = {
+      ...this.defaultHeaders(), ...this.authHeader(user.authToken)
+    };
+
+    return this.httpPost<number>(url, dados, headers)
+      .pipe(map((res: Resposta<number>) => Resposta.of<number>(res)));
   }
 
 
@@ -84,7 +101,7 @@ export class AgendaCulturalService extends HttpHandler
       if(dados[ddk])
         params[ddk] = dados[ddk];  
 
-    return this.httpGet<Evento[]>(url, params, this.defaultHeaders)
+    return this.httpGet<Evento[]>(url, params, this.defaultHeaders())
       .pipe(map((res: Resposta<Evento[]>) => Resposta.ofArray<Evento>(res, Evento)));
   }
 
@@ -93,7 +110,7 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.eventosFiltros();  
 
-    return this.httpGet<BuscarParams>(url, { }, this.defaultHeaders)
+    return this.httpGet<BuscarParams>(url, { }, this.defaultHeaders())
       .pipe(map((res: Resposta<BuscarParams>) => Resposta.of<BuscarParams>(res, BuscarParams)));
   }
 }
