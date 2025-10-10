@@ -1,3 +1,4 @@
+import { StatusEvento } from "./evento";
 
 export class BuscarParams
 {
@@ -28,6 +29,8 @@ export class BuscarDados
     horaUpper: string | null = null;
     horaLower: string | null = null;
     regiao: string | null = null;
+    organizador: number | null = null;
+    status: StatusEvento | null = null;
 
 
     static of(source: BuscarDados): BuscarDados

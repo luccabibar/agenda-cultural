@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, NgForm }  from '@angular/forms';
-import { Evento } from '../../../interfaces/evento';
+import { Evento, StatusEvento } from '../../../interfaces/evento';
 import { BuscarDados, BuscarParams } from '../../../interfaces/buscar';
 import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
 import { EventoCardComponent } from './evento-card/evento-card.component';
@@ -54,6 +54,8 @@ export class BuscarComponent
 
     if(dados.horaUpper) 
       dados.horaUpper = DatetimeUtil.timeToISO(dados.horaUpper);
+
+    dados.status = StatusEvento.APROVADO;
 
     console.log(form.value, dados);
     

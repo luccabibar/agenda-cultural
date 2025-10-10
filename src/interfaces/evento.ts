@@ -58,13 +58,27 @@ export class Evento
     }
 }
 
+
 export enum StatusEvento
 {
-    EmAnalise,
-    Aprovado,
-    Reprovado,
-    Cancelado
+    EMANALISE="EMANALISE",
+    APROVADO="APROVADO",
+    REPROVADO="REPROVADO",
+    CANCELADO="CANCELADO",
 }
+
+
+export namespace StatusEvento
+{
+    export function parse(val: string | null): StatusEvento | null
+    {
+        if(val && val in StatusEvento)
+            return val as StatusEvento
+        else
+            return null
+    }
+}
+
 
 export class AtualizacaoEvento
 {

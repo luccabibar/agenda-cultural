@@ -2,7 +2,7 @@ import { TipoUsuario } from "./tipo-usuario";
 
 export class Usuario
 {
-    id: Number | null = null;
+    id: number | null = null;
     email: string | null = null;
     nome: string | null = null;
 

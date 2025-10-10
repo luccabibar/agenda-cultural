@@ -11,6 +11,7 @@ import { BuscarDados, BuscarParams } from '../../interfaces/buscar';
 import { CadastroOrganizadorBody, CadastroPessoaBody, LoginBody } from '../../interfaces/request-body/cadastro-login';
 import { UsuarioAutenticado } from '../../interfaces/usuario/usuairo-autenticado';
 import { NovoEventoBody } from '../../interfaces/request-body/evento';
+import { Usuario } from '../../interfaces/usuario/usuarios';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,18 @@ export class AgendaCulturalService extends HttpHandler
   }
 
 
+  userDados(user: UsuarioAutenticado): Observable<Resposta<Usuario>>
+  {
+    let url: string = Configs.endpoints.usuarioSelf();
+    let headers: { [name: string]: string } = {
+      ...this.defaultHeaders(), ...this.authHeader(user.authToken)
+    };
+
+    return this.httpGet<Usuario>(url, { }, headers)
+      .pipe(map((res: Resposta<Usuario>) => Resposta.of<Usuario>(res)));
+  }
+
+
   getEvento(id: number): Observable<Resposta<Evento>>
   {
     let url: string = Configs.endpoints.eventoById(id);
@@ -93,7 +106,7 @@ export class AgendaCulturalService extends HttpHandler
   buscarEventos(dados: BuscarDados): Observable<Resposta<Evento[]>>
   {
     let url: string = Configs.endpoints.eventos();  
-    let params: { [key: string]: string | null } = {};
+    let params: { [key: string]: string | number | null } = {};
     
     let ddk: keyof BuscarDados;
     

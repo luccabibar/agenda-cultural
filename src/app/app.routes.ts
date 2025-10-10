@@ -6,6 +6,7 @@ import { HomeComponent } from './paginas/home/home.component';
 import { LoginCadastroComponent } from './paginas/login-cadastro/login-cadastro.component';
 import { NotfoundComponent } from './paginas/notfound/notfound.component';
 import { NovoEventoComponent } from './paginas/novo-evento/novo-evento.component';
+import { PerfilComponent } from './paginas/perfil/perfil.component';
 
 export const routes: Routes = 
 [
@@ -13,7 +14,7 @@ export const routes: Routes =
     { path: 'buscar',        component: BuscarComponent },
     { path: 'evento/novo',   component: NovoEventoComponent },
     { path: 'evento/:id',    component: EventoComponent },
-    { path: 'perfil',        component: HomeComponent /* PerfilComponent */ },
+    { path: 'perfil',        component: PerfilComponent },
     { path: 'login',         component: LoginCadastroComponent },
     { path: 'cadastro',      component: LoginCadastroComponent },
     { path: 'home',          redirectTo: '' },

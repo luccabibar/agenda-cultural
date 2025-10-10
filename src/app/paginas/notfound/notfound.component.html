@@ -10,6 +10,11 @@
             a página <span class="bold"> {{ resource }} </span> não pode ser acessada, pois você já fez login
         </p>
 
+        <p *ngSwitchCase="modeList.AUTH">
+            para acessar a página <span class="bold"> {{ resource }} </span>, 
+            você deve <a [routerLink]="['/login']" class="bold"> fazer login </a>
+        </p>
+
         <p *ngSwitchCase="modeList.AUTHORGANIZADOR">
             para acessar a página <span class="bold"> {{ resource }} </span>, 
             você deve fazer login como um <a [routerLink]="['/login']" class="bold"> organizador </a>
