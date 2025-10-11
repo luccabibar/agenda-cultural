@@ -102,4 +102,39 @@ export class CkeckCpfCnpj
     {
         return this.isCpfValid(str) || this.isCnpjValid(str);
     }
+
+
+    public static formatCpf(str: string): string
+    {
+        str = this.limpaCpfCnpj(str);
+
+        if(str.length == 11)
+            return `${str.slice(0, 2)}.${str.slice(3, 5)}.${str.slice(6, 8)}-${str.slice(9, 10)}`;
+        else
+            return "";
+    }
+
+
+    public static formatCnpj(str: string): string
+    {
+        str = this.limpaCpfCnpj(str);
+
+        if(str.length == 11)
+            return `${str.slice(0, 2)}.${str.slice(3, 5)}.${str.slice(6, 8)}-${str.slice(9, 10)}`;
+        else
+            return "";
+    }
+
+
+    public static formatCpfCnpj(str: string): string
+    {
+        str = this.limpaCpfCnpj(str);
+
+        if(str.length == 11)
+            return this.formatCpf(str);
+        else if(str.length == 14)
+            return this.formatCnpj(str);
+        else
+            return "";
+    }
 }

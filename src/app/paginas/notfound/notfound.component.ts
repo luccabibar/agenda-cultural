@@ -12,7 +12,7 @@ import { NgSwitch, NgSwitchDefault, NgSwitchCase } from "../../../../node_module
 })
 export class NotfoundComponent
 {
-  modeList = NotFoundMode;
+  getNotFoundMode = NotFoundMode;
   mode: NotFoundMode;
   resource: string = "";
 

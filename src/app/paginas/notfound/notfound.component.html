@@ -2,30 +2,30 @@
     <div class="notfound-page--content" [ngSwitch]="mode">
         <h1> Hmmm... não tem nada aqui</h1>
 
-        <p *ngSwitchCase="modeList.EVENTO"> 
+        <p *ngSwitchCase="getNotFoundMode.EVENTO"> 
             parece que o evento <span class="bold"> {{ resource }} </span> não pode ser encontrado 
         </p>
 
-        <p *ngSwitchCase="modeList.LOGIN"> 
+        <p *ngSwitchCase="getNotFoundMode.LOGIN"> 
             a página <span class="bold"> {{ resource }} </span> não pode ser acessada, pois você já fez login
         </p>
 
-        <p *ngSwitchCase="modeList.AUTH">
+        <p *ngSwitchCase="getNotFoundMode.AUTH">
             para acessar a página <span class="bold"> {{ resource }} </span>, 
             você deve <a [routerLink]="['/login']" class="bold"> fazer login </a>
         </p>
 
-        <p *ngSwitchCase="modeList.AUTHORGANIZADOR">
+        <p *ngSwitchCase="getNotFoundMode.AUTHORGANIZADOR">
             para acessar a página <span class="bold"> {{ resource }} </span>, 
             você deve fazer login como um <a [routerLink]="['/login']" class="bold"> organizador </a>
         </p>
         
-        <p *ngSwitchCase="modeList.AUTHMODERADOR">
+        <p *ngSwitchCase="getNotFoundMode.AUTHMODERADOR">
             para acessar a página <span class="bold"> {{ resource }} </span>, 
             você deve fazer login como um <a [routerLink]="['/login']" class="bold"> moderador </a>
         </p>
 
-        <!-- <p *ngSwitchCase="modeList.DEFAULT">  -->
+        <!-- <p *ngSwitchCase="getNotFoundMode.DEFAULT">  -->
         <p *ngSwitchDefault> 
             parece que a página <span class="bold"> {{ resource }} </span> não pode ser encontrada 
         </p>

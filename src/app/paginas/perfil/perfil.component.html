@@ -1,7 +1,23 @@
 <div class="perfil-page">
-    <div class="perfil-page--content">  
-        {{ userDados | json }} <br><br><br>
-        {{ eventos | json }}
+    <div class="perfil-page--content"> 
+        <div *ngIf="userDados" class="perfil-page--content--user">
+            <h3> {{ userDados.nome }} </h3>
+
+            <p> {{ userDados.email }} </p>
+
+            <p> {{ userDados.tipoUsuario }} </p>
+
+            <p *ngIf="orgDados"> 
+                {{ orgDados.cpf }} 
+            </p>
+            
+            <p *ngIf="modDados"> 
+                {{ modDados.cpf }} 
+            </p>
+        </div>
+        <div *ngIf="eventos" class="perfil-page--content--eventos">
+            <div></div>
+        </div>
     </div>
 </div>
-
+d

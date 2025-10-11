@@ -4,19 +4,19 @@ import { LoginService } from '../../../services/login-service/login.service';
 import { UsuarioAutenticado } from '../../../interfaces/usuario/usuairo-autenticado';
 import { NotfoundComponent } from '../notfound/notfound.component';
 import { NotFoundMode } from '../notfound/notFoundMode';
-import { Usuario } from '../../../interfaces/usuario/usuarios';
+import { Usuario, Organizador,  Moderador } from '../../../interfaces/usuario/usuarios';
 import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
 import { Resposta } from '../../../interfaces/resposta';
 import { HttpResponse } from '@angular/common/http';
 import { TipoUsuario } from '../../../interfaces/usuario/tipo-usuario';
 import { Evento } from '../../../interfaces/evento';
 import { BuscarDados } from '../../../interfaces/buscar';
-import { JsonPipe } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [NgIf],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
 })
@@ -26,6 +26,10 @@ export class PerfilComponent
   userDados: Usuario | null = null;
   eventos: Evento[] = [];
 
+  // Typescript eh uma linguagem de mentira
+  orgDados: Organizador | null = null;
+  modDados: Moderador | null = null;
+
   constructor(
     private loginService: LoginService,
     private acService: AgendaCulturalService,
@@ -34,8 +38,19 @@ export class PerfilComponent
     this.userAuth = loginService.getUsuario();
 
     if(this.userAuth == null){
-      NotfoundComponent.navegarParaNotFound(router, NotFoundMode.AUTH, '/perfil');
-      return;
+      // NotfoundComponent.navegarParaNotFound(router, NotFoundMode.AUTH, '/perfil');
+      // return;
+      
+      this.userAuth =  UsuarioAutenticado.of({
+        "usuario": {
+          "id": 1,
+          "email": "luccabibar@gmail.com",
+          "nome": "bibar",
+          "cpf": null,
+          "tipoUsuario": "ORGANIZADOR"
+        },
+        "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJPUkdBTklaQURPUiIsImlhdCI6MTc2MDE0MTQ3MywiZXhwIjoxNzYwMjI3ODczfQ.nAtALm_rG43tUX4bBXiC5qs06xwXij3BdYgdTR3yMd8"
+      } as unknown as UsuarioAutenticado)
     }
     
     acService.userDados(this.userAuth).subscribe({
@@ -50,8 +65,13 @@ export class PerfilComponent
     console.log(res);
     this.userDados = res.response;
 
-    if(this.userDados?.tipoUsuario == TipoUsuario.ORGANIZADOR)
-      this.getUserEventos();
+    if(this.userDados?.tipoUsuario == TipoUsuario.ORGANIZADOR){
+      this.orgDados = this.userDados as Organizador;
+      this.getOrgEventos();
+    }
+    else if(this.userDados?.tipoUsuario == TipoUsuario.MODERADOR){
+      this.orgDados = this.userDados as Moderador;
+    }
   }
 
 
@@ -62,10 +82,8 @@ export class PerfilComponent
   }
 
 
-  getUserEventos(): void
+  getOrgEventos(): void
   {
-    console.log("chego?????");
-    
     if(
       !this.userDados 
       || !this.userDados.id
