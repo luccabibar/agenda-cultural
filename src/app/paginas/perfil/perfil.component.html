@@ -1,7 +1,7 @@
 <div class="perfil-page">
     <div class="perfil-page--content"> 
         <div *ngIf="userDados" class="perfil-page--content--user">
-            <h3> {{ userDados.nome }} </h3>
+            <h2> {{ userDados.nome }} </h2>
 
             <p> {{ userDados.email }} </p>
 
@@ -15,8 +15,21 @@
                 {{ modDados.cpf }} 
             </p>
         </div>
+
         <div *ngIf="eventos" class="perfil-page--content--eventos">
-            <div></div>
+            <h2> Seus Eventos: </h2>
+
+            <div *ngFor="let ev of eventos"
+            class="perfil-page--content--eventos--item">
+                <app-evento-card [evento]="ev"
+                class="perfil-page--content--eventos--item--card">
+                </app-evento-card>
+
+                <div class="perfil-page--content--eventos--item--botoes">
+                    <button (click)="editarEvento(ev.id)" > Editar evento </button>
+                    <button (click)="excluirEvento(ev.id)" > Excluir evento </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

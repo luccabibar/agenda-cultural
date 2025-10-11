@@ -2,7 +2,7 @@ import { Organizador, Moderador } from "./usuario/usuarios";
 
 export class Evento 
 {
-    id: Number | null = null;
+    id: number | null = null;
     status: StatusEvento | null = null;
     
     nome: string | null = null;
@@ -82,7 +82,7 @@ export namespace StatusEvento
 
 export class AtualizacaoEvento
 {
-    id: Number | null = null;
+    id: number | null = null;
     
     titulo: string | null = null;
     texto: string | null = null;

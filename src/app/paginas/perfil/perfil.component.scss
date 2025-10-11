@@ -18,11 +18,55 @@
         padding: $spacing-default;
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         
         background-color: $cor-body;
     
         box-shadow: $shadow-default;
+
+        &--user {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        &--eventos {
+                
+            display: flex;
+            flex-direction: column;
+
+            width: 70%;
+
+            &--item {
+                
+                display: flex;
+                flex-direction: row;
+
+                margin-bottom: $spacing-default;
+
+                background-color: $cor-primary;
+                border-radius: $border-radius-default;
+
+                &--card {
+
+                    flex-grow: 1;
+                }
+                
+                &--botoes {
+                
+                    display: flex;
+                    flex-direction: column;
+                    // justify-content: space-evenly;
+                    justify-content: space-between;
+
+                    margin: $spacing-default;
+                }
+            }
+
+            &--item:last-child {
+                margin-bottom: 0;
+            }
+        }
     }
 }
