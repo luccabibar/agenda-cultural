@@ -4,8 +4,8 @@ import { FormGroup, FormsModule, NgForm }  from '@angular/forms';
 import { Evento, StatusEvento } from '../../../interfaces/evento';
 import { BuscarDados, BuscarParams } from '../../../interfaces/buscar';
 import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
-import { EventoCardComponent } from './evento-card/evento-card.component';
 import { DatetimeUtil } from '../../../utils/datetime';
+import { EventoCardComponent } from '../../../components/evento-card/evento-card.component';
 
 @Component({
   selector: 'app-buscar',
