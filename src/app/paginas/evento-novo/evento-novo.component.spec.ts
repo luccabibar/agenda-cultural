@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NovoEventoComponent } from './novo-evento.component';
+import { EventoNovoComponent } from './evento-novo.component';
 
-describe('NovoEventoComponent', () => {
-  let component: NovoEventoComponent;
-  let fixture: ComponentFixture<NovoEventoComponent>;
+describe('EventoNovoComponent', () => {
+  let component: EventoNovoComponent;
+  let fixture: ComponentFixture<EventoNovoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NovoEventoComponent]
+      imports: [EventoNovoComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NovoEventoComponent);
+    fixture = TestBed.createComponent(EventoNovoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

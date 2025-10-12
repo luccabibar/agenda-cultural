@@ -16,13 +16,13 @@ import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-novo-evento',
+  selector: 'app-evento-novo',
   standalone: true,
   imports: [FormsModule, NgForOf],
-  templateUrl: './novo-evento.component.html',
-  styleUrl: './novo-evento.component.scss'
+  templateUrl: './evento-novo.component.html',
+  styleUrl: './evento-novo.component.scss'
 })
-export class NovoEventoComponent
+export class EventoNovoComponent
 {
   locked: boolean;
 
