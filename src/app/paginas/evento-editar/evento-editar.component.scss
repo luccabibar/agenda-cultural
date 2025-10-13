@@ -1,0 +1,84 @@
+@import "../../../variables.scss";
+
+.evento-editar-page {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 75px;
+    
+    background-color: $cor-background;
+    
+    &--content {
+        
+        width: 60%;
+        
+        padding: $spacing-default;
+        
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        
+        background-color: $cor-body;
+    
+        box-shadow: $shadow-default;
+
+        & > * {
+            margin-bottom: $spacing-default;
+        }
+
+        &--atualizacao {
+
+            display: flex;
+            flex-direction: column;
+
+
+            &--parameter {
+
+                display: flex;
+                flex-direction: column;
+
+                margin-bottom: $spacing-half;
+            }
+
+
+            &--message-box {
+
+                margin-bottom: $spacing-default;
+
+                &:last-child {
+
+                    margin-bottom: $spacing-default;
+                }
+
+                &--message__error,
+                &--message {
+            
+                    margin-bottom: $spacing-half;
+            
+                    padding: 5px;
+                    border-radius: $border-radius-default;
+                    
+                    background-color: $cor-secondary;
+                    
+                    transition: 0.2s;
+            
+                    &--text {
+            
+                        color:  $cor-texto-inv;
+                        font-size: $fonte-size-small;
+            
+                        margin: 0;
+                    }
+                }
+            
+                &--message__error {
+                        
+                    background-color: $cor-primary;
+                }
+            }
+        }
+    }
+}

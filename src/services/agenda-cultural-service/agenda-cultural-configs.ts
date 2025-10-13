@@ -6,6 +6,7 @@ export abstract class Configs {
         eventos:            (() => `/eventos`),
         eventosFiltros:     (() => `/eventos/filtros`),
         eventoById:         ((id: number) => `/eventos/${ id }`),
+        eventoAtualizacao:  ((id: number) => `/eventos/${ id }/atualizacoes`),
         usuarioSelf:        (() => `/usuarios/self`),
         login:              (() => `/usuarios/login`),
         organizador:        (() => `/usuarios/organizadores`),

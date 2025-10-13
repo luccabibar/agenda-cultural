@@ -1,5 +1,5 @@
 <div class="evento-page">
-    <div *ngIf="evento; else notfound" class="evento-page--content">  
+    <div *ngIf="evento" class="evento-page--content">  
         <div class="evento-page--content--left">
             <div class="evento-page--content--left--header">
                 <div class="evento-page--content--left--header--left">
@@ -39,9 +39,9 @@
 
                 <div *ngFor="let att of evento.atualizacoes"
                 class="evento-page--content--left--body--atualizacao">
-                    <h5>
+                    <h4>
                         {{ att.titulo }}
-                    </h5>
+                    </h4>
                     <p>
                         {{ att.texto }}
                     </p>
@@ -81,11 +81,4 @@
             </div>
         </div>
     </div>
-
-    <ng-template #notfound>
-        <div class="evento-page--content">
-            <!-- TODO: 404 -->
-            <h1>404??</h1>
-        </div>
-    </ng-template>
 </div>

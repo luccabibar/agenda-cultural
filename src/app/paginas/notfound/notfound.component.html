@@ -25,6 +25,11 @@
             você deve fazer login como um <a [routerLink]="['/login']" class="bold"> moderador </a>
         </p>
 
+        <p *ngSwitchCase="getNotFoundMode.AUTHOWNER">
+            Apenas os administradores do recurso <span class="bold"> {{ resource }} </span>
+            podem acessar suas páginas restritas 
+        </p>
+
         <!-- <p *ngSwitchCase="getNotFoundMode.DEFAULT">  -->
         <p *ngSwitchDefault> 
             parece que a página <span class="bold"> {{ resource }} </span> não pode ser encontrada 

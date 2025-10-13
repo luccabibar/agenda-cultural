@@ -12,6 +12,7 @@ import { CadastroOrganizadorBody, CadastroPessoaBody, LoginBody } from '../../in
 import { UsuarioAutenticado } from '../../interfaces/usuario/usuairo-autenticado';
 import { NovoEventoBody } from '../../interfaces/request-body/evento';
 import { Usuario } from '../../interfaces/usuario/usuarios';
+import { NovaAtualizacaoBody } from '../../interfaces/request-body/atualizacao-evento';
 
 @Injectable({
   providedIn: 'root'
@@ -125,5 +126,20 @@ export class AgendaCulturalService extends HttpHandler
 
     return this.httpGet<BuscarParams>(url, { }, this.defaultHeaders())
       .pipe(map((res: Resposta<BuscarParams>) => Resposta.of<BuscarParams>(res, BuscarParams)));
+  }
+
+
+  postAtualizacaoEvento(
+    id: number, 
+    dados: NovaAtualizacaoBody, 
+    user: UsuarioAutenticado
+  ): Observable<Resposta<Boolean>> {
+    let url: string = Configs.endpoints.eventoAtualizacao(id);
+    let headers: { [name: string]: string } = {
+      ...this.defaultHeaders(), ...this.authHeader(user.authToken)
+    };
+
+    return this.httpPost<Boolean>(url, dados, headers)
+    .pipe(map((res: Resposta<Boolean>) => Resposta.of<Boolean>(res)));
   }
 }

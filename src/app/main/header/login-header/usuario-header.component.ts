@@ -34,7 +34,7 @@ export class UsuarioHeaderComponent
 
   logout()
   {
-    if(this.loginService.logout() && this.router.url === '/perfil')
+    if(this.loginService.logout() /* && this.router.url === '/perfil' */)
       this.router.navigate(['/home']);    
   }
 }
