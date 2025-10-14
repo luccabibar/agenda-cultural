@@ -23,21 +23,31 @@ export class LoginCadastroComponent
     private router: Router
   ) {
     this.order = true;
-    let curr: UsuarioAutenticado | null = loginService.getUsuario();
     
+    // acessa usuario logado
+    loginService
+      .getSubject()
+      .subscribe({
+        next: (prm: Promise<UsuarioAutenticado | null>) => prm.then(this.loginServiceNext)
+      })
+      .unsubscribe();
+  }
+
+
+  loginServiceNext = (user: UsuarioAutenticado | null): void =>
+  {
     // se user ja esta logado
-    if(curr){
-      NotfoundComponent.navegarParaNotFound(router, NotFoundMode.LOGIN, router.url);
+    if(user){
+      NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.LOGIN, this.router.url);
       return;
     }
     
-    
-    if(router.url === '/login')
+
+    if(this.router.url === '/login')
       this.order = true;
-    else if(router.url === '/cadastro')
+    else if(this.router.url === '/cadastro')
       this.order = false;
     else
       this.order = Math.floor(Math.random() * 2) ? true : false; // we gamblin;
   }
-
 }

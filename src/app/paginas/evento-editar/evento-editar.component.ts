@@ -34,7 +34,7 @@ export class EventoEditarComponent
 
   constructor(
     private acService: AgendaCulturalService,
-    private userService: LoginService,
+    private loginService: LoginService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
@@ -46,16 +46,30 @@ export class EventoEditarComponent
     this.attErrorMessage = null;
 
     // recebe parametros
-    this.user = userService.getUsuario();
+    this.user = null
     this.id = activatedRoute.snapshot.paramMap.get('id');
+
+    // acessa usuario logado
+    loginService
+      .getSubject()
+      .subscribe({
+        next: (prm: Promise<UsuarioAutenticado | null>) => prm.then(this.loginServiceNext)
+      })
+      .unsubscribe();
+  }
+
+  
+  loginServiceNext = (newUser: UsuarioAutenticado | null): void =>
+  {
+    this.user = newUser;
 
     // validacoes etc
     if(!this.user || this.user.usuario?.tipoUsuario != TipoUsuario.ORGANIZADOR){
-      NotfoundComponent.navegarParaNotFound(router, NotFoundMode.AUTHORGANIZADOR, this.id);
+      NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.AUTHORGANIZADOR, this.id);
     }
 
     if(this.id == null){
-      NotfoundComponent.navegarParaNotFound(router, NotFoundMode.EVENTO, this.id);
+      NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.EVENTO, this.id);
       return;
     }
       
@@ -67,7 +81,7 @@ export class EventoEditarComponent
     }
 
     // realiza requests necessarios
-    acService.getEvento(idNum).subscribe({
+    this.acService.getEvento(idNum).subscribe({
       next: this.eventoNext,
       error: this.eventoError
     });
@@ -91,6 +105,7 @@ export class EventoEditarComponent
     NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.EVENTO, this.id);
   }
 
+  
   // metodos da atualizacao
   addAtualizacao(dados: NgForm): void
   {

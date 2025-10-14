@@ -20,15 +20,15 @@ export class UsuarioHeaderComponent
     private loginService: LoginService,
     private router: Router
   ) {
-    loginService
-      .getSubject()
-      .subscribe(
-        (val) => {
-          console.log(val)
-
+    
+    loginService.getSubject().subscribe(
+      (prm: Promise<UsuarioAutenticado | null>) => {
+        prm.then((val: UsuarioAutenticado | null) => {
+          console.log(val);
+  
           this.user = val;
-        }
-      );
+        })
+      });
   } 
 
 

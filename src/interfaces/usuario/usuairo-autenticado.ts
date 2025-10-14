@@ -6,9 +6,9 @@ export class UsuarioAutenticado
     authToken: string | null = null;
 
 
-    isValid(): boolean
+    static isValid(obj: unknown): boolean
     {
-        return (this.usuario && this.authToken) ? true : false;
+        return obj && obj instanceof UsuarioAutenticado && obj.usuario && obj.authToken ?  true : false
     }
 
 

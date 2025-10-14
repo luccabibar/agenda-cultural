@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { UsuarioAutenticado } from '../../interfaces/usuario/usuairo-autenticado';
 import { AgendaCulturalService } from '../agenda-cultural-service/agenda-cultural.service';
 import { Resposta } from '../../interfaces/resposta';
@@ -12,108 +12,152 @@ import { CookieService } from 'ngx-cookie-service'
 })
 export class LoginService
 {
-  private usuario: UsuarioAutenticado | null;
-  private subject: Subject<UsuarioAutenticado | null>;
-
+  private subject: BehaviorSubject<Promise<UsuarioAutenticado | null>>;
   private cookieKey: string = 'STOREDTOKEN';
-  private storedToken: string | null
 
   constructor(
     private acService: AgendaCulturalService,
     private cookieService: CookieService
   ) {
-    this.subject = new Subject<UsuarioAutenticado | null>();
-    this.usuario = null; // source from sstorage
+    // busca token em cookie
+    let storedToken: string | null = this.cookieService.check(this.cookieKey) ? this.cookieService.get(this.cookieKey) : null;
 
-    // busca sessao anterior, tenta autenticar 
-    this.storedToken = cookieService.check(this.cookieKey) ? cookieService.get(this.cookieKey) : null;
-    
-    // tenta restaurar sessao (verifica se token eh valida)
-    if(this.storedToken){
-      // usuario autenticado dummy
-      let fauxUser =  UsuarioAutenticado.of({
-        usuario: null,
-        authToken: this.storedToken
-      } as UsuarioAutenticado);
+    // se ja tem o token, tenta criar promise a partir dele
+    if(storedToken){
+      this.subject = new BehaviorSubject<Promise<UsuarioAutenticado | null>>(
+        this.promiseFromToken(storedToken)
+      );
+    }
+    // senao, cria promise a partir de um null
+    else {
+      this.subject = new BehaviorSubject<Promise<UsuarioAutenticado | null>>(
+        this.promiseFromValue(null)
+      );
+    }    
 
-      acService.userDados(fauxUser).subscribe({
-        next: this.authNext,
-        error: this.authError
+    // atualiza cookies depois de qualquer update no subject
+    this.subject.subscribe((prm: Promise<UsuarioAutenticado | null>): void => {
+      prm.then(this.updateCookie, console.log);
+    });
+  }
+
+
+  promiseFromToken(token: string): Promise<UsuarioAutenticado | null>
+  {
+    // prepara suario autenticado dummy
+    let fauxUser =  UsuarioAutenticado.of({
+      usuario: null,
+      authToken: token
+    } as UsuarioAutenticado);
+
+    // constroi promisse
+    return new Promise<UsuarioAutenticado | null>((resolve, reject) =>
+    {
+      // next: recebe usuario; resolve ele
+      let authNext = (res: Resposta<Usuario>): void =>
+      {
+        // se deu errado
+        if(!res.response){
+          this.resolvePromise(null, resolve);
+        }
+        // se deu bom
+        else{
+
+          // novo objeto UsuarioAutenticado
+          let user = UsuarioAutenticado.of({
+            usuario: res.response,
+            authToken: token
+          } as UsuarioAutenticado);
+
+          // loga o usuario
+          this.resolvePromise(user, resolve);
+        }
+      }
+
+
+      // error: recebe error, resolve um null
+      let authError = (res: HttpResponse<unknown>): void =>
+      {
+        if (res)
+          console.log(res);
+
+        // nova sessao
+        this.resolvePromise(null, resolve);
+      }
+
+
+      // realiza tentativa de autenticacao
+      this.acService.userDados(fauxUser).subscribe({
+        next: authNext,
+        error: authError
       });
-    }
-    // nova sessao
-    else{
-      console.log("Nao havia usuario logado");
-      this.logout();
-    }
+    });
   }
+
+
+
+  promiseFromValue(user: UsuarioAutenticado | null)
+  {
+    return new Promise<UsuarioAutenticado | null>((resolve, reject) =>
+    {
+      this.resolvePromise(user, resolve);
+    });
+  }
+
+
+  resolvePromise(
+    user: UsuarioAutenticado | null, 
+    resolve: (value: UsuarioAutenticado | null | PromiseLike<UsuarioAutenticado | null>) => void
+  ): void
+  {
+    // resolve promisse
+    resolve(user);
+  }
+
+
+  public getSubject(): BehaviorSubject<Promise<UsuarioAutenticado | null>> { return this.subject; }
+
+
+  public login(user: UsuarioAutenticado): boolean
+  {
+    if(!UsuarioAutenticado.isValid(user))
+      return false;
+
+    this.subject.next(
+      this.promiseFromValue(user)
+    );
+
+    return true;
+  }
+
   
-  
-  authNext = (res: Resposta<Usuario>): void =>
+  public logout(): boolean
   {
-    if(!res.response){
-      this.authError("Erro ao reaver sessao (token expirada?) " + res);
-    }
-    else{
-      let user = UsuarioAutenticado.of({
-        usuario: res.response,
-        authToken: this.storedToken
-      } as UsuarioAutenticado);
+    this.subject.next(
+      this.promiseFromValue(null)
+    );
 
-      this.login(user);
-    }
-  }
-    
-    
-  authError = (res: HttpResponse<unknown> | string): void =>
-  {
-    if (res)
-      console.log(res);
-
-    // nova sessao
-    this.logout();
+    return true;
   }
 
 
-  getUsuario(): UsuarioAutenticado | null { return this.usuario; }
-  getSubject(): Subject<UsuarioAutenticado | null> { return this.subject; }
-
-
-  private setUsuario(user: UsuarioAutenticado | null)
+  updateCookie = (user: UsuarioAutenticado | null): void =>
   {
-    // set nova sessao
-    if(user && user.authToken)
+    if(UsuarioAutenticado.isValid(user)){
+      let newToken: string = (user as UsuarioAutenticado).authToken as string // coinfia 
+
       this.cookieService.set(
         this.cookieKey, // Key
-        user.authToken, // Value
+        newToken, // Value
         86400000, // TTL (1 dia)
-        undefined, // Path
+        '/', // Path
         undefined, // Domain
         false,// Secure (SSL) (TODO: habilitar SSL)
         'Strict'// SameSite policy
       );
-    //unset sessao
-    else
+    }
+    else{
       this.cookieService.delete(this.cookieKey);
-
-    this.usuario = user;
-    this.subject.next(this.usuario);
-  }
-
-
-  login(user: UsuarioAutenticado): boolean
-  {
-    if(this.usuario || !user || !user.isValid())
-      return false;
-
-    this.setUsuario(user);
-    return true;
-  }
-
-  
-  logout(): boolean
-  {
-    this.setUsuario(null);
-    return true;
+    }
   }
 }

@@ -23,7 +23,7 @@ import { EventoCardComponent } from "../../../components/evento-card/evento-card
 })
 export class PerfilComponent
 {
-  userAuth: UsuarioAutenticado | null = null;
+  // userAuth: UsuarioAutenticado | null = null;
   userDados: Usuario | null = null;
   eventos: Evento[] = [];
 
@@ -36,25 +36,24 @@ export class PerfilComponent
     private acService: AgendaCulturalService,
     private router: Router,
   ) {
-    this.userAuth = loginService.getUsuario();
+    // acessa usuario logado
+    loginService
+      .getSubject()
+      .subscribe({
+        next: (prm: Promise<UsuarioAutenticado | null>) => prm.then(this.loginServiceNext)
+      })
+      .unsubscribe();
+  }
 
-    if(this.userAuth == null){
-      // NotfoundComponent.navegarParaNotFound(router, NotFoundMode.AUTH, '/perfil');
-      // return;
-      
-      this.userAuth =  UsuarioAutenticado.of({
-        "usuario": {
-          "id": 1,
-          "email": "luccabibar@gmail.com",
-          "nome": "bibar",
-          "cpf": null,
-          "tipoUsuario": "ORGANIZADOR"
-        },
-        "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJPUkdBTklaQURPUiIsImlhdCI6MTc2MDE0MTQ3MywiZXhwIjoxNzYwMjI3ODczfQ.nAtALm_rG43tUX4bBXiC5qs06xwXij3BdYgdTR3yMd8"
-      } as unknown as UsuarioAutenticado)
+
+  loginServiceNext = (user: UsuarioAutenticado | null): void =>
+  {
+    if(user == null){
+      NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.AUTH, '/perfil');
+      return;
     }
     
-    acService.userDados(this.userAuth).subscribe({
+    this.acService.userDados(user).subscribe({
       next: this.userDadosNext,
       error: this.userDadosErr
     });

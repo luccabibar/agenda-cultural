@@ -40,23 +40,34 @@ export class EventoNovoComponent
     this.locked = false;
     this.errorMsg = '';
 
-    // verificacao user
-    this.user = loginService.getUsuario();
-    
-    if(!this.user || this.user?.usuario?.tipoUsuario != TipoUsuario.ORGANIZADOR)
-      NotfoundComponent.navegarParaNotFound(router, NotFoundMode.AUTHORGANIZADOR, router.url);
-      
-    // dados do form
+    this.user = null;
     this.droprowns = new BuscarParams();
 
-    // realiza requests necessarios
-    acService.filtrosEventos().subscribe(
-      (result) => {
-        console.log(result);
-        if(result.response)
-          this.droprowns = result.response;
-      });
+    // acessa usuario logado
+    loginService
+      .getSubject()
+      .subscribe({
+        next: (prm: Promise<UsuarioAutenticado | null>) => prm.then(this.loginServiceNext)
+      })
+      .unsubscribe();
+  }
+
+
+  loginServiceNext = (user: UsuarioAutenticado | null): void =>
+  {
+    this.user = user;
     
+    if(!this.user || this.user?.usuario?.tipoUsuario != TipoUsuario.ORGANIZADOR)
+      NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.AUTHORGANIZADOR, this.router.url);
+      
+
+    // realiza requests necessarios
+    this.acService.filtrosEventos().subscribe(
+    (result) => {
+      console.log(result);
+      if(result.response)
+        this.droprowns = result.response;
+    });
   }
 
 
