@@ -41,8 +41,8 @@ export class CadastroFormComponent
   }
 
 
-  validaSenha(dados: NgForm): boolean { return dados.value.senha != dados.value.senhaConfirm; }
-  validaCpf(dados: NgForm): boolean { return CkeckCpfCnpj.isCpfCnpjValid(dados.value.cpf); }
+  isSenhaValid(dados: NgForm): boolean { return dados.value.senha == dados.value.senhaConfirm; }
+  isCpfValid(dados: NgForm): boolean { return CkeckCpfCnpj.isCpfCnpjValid(dados.value.cpf); }
 
 
   cadastrar(dados: NgForm): void
@@ -55,12 +55,12 @@ export class CadastroFormComponent
     // TODO: verificacoes mais robustas
     
     // verificacoes
-    if(!this.validaSenha(dados)){
+    if(!this.isSenhaValid(dados)){
       this.errorMsg = "A senha não corresponde à sua confirmação";
       return;
     }
 
-    if(this.isOrganizador && !this.validaCpf(dados)){
+    if(this.isOrganizador && !this.isCpfValid(dados)){
       this.errorMsg = "O CPF ou CNPJ é invalido";
       return;
     }
