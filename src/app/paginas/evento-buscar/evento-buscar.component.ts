@@ -8,13 +8,13 @@ import { DatetimeUtil } from '../../../utils/datetime';
 import { EventoCardComponent } from '../../../components/evento-card/evento-card.component';
 
 @Component({
-  selector: 'app-buscar',
+  selector: 'app-evento-buscar',
   standalone: true,
   imports: [ CommonModule, FormsModule, EventoCardComponent ],
-  templateUrl: './buscar.component.html',
-  styleUrl: './buscar.component.scss'
+  templateUrl: './evento-buscar.component.html',
+  styleUrl: './evento-buscar.component.scss'
 })
-export class BuscarComponent 
+export class EventoBuscarComponent 
 {
 
   eventos: Evento[];

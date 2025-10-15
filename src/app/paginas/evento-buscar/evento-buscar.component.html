@@ -1,26 +1,26 @@
-<div class="buscar-page">
-    <div class="buscar-page--content">
+<div class="evento-buscar-page">
+    <div class="evento-buscar-page--content">
         <form #dadosBusca="ngForm" (ngSubmit)="buscar(dadosBusca)" 
-        class="buscar-page--content--left">
-            <div class="buscar-page--content--left--header">
+        class="evento-buscar-page--content--left">
+            <div class="evento-buscar-page--content--left--header">
                 <h2> Buscar </h2>
             </div>
             
-            <div class="buscar-page--content--left--parameter">
+            <div class="evento-buscar-page--content--left--parameter">
                 <label class="bold"> Busca por texto: </label>
 
                 <input type="text" name="texto" ngModel>
             </div>
 
-            <div class="buscar-page--content--left--parameter">
+            <div class="evento-buscar-page--content--left--parameter">
                 <button> Buscar </button>
             </div>
 
-            <div class="buscar-page--content--left--header">
+            <div class="evento-buscar-page--content--left--header">
                 <h2> Mais Filtros </h2>
             </div>
 
-            <div class="buscar-page--content--left--parameter">
+            <div class="evento-buscar-page--content--left--parameter">
                 <label class="bold"> Categoria: </label>
 
                 <select name="categoria" ngModel>
@@ -29,31 +29,31 @@
                 </select>
             </div>
             
-            <div class="buscar-page--content--left--parameter">
+            <div class="evento-buscar-page--content--left--parameter">
                 <label class="bold"> Data: </label>
                 
-                <div class="buscar-page--content--left--parameter--input-content">
-                    <input class="buscar-page--content--left--parameter--input-content--input"
+                <div class="evento-buscar-page--content--left--parameter--input-content">
+                    <input class="evento-buscar-page--content--left--parameter--input-content--input"
                     type="date" placeholder="A partir" name="diaLower" ngModel>
                     
-                    <input class="buscar-page--content--left--parameter--input-content--input"
+                    <input class="evento-buscar-page--content--left--parameter--input-content--input"
                     type="date" placeholder="Até" name="diaUpper" ngModel>
                 </div>
             </div>
             
-            <div class="buscar-page--content--left--parameter">
+            <div class="evento-buscar-page--content--left--parameter">
                 <label class="bold"> Horário: </label>
                 
-                <div class="buscar-page--content--left--parameter--input-content">
-                    <input class="buscar-page--content--left--parameter--input-content--input"
+                <div class="evento-buscar-page--content--left--parameter--input-content">
+                    <input class="evento-buscar-page--content--left--parameter--input-content--input"
                     type="time" placeholder="A partir" name="horaLower" ngModel>
                     
-                    <input class="buscar-page--content--left--parameter--input-content--input"
+                    <input class="evento-buscar-page--content--left--parameter--input-content--input"
                     type="time" placeholder="Até" name="horaUpper" ngModel>
                 </div>
             </div>
             
-            <div class="buscar-page--content--left--parameter">
+            <div class="evento-buscar-page--content--left--parameter">
                 <label class="bold"> Região: </label>
                 
                 <select name="regiao" ngModel>
@@ -63,9 +63,9 @@
             </div>
         </form>
 
-        <div class="buscar-page--content--right">
+        <div class="evento-buscar-page--content--right">
             <app-evento-card *ngFor="let ev of eventos" [evento]="ev"
-            class="buscar-page--content--right--evento">
+            class="evento-buscar-page--content--right--evento">
             </app-evento-card>
         </div>
     </div>

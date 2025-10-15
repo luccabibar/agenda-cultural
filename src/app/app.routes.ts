@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AgendaComponent } from './paginas/agenda/agenda.component';
-import { BuscarComponent } from './paginas/buscar/buscar.component';
+import { EventoBuscarComponent } from './paginas/evento-buscar/evento-buscar.component';
 import { EventoComponent } from './paginas/evento/evento.component';
 import { HomeComponent } from './paginas/home/home.component';
 import { LoginCadastroComponent } from './paginas/login-cadastro/login-cadastro.component';
@@ -12,7 +12,7 @@ import { EventoEditarComponent } from './paginas/evento-editar/evento-editar.com
 export const routes: Routes = 
 [
     { path: 'agenda',               component: AgendaComponent },
-    { path: 'buscar',               component: BuscarComponent },
+    { path: 'buscar',               component: EventoBuscarComponent },
     { path: 'evento/novo',          component: EventoNovoComponent },
     { path: 'evento/:id',           component: EventoComponent },
     { path: 'evento/:id/editar',    component: EventoEditarComponent },
