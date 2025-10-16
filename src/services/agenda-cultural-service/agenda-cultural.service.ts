@@ -13,6 +13,7 @@ import { UsuarioAutenticado } from '../../interfaces/usuario/usuairo-autenticado
 import { NovoEventoBody } from '../../interfaces/request-body/evento';
 import { Usuario } from '../../interfaces/usuario/usuarios';
 import { NovaAtualizacaoBody } from '../../interfaces/request-body/atualizacao-evento';
+import { EdicaoEventoBody } from '../../interfaces/request-body/edicao-evento';
 
 @Injectable({
   providedIn: 'root'
@@ -100,6 +101,19 @@ export class AgendaCulturalService extends HttpHandler
     };
 
     return this.httpPost<number>(url, dados, headers)
+      .pipe(map((res: Resposta<number>) => Resposta.of<number>(res)));
+  }
+
+
+  patchEvento(id: number, dados: EdicaoEventoBody, user: UsuarioAutenticado): Observable<Resposta<unknown>>
+  {
+    let url: string = Configs.endpoints.eventoById(id);
+    let headers: { [name: string]: string } = {
+      ...this.defaultHeaders(), ...this.authHeader(user.authToken)
+    };
+
+    // TODO: patch
+    return this.httpPatch<number>(url, dados, headers)
       .pipe(map((res: Resposta<number>) => Resposta.of<number>(res)));
   }
 

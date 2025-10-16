@@ -61,8 +61,8 @@
                 </p>
     
                 <p class="evento-page--content--right--content--text">
-                    <img src="images/calendario.png" class="no-filter">  {{ evento.horarioInicio | date : "EEEE d 'de' MMMM" | titlecase }} <br>
-                    <img src="images/relogio.png" class="no-filter">  {{ evento.horarioInicio | date : "H:mm" | titlecase }}
+                    <img src="images/calendario.png" class="no-filter">  {{ evento.horarioFim | date : "EEEE d 'de' MMMM" | titlecase }} <br>
+                    <img src="images/relogio.png" class="no-filter">  {{ evento.horarioFim | date : "H:mm" | titlecase }}
                 </p>
             </div>
     

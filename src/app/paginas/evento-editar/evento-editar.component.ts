@@ -32,6 +32,12 @@ export class EventoEditarComponent
   attSuccessMessage: string | null;
   attErrorMessage: string | null;
 
+  edtLocked: boolean;
+  edtSuccessMessage: string | null;
+  edtErrorMessage: string | null;
+
+  edtEvento: Evento | null;
+
   constructor(
     private acService: AgendaCulturalService,
     private loginService: LoginService,
@@ -44,6 +50,12 @@ export class EventoEditarComponent
     this.attLocked = false
     this.attSuccessMessage = null;
     this.attErrorMessage = null;
+    
+    this.edtLocked = false
+    this.edtSuccessMessage = null;
+    this.edtErrorMessage = null;
+
+    this.edtEvento = null;
 
     // recebe parametros
     this.user = null
@@ -95,6 +107,9 @@ export class EventoEditarComponent
 
     if(!this.user || this.evento?.organizador?.id != this.user.usuario?.id){
       NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.AUTHOWNER, this.id);
+    }
+    else{
+      this.edtEvento = this.evento;
     }
   }
 
@@ -159,7 +174,6 @@ export class EventoEditarComponent
       this.attSuccessMessage = null;
       this.attErrorMessage = "Erro inesperado ao criar atualização";
       this.attLocked = false; 
-
     }
   }
 
@@ -189,4 +203,48 @@ export class EventoEditarComponent
   }
 
   // metodos da edicao
+  editar(dados: NgForm): void
+  {
+    this.edtLocked = true;
+    this.edtSuccessMessage = null;
+    this.edtErrorMessage = null;
+
+
+
+
+    // dados
+
+    // validas
+    if(!this.user){
+      this.edtLocked = false; 
+      this.edtErrorMessage = "bla";
+      return;
+    }
+    
+    // processa parametros
+
+    // this.acService.patchEvento(Number(this.id), dados, this.user)
+    // .subscribe({
+    //   next: this.editarNext,
+    //   error: this.editarError
+    // });
+  }
+ 
+
+  editarNext = (res: Resposta<unknown>): void =>
+  {
+    // this.edtLocked = false;
+    this.edtSuccessMessage = null;
+    this.edtErrorMessage = null;
+
+  }
+
+  
+  editarError = (res: HttpResponse<unknown>): void =>
+  {
+    this.edtLocked = false;
+    this.edtSuccessMessage = null;
+    this.edtErrorMessage = null;
+
+  }
 }
