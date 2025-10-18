@@ -105,7 +105,7 @@ export class AgendaCulturalService extends HttpHandler
   }
 
 
-  patchEvento(id: number, dados: EdicaoEventoBody, user: UsuarioAutenticado): Observable<Resposta<unknown>>
+  patchEvento(id: number, dados: EdicaoEventoBody, user: UsuarioAutenticado): Observable<Resposta<boolean>>
   {
     let url: string = Configs.endpoints.eventoById(id);
     let headers: { [name: string]: string } = {
@@ -113,8 +113,8 @@ export class AgendaCulturalService extends HttpHandler
     };
 
     // TODO: patch
-    return this.httpPatch<number>(url, dados, headers)
-      .pipe(map((res: Resposta<number>) => Resposta.of<number>(res)));
+    return this.httpPatch<boolean>(url, dados, headers)
+      .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
   }
 
 

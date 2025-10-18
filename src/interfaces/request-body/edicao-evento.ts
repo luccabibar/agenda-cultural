@@ -1,11 +1,12 @@
 export class EdicaoEventoBody
 {
-    descricao: string | null = null;
-    contato: string | null = null;
-    horaIni: string | null = null;
-    horaFim: string | null = null;
-    regiao: string | null = null;
-    endereco: string | null = null;
+    // membros podem ser undefined, deliberadamente
+    descricao: string | undefined;
+    contato: string | undefined;
+    horaIni: string | undefined;
+    horaFim: string | undefined;
+    regiao: string | undefined;
+    endereco: string | undefined;
 
 
     static of(source: EdicaoEventoBody): EdicaoEventoBody

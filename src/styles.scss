@@ -36,8 +36,14 @@ label {
 
 input,
 select,
-button {
+button,
+textarea {
     padding: 5px;
+    font-size: $fonte-size-small;
+    
+    &.changed {
+        background-color: $cor-warning-light;
+    }
 }
 
 .light {

@@ -4,32 +4,37 @@
     <div class="edicao-form--parameter">
         <label class="bold"> Descricao: </label>
 
-        <textarea type="text" name="descricao" rows="3" ngModel></textarea>
+        <textarea type="text" name="descricao" rows="3" [ngModel]="evento?.descricao"
+        [class]="(dadosEdicao.value.descricao != evento?.descricao) ? 'changed' : ''"></textarea>
     </div>
 
     <div class="edicao-form--parameter">
         <label class="bold"> Link para contato: </label>
 
-        <input type="text" name="contato" ngModel>
+        <input type="text" name="contato" [ngModel]="evento?.contato"
+        [class]="(dadosEdicao.value.contato != evento?.contato) ? 'changed' : ''">
     </div>
 
     
     <div class="edicao-form--parameter">
         <label class="bold"> Início do evento: </label>
 
-        <input type="datetime-local" name="horaIni" ngModel>
+        <input type="datetime-local" name="horaIni" [ngModel]="evento?.horarioInicio"
+        [class]="(dadosEdicao.value.horaIni != evento?.horarioInicio) ? 'changed' : ''">
     </div>
     
     <div class="edicao-form--parameter">
         <label class="bold"> Fim do evento: </label>
 
-        <input type="datetime-local" name="horaFim" ngModel>
+        <input type="datetime-local" name="horaFim" [ngModel]="evento?.horarioFim"
+        [class]="(dadosEdicao.value.horaFim != evento?.horarioFim) ? 'changed' : ''">
     </div>
 
     <div class="edicao-form--parameter">
         <label class="bold"> Região: </label>
 
-        <select name="regiao" ngModel>
+        <select name="regiao" [ngModel]="evento?.regiao"
+        [class]="(dadosEdicao.value.regiao != evento?.regiao) ? 'changed' : ''">
             <option *ngFor="let rr of dropdowns.regioes" [value]="rr"> {{ rr }} </option>
         </select>
     </div>
@@ -37,7 +42,8 @@
     <div class="edicao-form--parameter">
         <label class="bold"> Endereco: </label>
 
-        <input type="text" name="endereco" ngModel>
+        <input type="text" name="endereco" [ngModel]="evento?.endereco"
+        [class]="(dadosEdicao.value.endereco != evento?.endereco) ? 'changed' : ''">
     </div>
 
 
