@@ -9,15 +9,16 @@ import { HttpResponse } from '@angular/common/http';
 import { UsuarioAutenticado } from '../../../interfaces/usuario/usuairo-autenticado';
 import { LoginService } from '../../../services/login-service/login.service';
 import { TipoUsuario } from '../../../interfaces/usuario/tipo-usuario';
-import { FormsModule, NgForm } from '@angular/forms';
-import { NgIf } from "../../../../node_modules/@angular/common";
-import { AtualizacaoValidation } from './atualizacao-validation';
-import { NovaAtualizacaoBody } from '../../../interfaces/request-body/atualizacao-evento';
+import { FormsModule } from '@angular/forms';
+import { NgIf, CommonModule } from "../../../../node_modules/@angular/common";
+import { BuscarParams } from '../../../interfaces/buscar';
+import { AtualizacaoFormComponent } from "./atualizacao-form/atualizacao-form.component";
+import { EdicaoFormComponent } from "./edicao-form/edicao-form.component";
 
 @Component({
   selector: 'app-evento-editar',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf, CommonModule, AtualizacaoFormComponent, EdicaoFormComponent],
   templateUrl: './evento-editar.component.html',
   styleUrl: './evento-editar.component.scss'
 })
@@ -25,18 +26,7 @@ export class EventoEditarComponent
 {
   id: string | null;
   evento: Evento | null;
-
   user: UsuarioAutenticado | null;
-
-  attLocked: boolean;
-  attSuccessMessage: string | null;
-  attErrorMessage: string | null;
-
-  edtLocked: boolean;
-  edtSuccessMessage: string | null;
-  edtErrorMessage: string | null;
-
-  edtEvento: Evento | null;
 
   constructor(
     private acService: AgendaCulturalService,
@@ -46,16 +36,6 @@ export class EventoEditarComponent
   ) {
     // inicializa objetos
     this.evento = null;
-
-    this.attLocked = false
-    this.attSuccessMessage = null;
-    this.attErrorMessage = null;
-    
-    this.edtLocked = false
-    this.edtSuccessMessage = null;
-    this.edtErrorMessage = null;
-
-    this.edtEvento = null;
 
     // recebe parametros
     this.user = null
@@ -108,9 +88,6 @@ export class EventoEditarComponent
     if(!this.user || this.evento?.organizador?.id != this.user.usuario?.id){
       NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.AUTHOWNER, this.id);
     }
-    else{
-      this.edtEvento = this.evento;
-    }
   }
 
 
@@ -118,133 +95,5 @@ export class EventoEditarComponent
   {
     console.log("error: ", res);
     NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.EVENTO, this.id);
-  }
-
-  
-  // metodos da atualizacao
-  addAtualizacao(dados: NgForm): void
-  {
-    if(this.attLocked)
-      return
-      
-    this.attLocked = true;
-    this.attSuccessMessage = null;
-    this.attErrorMessage = null;
-
-    if(this.user == null){
-      this.attErrorMessage = 'Você precisa estar Logado como um organizador para criar um evento';
-      this.attLocked = false;
-      return;
-    }
-
-    console.log(dados.value)
-
-    // valida body
-    let res: boolean
-    let msg: string
-    
-    [res, msg] = AtualizacaoValidation.isAtualizacaoValid(dados.value);  
-    
-    if(!res){
-      this.attErrorMessage = msg;
-      this.attLocked = false;
-      return;
-    }
-
-    let body: NovaAtualizacaoBody = NovaAtualizacaoBody.of(dados.value);
-
-    this.acService.postAtualizacaoEvento(Number(this.id), body, this.user)
-    .subscribe({
-      next: this.addAtualizacaoNext,
-      error: this.addAtualizacaoError
-    });
-  }
-
-
-  addAtualizacaoNext = (res: Resposta<Boolean>): void =>
-  {
-    console.log(res)
-
-    if(res.response){
-      this.attSuccessMessage = "Atualização adicionada com sucesso!";
-      this.attErrorMessage = null;
-      // this.attLocked = false; // delberadamente nao destranca pra evitar spammar
-    }
-    else {
-      this.attSuccessMessage = null;
-      this.attErrorMessage = "Erro inesperado ao criar atualização";
-      this.attLocked = false; 
-    }
-  }
-
-  
-  addAtualizacaoError = (res: HttpResponse<any>): void =>
-  {
-    console.log(res);
-
-    switch(res.status)
-    {
-    case 409:
-      this.attErrorMessage = "Algum parametro é inválido";
-      break;
-
-    case 401:
-    case 403:
-      this.attErrorMessage = "Você precisa estar Logado como o dono deste evento para atualizá-lo";
-      break;
-    
-    default:
-      this.attErrorMessage = "Erro ao realizar a criação do evento";
-    }
-    
-    
-    this.attSuccessMessage = null;
-    this.attLocked = false;
-  }
-
-  // metodos da edicao
-  editar(dados: NgForm): void
-  {
-    this.edtLocked = true;
-    this.edtSuccessMessage = null;
-    this.edtErrorMessage = null;
-
-
-
-
-    // dados
-
-    // validas
-    if(!this.user){
-      this.edtLocked = false; 
-      this.edtErrorMessage = "bla";
-      return;
-    }
-    
-    // processa parametros
-
-    // this.acService.patchEvento(Number(this.id), dados, this.user)
-    // .subscribe({
-    //   next: this.editarNext,
-    //   error: this.editarError
-    // });
-  }
- 
-
-  editarNext = (res: Resposta<unknown>): void =>
-  {
-    // this.edtLocked = false;
-    this.edtSuccessMessage = null;
-    this.edtErrorMessage = null;
-
-  }
-
-  
-  editarError = (res: HttpResponse<unknown>): void =>
-  {
-    this.edtLocked = false;
-    this.edtSuccessMessage = null;
-    this.edtErrorMessage = null;
-
   }
 }

@@ -1,0 +1,54 @@
+@import "../../../../variables.scss";
+
+
+.edicao-form {
+
+    display: flex;
+    flex-direction: column;
+
+
+    &--parameter {
+
+        display: flex;
+        flex-direction: column;
+
+        margin-bottom: $spacing-half;
+    }
+
+
+    &--message-box {
+
+        margin-bottom: $spacing-default;
+
+        &:last-child {
+
+            margin-bottom: $spacing-default;
+        }
+
+        &--message__error,
+        &--message {
+    
+            margin-bottom: $spacing-half;
+    
+            padding: 5px;
+            border-radius: $border-radius-default;
+            
+            background-color: $cor-secondary;
+            
+            transition: 0.2s;
+    
+            &--text {
+    
+                color:  $cor-texto-inv;
+                font-size: $fonte-size-small;
+    
+                margin: 0;
+            }
+        }
+    
+        &--message__error {
+                
+            background-color: $cor-primary;
+        }
+    }
+}

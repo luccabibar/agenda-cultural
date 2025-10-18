@@ -1,0 +1,55 @@
+<form #dadosEdicao="ngForm" class="edicao-form">
+    <h3> Editar este evento </h3>
+    
+    <div class="edicao-form--parameter">
+        <label class="bold"> Descricao: </label>
+
+        <textarea type="text" name="descricao" rows="3" ngModel></textarea>
+    </div>
+
+    <div class="edicao-form--parameter">
+        <label class="bold"> Link para contato: </label>
+
+        <input type="text" name="contato" ngModel>
+    </div>
+
+    
+    <div class="edicao-form--parameter">
+        <label class="bold"> Início do evento: </label>
+
+        <input type="datetime-local" name="horaIni" ngModel>
+    </div>
+    
+    <div class="edicao-form--parameter">
+        <label class="bold"> Fim do evento: </label>
+
+        <input type="datetime-local" name="horaFim" ngModel>
+    </div>
+
+    <div class="edicao-form--parameter">
+        <label class="bold"> Região: </label>
+
+        <select name="regiao" ngModel>
+            <option *ngFor="let rr of dropdowns.regioes" [value]="rr"> {{ rr }} </option>
+        </select>
+    </div>
+    
+    <div class="edicao-form--parameter">
+        <label class="bold"> Endereco: </label>
+
+        <input type="text" name="endereco" ngModel>
+    </div>
+
+
+    <div class="edicao-form--message-box">
+        <div *ngIf="successMessage" class="edicao-form--message-box--message"> 
+            <p class="edicao-form--message-box--message--text"> {{ successMessage }} </p>  
+        </div>
+        
+        <div *ngIf="errorMessage" class="edicao-form--message-box--message__error"> 
+            <p class="edicao-form--message-box--message__error--text"> {{ errorMessage }} </p>  
+        </div>
+    </div>
+
+    <button (click)="editar(dadosEdicao)"> Enviar! </button>
+</form>
