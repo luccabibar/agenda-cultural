@@ -102,7 +102,7 @@ export class EdicaoFormComponent
     }
     
     console.log(this.evento, this.dropdowns);
-    
+
   }
 
 
