@@ -3,39 +3,10 @@
 
         <h2 *ngIf="evento"> {{ evento.nome }} </h2>
 
-        <form #dadosAtualizacao="ngForm" class="evento-editar-page--content--atualizacao">
-            <h3> Adicionar atualização ao evento </h3>
-
-            <div class="evento-editar-page--content--atualizacao--parameter">
-                <label class="bold"> Titulo: </label>
+        <app-atualizacao-form [id]="id" [evento]="evento" [user]="user">
+        </app-atualizacao-form>
         
-                <input type="text" name="titulo" ngModel>
-            </div>
-            
-            <div class="evento-editar-page--content--atualizacao--parameter">
-                <label class="bold"> Texto: </label>
-        
-                <textarea type="text" name="texto" rows="3" ngModel></textarea>
-            </div>
-
-            <div class="evento-editar-page--content--atualizacao--message-box">
-                <div *ngIf="attSuccessMessage" class="evento-editar-page--content--atualizacao--message-box--message"> 
-                    <p class="evento-editar-page--content--atualizacao--message-box--message--text"> {{ attSuccessMessage }} </p>  
-                </div>
-                
-                <div *ngIf="attErrorMessage" class="evento-editar-page--content--atualizacao--message-box--message__error"> 
-                    <p class="evento-editar-page--content--atualizacao--message-box--message__error--text"> {{ attErrorMessage }} </p>  
-                </div>
-            </div>
-
-            <!-- <div class="evento-editar-page--content--atualizacao--parameter">
-
-            </div> -->
-            <button (click)="addAtualizacao(dadosAtualizacao)"> Enviar! </button>
-        </form>
-
-        <div class="evento-editar-page--content--edicao">
-            <h3> Editar este evento </h3>
-        </div>
+        <app-edicao-form [id]="id" [evento]="evento" [user]="user">
+        </app-edicao-form>        
     </div>
 </div>

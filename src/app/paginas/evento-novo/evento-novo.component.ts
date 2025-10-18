@@ -9,7 +9,6 @@ import { AgendaCulturalService } from '../../../services/agenda-cultural-service
 import { BuscarParams } from '../../../interfaces/buscar';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NgForOf } from "../../../../node_modules/@angular/common";
-import { DatetimeUtil } from '../../../utils/datetime';
 import { NovoEventoBody } from '../../../interfaces/request-body/evento';
 import { Resposta } from '../../../interfaces/resposta';
 import { HttpResponse } from '@angular/common/http';
@@ -27,7 +26,7 @@ export class EventoNovoComponent
 {
   locked: boolean;
 
-  droprowns: BuscarParams;
+  dropdowns: BuscarParams;
   user: UsuarioAutenticado | null;
   
   errorMsg: string;
@@ -41,7 +40,7 @@ export class EventoNovoComponent
     this.errorMsg = '';
 
     this.user = null;
-    this.droprowns = new BuscarParams();
+    this.dropdowns = new BuscarParams();
 
     // acessa usuario logado
     loginService
@@ -50,6 +49,13 @@ export class EventoNovoComponent
         next: (prm: Promise<UsuarioAutenticado | null>) => prm.then(this.loginServiceNext)
       })
       .unsubscribe();
+
+    this.acService.filtrosEventos().subscribe(
+    (result) => {
+      console.log(result);
+      if(result.response)
+        this.dropdowns = result.response;
+    });
   }
 
 
@@ -59,15 +65,6 @@ export class EventoNovoComponent
     
     if(!this.user || this.user?.usuario?.tipoUsuario != TipoUsuario.ORGANIZADOR)
       NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.AUTHORGANIZADOR, this.router.url);
-      
-
-    // realiza requests necessarios
-    this.acService.filtrosEventos().subscribe(
-    (result) => {
-      console.log(result);
-      if(result.response)
-        this.droprowns = result.response;
-    });
   }
 
 
@@ -88,7 +85,7 @@ export class EventoNovoComponent
     let res: boolean
     let msg: string
     
-    [res, msg] = EventoValidation.isEventoValid(dados.value, this.droprowns);  
+    [res, msg] = EventoValidation.isEventoValid(dados.value, this.dropdowns);  
 
     if(!res){
       this.errorMsg = msg;

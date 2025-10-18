@@ -1,0 +1,30 @@
+<form #dadosAtualizacao="ngForm" class="atualizacao-form">
+    <h3> Adicionar atualização ao evento </h3>
+
+    <div class="atualizacao-form--parameter">
+        <label class="bold"> Titulo: </label>
+
+        <input type="text" name="titulo" ngModel>
+    </div>
+    
+    <div class="atualizacao-form--parameter">
+        <label class="bold"> Texto: </label>
+
+        <textarea type="text" name="texto" rows="3" ngModel></textarea>
+    </div>
+
+    <div class="atualizacao-form--message-box">
+        <div *ngIf="successMessage" class="atualizacao-form--message-box--message"> 
+            <p class="atualizacao-form--message-box--message--text"> {{ successMessage }} </p>  
+        </div>
+        
+        <div *ngIf="errorMessage" class="atualizacao-form--message-box--message__error"> 
+            <p class="atualizacao-form--message-box--message__error--text"> {{ errorMessage }} </p>  
+        </div>
+    </div>
+
+    <!-- <div class="atualizacao-form--parameter">
+
+    </div> -->
+    <button (click)="addAtualizacao(dadosAtualizacao)"> Enviar! </button>
+</form>
