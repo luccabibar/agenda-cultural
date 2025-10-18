@@ -57,9 +57,6 @@ export class AtualizacaoFormComponent
 
   addAtualizacao(dados: NgForm): void
   { 
-    console.log("ADD ATUALIZACAO");
-    console.log(this.id, this.evento, this.user);
-
     if(this.locked)
       return
       
@@ -68,12 +65,10 @@ export class AtualizacaoFormComponent
     this.errorMessage = null;
 
     if(!this.user){
-      this.errorMessage = 'Você precisa estar Logado como um organizador para criar um evento';
+      this.errorMessage = 'VVocê precisa estar logado como o administrador deste recurso para editá-lo';
       this.locked = false;
       return;
     }
-
-    console.log(dados.value)
 
     // valida body
     let res: boolean
@@ -89,12 +84,11 @@ export class AtualizacaoFormComponent
 
     let body: NovaAtualizacaoBody = NovaAtualizacaoBody.of(dados.value);
 
-    // TODO: UNCOMMENT
-    // this.acService.postAtualizacaoEvento(Number(this.id), body, this.user)
-    // .subscribe({
-    //   next: this.addAtualizacaoNext,
-    //   error: this.addAtualizacaoError
-    // });
+    this.acService.postAtualizacaoEvento(Number(this.id), body, this.user)
+    .subscribe({
+      next: this.addAtualizacaoNext,
+      error: this.addAtualizacaoError
+    });
   }
 
 
@@ -131,7 +125,7 @@ export class AtualizacaoFormComponent
       break;
     
     default:
-      this.errorMessage = "Erro ao realizar a criação do evento";
+      this.errorMessage = "Erro ao criar a atualização do evento";
     }
     
     

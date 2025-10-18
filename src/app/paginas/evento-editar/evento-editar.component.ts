@@ -11,7 +11,6 @@ import { LoginService } from '../../../services/login-service/login.service';
 import { TipoUsuario } from '../../../interfaces/usuario/tipo-usuario';
 import { FormsModule } from '@angular/forms';
 import { NgIf, CommonModule } from "../../../../node_modules/@angular/common";
-import { BuscarParams } from '../../../interfaces/buscar';
 import { AtualizacaoFormComponent } from "./atualizacao-form/atualizacao-form.component";
 import { EdicaoFormComponent } from "./edicao-form/edicao-form.component";
 
