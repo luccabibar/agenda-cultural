@@ -55,7 +55,7 @@ export class EventoBuscarComponent
     if(dados.horaUpper) 
       dados.horaUpper = DatetimeUtil.timeToISO(dados.horaUpper);
 
-    dados.status = StatusEvento.APROVADO;
+    dados.status = [StatusEvento.APROVADO];
 
     console.log(form.value, dados);
     

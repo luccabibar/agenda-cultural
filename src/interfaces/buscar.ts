@@ -30,7 +30,7 @@ export class BuscarDados
     horaLower: string | null = null;
     regiao: string | null = null;
     organizador: number | null = null;
-    status: StatusEvento | null = null;
+    status: StatusEvento[] = [];
 
 
     static of(source: BuscarDados): BuscarDados
@@ -45,5 +45,17 @@ export class BuscarDados
         Object.assign(res, source);       
 
         return res;
+    }
+
+
+    toObject(): { [key: string]: string | number | boolean | (string | number | boolean)[] }
+    {
+        let obj: { [key: string]: string | number | boolean | (string | number | boolean)[] } = {};
+
+        for(let key in this)
+            if(this[key])
+                obj[key] = this[key] as string | number | boolean | (string | number | boolean)[];
+
+        return obj;
     }
 }

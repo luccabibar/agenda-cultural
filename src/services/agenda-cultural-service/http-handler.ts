@@ -19,27 +19,21 @@ export class HttpHandler {
 
   protected httpGet<T>(
     endpoint: string, 
-    params?: { [key: string]: string | number | null }, 
+    params?: { [key: string]: string | number | boolean | (string | number | boolean)[]}, 
     headers?: { [name: string]: string } | null
   ): Observable<Resposta<T>> 
   {
     let options: { headers?: HttpHeaders, params?: HttpParams } = { };
 
-    if(params){
-      options.params = new HttpParams()
-
-      for(let pp in params)
-        if(params[pp] != null)
-          options.params = options.params.set(pp, params[pp])
-    }
+    if(params)
+      options.params = new HttpParams().appendAll(params);
 
     console.log(params, options.params?.keys());
-    
 
     if(headers)
       options.headers = new HttpHeaders(headers);
 
-    return this.http
+    return this.http  
       .get<Resposta<T>>(this.address + endpoint, options);
   }
 

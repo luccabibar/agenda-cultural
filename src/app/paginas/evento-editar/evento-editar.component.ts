@@ -93,6 +93,6 @@ export class EventoEditarComponent
   eventoError = (res: HttpResponse<unknown>): void =>
   {
     console.log("error: ", res);
-    NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.EVENTO, this.id);
+      NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.EVENTO, this.id);
   }
 }

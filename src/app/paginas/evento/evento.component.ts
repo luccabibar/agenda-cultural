@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AgendaCulturalService } from '../../../services/agenda-cultural-service/agenda-cultural.service';
-import { Evento } from '../../../interfaces/evento';
+import { Evento, StatusEvento } from '../../../interfaces/evento';
 import { Resposta } from '../../../interfaces/resposta';
 import { HttpResponse } from '@angular/common/http';
 import { NotFoundMode } from '../notfound/notFoundMode';
@@ -53,8 +53,13 @@ export class EventoComponent
 
   eventoNext = (res: Resposta<Evento>): void =>
   {
-    console.log("next: ", res);
-    this.evento = res.response;
+    // TODO: resolver essa bucha aqui NO BACK
+    // verificar se nao eh dono do evento acessando esse?
+    if(res.response && res.response.status != StatusEvento.APROVADO)
+      this.evento = res.response;
+
+    else
+      NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.EVENTO, this.id);
   }
 
 

@@ -9,7 +9,7 @@ import { AgendaCulturalService } from '../../../services/agenda-cultural-service
 import { Resposta } from '../../../interfaces/resposta';
 import { HttpResponse } from '@angular/common/http';
 import { TipoUsuario } from '../../../interfaces/usuario/tipo-usuario';
-import { Evento } from '../../../interfaces/evento';
+import { Evento, StatusEvento } from '../../../interfaces/evento';
 import { BuscarDados } from '../../../interfaces/buscar';
 import { NgIf, CommonModule } from '@angular/common';
 import { EventoCardComponent } from "../../../components/evento-card/evento-card.component";
@@ -93,7 +93,9 @@ export class PerfilComponent
     }
 
     let busca: BuscarDados = new BuscarDados();
+
     busca.organizador = this.userDados.id
+    busca.status = [StatusEvento.APROVADO, StatusEvento.EMANALISE, StatusEvento.REPROVADO]
 
     this.acService.buscarEventos(busca).subscribe({
       next: this.eventosNext,

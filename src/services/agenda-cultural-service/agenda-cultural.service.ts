@@ -40,7 +40,14 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.ping();
 
-    return this.httpGet<string>(url, { }, this.defaultHeaders())
+    let dados = {
+      'A': 'AAAAA',
+      'B': 88888,
+      'C': ['C', 'C', 'C', 'C', 'C']
+    };
+
+
+    return this.httpGet<string>(url, dados, this.defaultHeaders())
       .pipe(map((res: Resposta<string>) => Resposta.of<string>(res)));
   }
 
@@ -121,14 +128,8 @@ export class AgendaCulturalService extends HttpHandler
   buscarEventos(dados: BuscarDados): Observable<Resposta<Evento[]>>
   {
     let url: string = Configs.endpoints.eventos();  
-    let params: { [key: string]: string | number | null } = {};
+    let params = dados.toObject();
     
-    let ddk: keyof BuscarDados;
-    
-    for (ddk in dados) 
-      if(dados[ddk])
-        params[ddk] = dados[ddk];  
-
     return this.httpGet<Evento[]>(url, params, this.defaultHeaders())
       .pipe(map((res: Resposta<Evento[]>) => Resposta.ofArray<Evento>(res, Evento)));
   }
