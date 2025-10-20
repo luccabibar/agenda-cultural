@@ -129,11 +129,11 @@ export class PerfilComponent
   }
 
 
-  excluirEvento(id: number | null): void
+  apagarEvento(id: number | null): void
   {
     if(id)
-      this.router.navigate(['/evento', id, 'excluir']);
+      this.router.navigate(['/evento', id, 'apagar']);
     else
-      console.error("PerfilComponent.excluirEvento: id deste evento é null");
+      console.error("PerfilComponent.apagarEvento: id deste evento é null");
   }
 }

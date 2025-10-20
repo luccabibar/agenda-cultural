@@ -40,14 +40,7 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.ping();
 
-    let dados = {
-      'A': 'AAAAA',
-      'B': 88888,
-      'C': ['C', 'C', 'C', 'C', 'C']
-    };
-
-
-    return this.httpGet<string>(url, dados, this.defaultHeaders())
+    return this.httpGet<string>(url, { }, this.defaultHeaders())
       .pipe(map((res: Resposta<string>) => Resposta.of<string>(res)));
   }
 
@@ -119,8 +112,19 @@ export class AgendaCulturalService extends HttpHandler
       ...this.defaultHeaders(), ...this.authHeader(user.authToken)
     };
 
-    // TODO: patch
     return this.httpPatch<boolean>(url, dados, headers)
+      .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
+  }
+
+
+  deleteEvento(id: number, user: UsuarioAutenticado): Observable<Resposta<boolean>>
+  {
+    let url: string = Configs.endpoints.eventoById(id);
+    let headers: { [name: string]: string } = {
+      ...this.defaultHeaders(), ...this.authHeader(user.authToken)
+    };
+
+    return this.httpDelete<boolean>(url, headers)
       .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
   }
 
@@ -129,7 +133,7 @@ export class AgendaCulturalService extends HttpHandler
   {
     let url: string = Configs.endpoints.eventos();  
     let params = dados.toObject();
-    
+
     return this.httpGet<Evento[]>(url, params, this.defaultHeaders())
       .pipe(map((res: Resposta<Evento[]>) => Resposta.ofArray<Evento>(res, Evento)));
   }

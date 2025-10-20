@@ -1,0 +1,31 @@
+<div class="evento-apagar-page">
+    <div class="evento-apagar-page--content">
+        <div class="evento-apagar-page--content--group">
+            <h2 *ngIf="evento"> {{ evento.nome }} </h2>
+        </div>
+        
+        <div class="evento-apagar-page--content--group">
+            <h3> Deseja mesmo apagar este evento?  </h3>
+            <p> Você ainda pode editá-lo, se preferir</p>
+        </div>
+
+        <div class="evento-apagar-page--content--group">
+            <div class="evento-apagar-page--content--group--botoes">
+                <button (click)="manter()"> Manter Evento </button>
+                <button (click)="editar()"> Editar Evento </button>
+                <button (click)="apagar()"> Apagar Evento </button>
+            </div>
+    
+            <div class="evento-apagar-page--content--group--message-box">
+                <div *ngIf="successMessage" class="evento-apagar-page--content--group--message-box--message"> 
+                    <p class="evento-apagar-page--content--group--message-box--message--text"> {{ successMessage }} </p>  
+                </div>
+                
+                <div *ngIf="errorMessage" class="evento-apagar-page--content--group--message-box--message__error"> 
+                    <p class="evento-apagar-page--content--group--message-box--message__error--text"> {{ errorMessage }} </p>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -8,6 +8,7 @@ import { NotfoundComponent } from './paginas/notfound/notfound.component';
 import { EventoNovoComponent } from './paginas/evento-novo/evento-novo.component';
 import { PerfilComponent } from './paginas/perfil/perfil.component';
 import { EventoEditarComponent } from './paginas/evento-editar/evento-editar.component';
+import { EventoApagarComponent } from './paginas/evento-apagar/evento-apagar.component';
 
 export const routes: Routes = 
 [
@@ -16,6 +17,7 @@ export const routes: Routes =
     { path: 'evento/novo',          component: EventoNovoComponent },
     { path: 'evento/:id',           component: EventoComponent },
     { path: 'evento/:id/editar',    component: EventoEditarComponent },
+    { path: 'evento/:id/apagar',    component: EventoApagarComponent },
     { path: 'perfil',               component: PerfilComponent },
     { path: 'login',                component: LoginCadastroComponent },
     { path: 'cadastro',             component: LoginCadastroComponent },
