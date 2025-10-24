@@ -1,7 +1,10 @@
 <div class="usuario-header" *ngIf="user && user != null; else noLogin">
-    <a [routerLink]="['/perfil']"> {{ user.usuario?.nome }} </a> <button (click)="logout()"> Sair </button>
+    <a [routerLink]="['/perfil']"> {{ user.usuario?.nome }} </a> |
+    <a [routerLink]="['/evento', 'novo']"> Novo evento </a> | 
+    <button (click)="logout()"> Sair </button>
 </div>
 
 <ng-template #noLogin><div class="usuario-header" >
-    <a [routerLink]="['/login']"> Login </a> | <a [routerLink]="['/cadastro']"> Cadastro </a>
+    <a [routerLink]="['/login']"> Login </a> | 
+    <a [routerLink]="['/cadastro']"> Cadastro </a>
 </div></ng-template>

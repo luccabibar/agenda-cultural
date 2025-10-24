@@ -1,1 +1,16 @@
-<p>agenda works!</p>
+<div class="agenda-page">
+    <div class="agenda-page--content">
+        <h2> 
+            {{ currMode }}
+        </h2>
+
+        <button (click)="setCurrMode(getAgendaMode.DIARIA)"> Agenda Diária </button>
+        <button (click)="setCurrMode(getAgendaMode.SEMANAL)"> Agenda Semanal </button>
+        
+        <app-agenda-diaria [hidden]="currMode != getAgendaMode.DIARIA">
+        </app-agenda-diaria>
+        
+        <app-agenda-semanal [hidden]="currMode != getAgendaMode.SEMANAL">
+        </app-agenda-semanal>
+    </div>
+</div>

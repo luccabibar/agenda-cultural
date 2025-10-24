@@ -2,6 +2,11 @@ import { formatDate } from "@angular/common";
 
 export class DatetimeUtil
 {
+    static dateString: string = "YYYY-MM-dd";
+    static timeString: string = "HH:mm:ss";
+    static dateTimeString: string = this.dateString + "T" + this.timeString;
+
+
     static timeToISO(str: string): string
     {
         if(str.match(/^(\d{4}-\d{2}-\d{2}T)?([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/g))
@@ -123,6 +128,30 @@ export class DatetimeUtil
 
     static agora(): string
     {
-        return formatDate(Date.now(), "YYYY-MM-ddTHH:mm:ss", "en_US");
+        return formatDate(Date.now(), this.dateTimeString, "en_US");
+    }
+
+
+    static dateToISODateTime(date: Date): string
+    {
+        return formatDate(date, this.dateTimeString, "en_US");
+    }
+
+    
+    static dateToISODate(date: Date): string
+    {
+        return formatDate(date, this.dateString, "en_US");
+    }
+
+    
+    static dateToISOTime(date: Date): string
+    {
+        return formatDate(date, this.timeString, "en_US");
+    }
+
+
+    static toDate(str: string): Date | null
+    {
+        return new Date(Date.parse(str));
     }
 }

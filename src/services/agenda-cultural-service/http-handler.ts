@@ -92,6 +92,6 @@ export class HttpHandler {
     console.log(endpoint);
 
     return this.http
-      .delete<Resposta<T>>(this.address + endpoint, options);
+      .delete<Resposta<T>>(this.address + endpoint, options); 
   }
 }

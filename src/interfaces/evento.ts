@@ -14,8 +14,8 @@ export class Evento
     organizador: Organizador | null = null;
     moderador: Moderador | null = null;
     
-    horarioInicio: Date | null = null;
-    horarioFim: Date | null = null;
+    horarioInicio: string | null = null;
+    horarioFim: string | null = null;
     
     regiao: string | null = null;
     endereco: string | null = null;
