@@ -55,7 +55,7 @@ export class EventoComponent
   {
     // TODO: resolver essa bucha aqui NO BACK
     // verificar se nao eh dono do evento acessando esse?
-    if(res.response && res.response.status != StatusEvento.APROVADO)
+    if(res.response && res.response.status == StatusEvento.APROVADO.valueOf())
       this.evento = res.response;
 
     else
