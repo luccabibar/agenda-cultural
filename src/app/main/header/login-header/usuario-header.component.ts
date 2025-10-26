@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Usuario } from '../../../../interfaces/usuario/usuarios';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../../../services/login-service/login.service';
 import { Router, RouterLink } from '@angular/router';

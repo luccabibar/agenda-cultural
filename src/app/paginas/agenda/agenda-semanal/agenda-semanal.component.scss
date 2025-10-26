@@ -1,0 +1,9 @@
+@import "../../../../variables.scss";
+
+.agenda-semanal {
+    
+    display: grid;
+
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(25, 1fr);
+}
