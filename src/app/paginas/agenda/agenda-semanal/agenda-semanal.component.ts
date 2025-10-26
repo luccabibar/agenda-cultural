@@ -7,17 +7,19 @@ import { BuscarDados  } from '../../../../interfaces/buscar';
 import { DatetimeUtil } from '../../../../utils/datetime';
 import { CommonModule } from '@angular/common';
 import { NgForOf } from "../../../../../node_modules/@angular/common";
+import { CelulaAgendaComponent } from "./celula-agenda/celula-agenda.component";
 
 @Component({
   selector: 'app-agenda-semanal',
   standalone: true,
-  imports: [NgForOf, CommonModule],
+  imports: [NgForOf, CommonModule, CelulaAgendaComponent],
   templateUrl: './agenda-semanal.component.html',
   styleUrl: './agenda-semanal.component.scss'
 })
 export class AgendaSemanalComponent
 {
-  eventos: Evento[];
+  eventosKey: ([xx, yy]: [number, number]) => string;
+  eventos: Map<string, EventosCell>;
 
   hoje: Date;
 
@@ -35,13 +37,15 @@ export class AgendaSemanalComponent
   constructor(
     private acService: AgendaCulturalService
   ) {
-    this.eventos = [];
+
+    this.eventosKey = ([xx, yy]: [number, number]) => xx + '-' + yy
+    this.eventos = new Map<string, EventosCell>()
 
     this.hoje = new Date(Date.now());
     this.hoje.setHours(0, 0, 0, 0);
 
     // HORARIOS
-    this.horarios = [...Array(24).keys()]; // 0, 1, ..., 23
+    this.horarios = [ ...Array(24).keys() ]; // 0, 1, ..., 23
 
     // DIAS
     let [domingoAnt, domingoProx] = this.getDomingos(this.hoje); 
@@ -67,10 +71,12 @@ export class AgendaSemanalComponent
   }
 
 
-  eventosNext = (res: Resposta<Evento[]>):void => 
+  eventosNext = (res: Resposta<Evento[]>): void => 
   {
     if(res.response)
-     this.eventos = res.response;
+    //  this.eventos = res.response;
+      this.eventos = this.formatEventos(res.response, this.eventosKey);
+
     else
       console.log(":(((");
 
@@ -130,6 +136,33 @@ export class AgendaSemanalComponent
   }
 
 
+  formatEventos(
+    eventos: Evento[], 
+    mapKey: ([xx, yy]: [number, number]) => string
+  ): Map<string, EventosCell> {
+
+    let mapa = new Map<string, EventosCell>();
+
+    eventos.forEach((ev) => {
+      
+      let xx, yy;
+      [xx, yy] = this.getGridPostition(ev);
+
+      let key = mapKey([xx, yy]);
+
+      if(mapa.has(key))
+        (mapa.get(key) as EventosCell).eventos.push(ev);
+      
+      else
+        mapa.set(key, new EventosCell([ev], xx, yy));
+    });
+
+    console.log(mapa);
+    
+    return mapa;
+  }
+
+
   getParamsEvento(domingoAnterior: Date, domingoProximo: Date): BuscarDados
   {
     let params = new BuscarDados();
@@ -143,11 +176,7 @@ export class AgendaSemanalComponent
 
   getGridPostition(ev: Evento): [number, number]
   {
-    console.log("que");    
-
     let evData: Date | null =  DatetimeUtil.toDate(ev.horarioInicio as string);
-    
-    console.log("qua", evData);
     
     if(!evData || isNaN(evData as unknown as number))
       return [-1, -1];
@@ -164,11 +193,29 @@ export class AgendaSemanalComponent
   }
 
 
-  styleGridPlacement([xx, yy]: [number, number]): { 'grid-row': string, 'grid-column': string }
+  styleGridPlacement(xx: number, yy: number): { 'grid-row': string, 'grid-column': string }
   {
     return { 
       'grid-row': xx + ' / span 1', 
       'grid-column': yy  + ' / span 1'
     }
+  }
+}
+
+
+// solucao bunda para um problema bunda
+// contador de problemas que nao existiriam numa linguagem de verdade: +1
+export class EventosCell
+{
+  eventos: Evento[];
+
+  xx: number;
+  yy: number;
+
+  constructor(evs: Evento[] = [], xi: number = -1, yi: number = -1)
+  {
+    this.eventos = evs;
+    this.xx = xi;
+    this.yy = yi;
   }
 }

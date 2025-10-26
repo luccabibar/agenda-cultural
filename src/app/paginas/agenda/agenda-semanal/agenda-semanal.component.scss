@@ -6,4 +6,28 @@
 
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(25, 1fr);
+
+    gap: 3px;
+
+    & > * {
+
+        margin: 0;
+    }
+
+
+    &--datas {
+        justify-self: center;
+    }
+    
+    &--horarios {
+        justify-self: right;
+    }
+
+    
+    &--celula-eventos {
+
+        background-color: $cor-primary;
+        color: $cor-texto-inv;
+        
+    }
 }

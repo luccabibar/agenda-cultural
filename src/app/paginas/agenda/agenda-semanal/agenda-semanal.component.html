@@ -1,18 +1,18 @@
 <div class="agenda-semanal">
-
     <!-- Header -->
-    <h4 *ngFor="let dd of dias; let di = index" [style]="styleGridPlacement([1, di + gridColOffset])"> 
+    <h4 *ngFor="let dd of dias; let di = index" class="agenda-semanal--datas"
+    [style]="styleGridPlacement(1, di + gridColOffset)"> 
         {{ dd | date : "EEE dd" | uppercase  }} 
     </h4>
     
     <!-- Sidebar -->
-    <h4 *ngFor="let hr of horarios; let hi = index" [style]="styleGridPlacement([hi + gridLinOffset, 1])"> 
+    <h4 *ngFor="let hr of horarios; let hi = index" class="agenda-semanal--horarios"
+    [style]="styleGridPlacement(hi + gridLinOffset, 1)"> 
         {{ hr | number : '2.0'  }}h 
     </h4>
 
     <!-- eventos -->
-    <p *ngFor="let ev of eventos"
-    [style]="styleGridPlacement(getGridPostition(ev))"> 
-        {{ ev.nome }} 
-    </p>
+    <app-celula-agenda *ngFor="let cell of eventos | keyvalue" [eventos]="cell.value.eventos"
+    [style]="styleGridPlacement(cell.value.xx, cell.value.yy)" class="agenda-semanal--celula-eventos"> 
+    </app-celula-agenda>
 </div>
