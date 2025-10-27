@@ -234,8 +234,6 @@ export class AgendaSemanalComponent
   { 
     return { 'modo': AgendaMode.DIARIA, 'data': DatetimeUtil.dateToISODate(dd) }; 
   }
-
-  log = console.log;
 }
 
 
