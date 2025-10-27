@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Evento } from '../../../../interfaces/evento';
 import { AgendaCulturalService } from '../../../../services/agenda-cultural-service/agenda-cultural.service';
 import { Resposta } from '../../../../interfaces/resposta';
@@ -8,18 +8,25 @@ import { DatetimeUtil } from '../../../../utils/datetime';
 import { CommonModule } from '@angular/common';
 import { NgForOf } from "../../../../../node_modules/@angular/common";
 import { CelulaAgendaComponent } from "./celula-agenda/celula-agenda.component";
+import { RouterLink } from "@angular/router";
+import { AgendaMode } from '../agendaMode';
+import { EventosFilterPipe } from '../../../../pipes/eventos-filter/eventos-filter.pipe';
 
 @Component({
   selector: 'app-agenda-semanal',
   standalone: true,
-  imports: [NgForOf, CommonModule, CelulaAgendaComponent],
+  imports: [NgForOf, CommonModule, CelulaAgendaComponent, RouterLink, EventosFilterPipe],
   templateUrl: './agenda-semanal.component.html',
   styleUrl: './agenda-semanal.component.scss'
 })
 export class AgendaSemanalComponent
 {
+  // @ViewChild('scroll') private container!: ElementRef;
+
   eventosKey: ([xx, yy]: [number, number]) => string;
   eventos: Map<string, EventosCell>;
+
+  @Input("filtros") filtros: BuscarDados;
 
   hoje: Date;
 
@@ -43,6 +50,10 @@ export class AgendaSemanalComponent
 
     this.hoje = new Date(Date.now());
     this.hoje.setHours(0, 0, 0, 0);
+
+    // filtros
+    this.filtros = new BuscarDados();
+    // this.filtros.regiao = 'Bauru';
 
     // HORARIOS
     this.horarios = [ ...Array(24).keys() ]; // 0, 1, ..., 23
@@ -73,15 +84,15 @@ export class AgendaSemanalComponent
 
   eventosNext = (res: Resposta<Evento[]>): void => 
   {
-    if(res.response)
-    //  this.eventos = res.response;
+    if(res.response){
       this.eventos = this.formatEventos(res.response, this.eventosKey);
-
-    else
+      // this.setScroll();
+    }
+    else{
       console.log(":(((");
+    }
 
     console.log(this.eventos);
-    
   }
 
 
@@ -89,6 +100,24 @@ export class AgendaSemanalComponent
   {
     console.log(res);
   }
+
+
+  // setScroll(/* vv: number */): void
+  // {
+  //   if(this.container){
+  //     try {
+  //       console.log("bunda");
+  //       this.container.nativeElement.scrollTop = this.container.nativeElement.scrollHeight;
+        
+  //     } 
+  //     catch(err) { 
+  //       console.log(err);        
+  //     } 
+  //   }
+  //   else{
+  //       console.log("desbunda");
+  //   }
+  // }
 
 
   getDomingos(ref: Date): [Date, Date]
@@ -200,6 +229,13 @@ export class AgendaSemanalComponent
       'grid-column': yy  + ' / span 1'
     }
   }
+
+  queryParamsNavegaAgendaData(dd: Date): { 'modo': AgendaMode, 'data': String }
+  { 
+    return { 'modo': AgendaMode.DIARIA, 'data': DatetimeUtil.dateToISODate(dd) }; 
+  }
+
+  log = console.log;
 }
 
 

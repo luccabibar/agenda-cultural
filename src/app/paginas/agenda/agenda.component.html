@@ -1,16 +1,34 @@
 <div class="agenda-page">
     <div class="agenda-page--content">
         <h2> 
-            {{ currMode }}
+            {{ currMode == getAgendaMode.DIARIA ? 'AGENDA DO DIA' : '' }}
+            {{ currMode == getAgendaMode.SEMANAL ? 'AGENDA DA SEMANA' : '' }}
         </h2>
 
-        <button (click)="setCurrMode(getAgendaMode.DIARIA)"> Agenda Diária </button>
-        <button (click)="setCurrMode(getAgendaMode.SEMANAL)"> Agenda Semanal </button>
+        <div class="agenda-page--content--controls">
+            <div class="agenda-page--content--controls--group">
+                <button (click)="setCurrMode(getAgendaMode.DIARIA)"> Agenda Diária </button>
+                <button (click)="setCurrMode(getAgendaMode.SEMANAL)"> Agenda Semanal </button>
+            </div>
+            
+            <div class="agenda-page--content--controls--group">
+                <select name="regiao" [(ngModel)]="filtros.regiao">
+                    <option [ngValue]="null"> Região... </option>
+                    <option *ngFor="let rr of dadosFiltros.regioes" [ngValue]="rr"> {{ rr }} </option>
+                </select>
+                
+                <select name="categoria" [(ngModel)]="filtros.categoria">
+                    <option [ngValue]="null"> Categoria... </option>
+                    <option *ngFor="let cc of dadosFiltros.categorias" [ngValue]="cc"> {{ cc }} </option>
+                </select>
+            </div>
+        </div>
+
         
         <app-agenda-diaria [hidden]="currMode != getAgendaMode.DIARIA">
         </app-agenda-diaria>
         
-        <app-agenda-semanal [hidden]="currMode != getAgendaMode.SEMANAL">
+        <app-agenda-semanal [hidden]="currMode != getAgendaMode.SEMANAL" [filtros]="filtros">
         </app-agenda-semanal>
     </div>
 </div>

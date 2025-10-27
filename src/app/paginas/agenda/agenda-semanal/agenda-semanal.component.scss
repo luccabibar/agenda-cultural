@@ -1,33 +1,85 @@
 @import "../../../../variables.scss";
 
 .agenda-semanal {
+
+    margin: 0;
+    padding: 0;
     
-    display: grid;
 
-    grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(25, 1fr);
+    &--grid {    
 
-    gap: 3px;
-
-    & > * {
+        height: 100vh;
+        overflow-y: auto;
 
         margin: 0;
-    }
+        padding: 0;
+
+        display: grid;
+
+        grid-template-columns: auto repeat(8, 1fr); // coluna dos horarios + 8 colunas para dias da semana
+        grid-template-rows: auto repeat(24, 1fr); // linha dos dias + 24 linhas para horas
+
+        gap: $spacing-tiny;
+
+        background-color: $cor-body;
+
+        & > * {
+
+            margin: 0;
+        }
+
+        &--datas,
+        &--horarios {
+            // copia um h4
+
+            font-family: $fonte-title;
+            font-size: $fonte-size-default;
+            font-weight: bold;
+            
+            background-color: inherit;
+            // background-color: blue; // debud
+            color: $cor-primary;
+
+            justify-self: stretch;
+            align-self: stretch;
+        }
 
 
-    &--datas {
-        justify-self: center;
-    }
-    
-    &--horarios {
-        justify-self: right;
-    }
+        &--datas {
 
-    
-    &--celula-eventos {
+            position: sticky;
+            top: 0;            
 
-        background-color: $cor-primary;
-        color: $cor-texto-inv;
+            display: flex;
+            flex-direction: column;
+            justify-items: center;
+            align-items: center;
+
+            padding: 0 0 $spacing-half 0;
+
+            text-decoration: none;
+
+            &:hover {
+
+                text-decoration: underline;
+            }
+        }
         
+        &--horarios {
+
+            display: flex;
+            flex-direction: row;
+            justify-items: end;
+            align-items: start;
+
+            padding: 0 $spacing-half 0 0;
+            
+            min-height: $spacing-double;
+        }
+
+        
+        &--celula-eventos {
+
+        }
     }
 }

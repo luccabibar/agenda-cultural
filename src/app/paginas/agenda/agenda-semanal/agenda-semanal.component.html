@@ -1,18 +1,24 @@
-<div class="agenda-semanal">
-    <!-- Header -->
-    <h4 *ngFor="let dd of dias; let di = index" class="agenda-semanal--datas"
-    [style]="styleGridPlacement(1, di + gridColOffset)"> 
-        {{ dd | date : "EEE dd" | uppercase  }} 
-    </h4>
-    
-    <!-- Sidebar -->
-    <h4 *ngFor="let hr of horarios; let hi = index" class="agenda-semanal--horarios"
-    [style]="styleGridPlacement(hi + gridLinOffset, 1)"> 
-        {{ hr | number : '2.0'  }}h 
-    </h4>
+<div class="agenda-semanal" #scroll>
+    <div class="agenda-semanal--grid">
+        <!-- Header -->
+        <a *ngFor="let dd of dias; let di = index" 
+        [routerLink]="['/agenda']" [queryParams]="queryParamsNavegaAgendaData(dd)"
+        class="agenda-semanal--grid--datas" [style]="styleGridPlacement(1, di + gridColOffset)"> 
+            {{ dd | date : "EEE dd" | uppercase  }} 
+        </a>
+        
+        <!-- Sidebar -->
+        <div *ngFor="let hr of horarios; let hi = index" class="agenda-semanal--grid--horarios"
+        [style]="styleGridPlacement(hi + gridLinOffset, 1)"> 
+            {{ hr | number : '2.0'  }}h 
+        </div>
 
-    <!-- eventos -->
-    <app-celula-agenda *ngFor="let cell of eventos | keyvalue" [eventos]="cell.value.eventos"
-    [style]="styleGridPlacement(cell.value.xx, cell.value.yy)" class="agenda-semanal--celula-eventos"> 
-    </app-celula-agenda>
+        <!-- eventos -->
+        <app-celula-agenda 
+        *ngFor="let cell of eventos | keyvalue" 
+        [eventos]="cell.value.eventos | eventosFilter : filtros" [maxSize]="1"
+        [style]="styleGridPlacement(cell.value.xx, cell.value.yy)" 
+        class="agenda-semanal--grid--celula-eventos"> 
+        </app-celula-agenda>
+    </div>
 </div>

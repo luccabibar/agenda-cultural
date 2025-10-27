@@ -28,23 +28,24 @@
         & > * {
 
             margin: 0 0 $spacing-double 0;
+            
+            &:last-child {
+    
+                margin-bottom: 0;
+            }
         }
 
-        & :last-child {
-
-            margin-bottom: 0;
-        }
 
         &--group {
 
             & > * {
 
                 margin: 0 0 $spacing-default 0;
-            }
-
-            & :last-child {
-
-                margin-bottom: 0;
+             
+                &:last-child {
+    
+                    margin-bottom: 0;
+                }
             }
 
 
@@ -58,11 +59,11 @@
                 & > * {
 
                     margin: 0 $spacing-half 0 0;
-                }
-
-                & :last-child {
-
-                    margin-right: 0;
+                    
+                    &:last-child {
+    
+                        margin-right: 0;
+                    }
                 }
             }
     

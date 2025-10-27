@@ -1,0 +1,78 @@
+@import "../../../../../variables.scss";
+
+.celula-agenda {
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: end;
+    
+    & > * {
+
+        margin: 0 $spacing-tiny 0 0;
+
+        &:last-child {
+
+            margin: 0;
+        }
+    }
+
+    &--eventos {
+
+        display: flex;
+        flex-direction: column;
+        
+        flex-grow: 1;
+
+        & > * {
+
+            margin: 0 0 $spacing-tiny 0;
+
+            &:last-child {
+
+                margin: 0;
+            }
+        }
+
+        &--item {
+
+            background-color: $cor-primary-light;
+            color: $cor-texto-inv;
+    
+            border-radius: $border-radius-default;
+            padding: $spacing-tiny;
+    
+            font-size: $fonte-size-small;
+    
+            text-decoration: none;
+    
+            &:hover {
+    
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &--mais {
+
+        background-color: $cor-primary-light;
+        color: $cor-texto-inv;
+
+        border-radius: $border-radius-default;
+        padding: $spacing-tiny;
+
+        width: 5px;
+        height: 5px;
+
+        flex-shrink: 0;
+
+        font-size: $fonte-size-small;
+
+        text-decoration: none;
+
+        &:hover {
+
+            text-decoration: underline;
+        }
+    }
+}
