@@ -4,7 +4,7 @@ import { BuscarDados } from '../../interfaces/buscar';
 
 @Pipe({
   name: 'eventosFilter',
-  pure: false,
+  pure: false, // faz esse filtro refiltrar em muito mais gatilhos (qualquer change), o que eh uma pena, mas he necessario pra pagina agenda
   standalone: true
 })
 export class EventosFilterPipe implements PipeTransform
@@ -13,7 +13,7 @@ export class EventosFilterPipe implements PipeTransform
   {
     let result: Evento[] = [];
 
-    console.log(filtros);
+    // console.log(filtros);
     
 
     for(let ev of eventos){

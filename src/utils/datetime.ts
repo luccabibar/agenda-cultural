@@ -152,58 +152,55 @@ export class DatetimeUtil
 
     static toDate(str: string): Date | null
     {
-        console.log(str, Date.parse(str));
-        
-
         return new Date(Date.parse(str));
     }
 }
 
 
-export class Time
-{
-    private hour: number = 0;
-    private minute: number = 0;
-    private second: number = 0;
+// export class Time
+// {
+//     private hour: number = 0;
+//     private minute: number = 0;
+//     private second: number = 0;
 
-    constructor(hr?: number, mn?: number, sc?: number)
-    {
-        if(hr) this.setHour(hr)
-        if(mn) this.setMinute(mn)
-        if(sc) this.setSecond(sc)
-    }
+//     constructor(hr?: number, mn?: number, sc?: number)
+//     {
+//         if(hr) this.setHour(hr)
+//         if(mn) this.setMinute(mn)
+//         if(sc) this.setSecond(sc)
+//     }
 
-    public setHour(hr: number): Time 
-    { 
-        if(hr && hr >= 0 && hr <= 23) 
-            this.hour = hr;
-        else
-            throw new Error("Time.setHour: invalid value for hour");  
+//     public setHour(hr: number): Time 
+//     { 
+//         if(hr && hr >= 0 && hr <= 23) 
+//             this.hour = hr;
+//         else
+//             throw new Error("Time.setHour: invalid value for hour");  
 
-        return this;
-    }
+//         return this;
+//     }
 
-    public setMinute(mn: number): Time 
-    { 
-        if(mn && mn >= 0 && mn <= 59) 
-            this.minute = mn;
-        else
-            throw new Error("Time.setMinute: invalid value for minute"); 
+//     public setMinute(mn: number): Time 
+//     { 
+//         if(mn && mn >= 0 && mn <= 59) 
+//             this.minute = mn;
+//         else
+//             throw new Error("Time.setMinute: invalid value for minute"); 
 
-        return this;
-    }
+//         return this;
+//     }
 
-    public setSecond(sc: number): Time 
-    { 
-        if(sc && sc >= 0 && sc <= 59) 
-            this.second = sc;
-        else
-            throw new Error("Time.setSecond: invalid value for second"); 
+//     public setSecond(sc: number): Time 
+//     { 
+//         if(sc && sc >= 0 && sc <= 59) 
+//             this.second = sc;
+//         else
+//             throw new Error("Time.setSecond: invalid value for second"); 
 
-        return this;
-    }
+//         return this;
+//     }
 
-    public getHour(): number { return this.hour; }
-    public getMinute(): number { return this.minute; }
-    public getSecond(): number { return this.second; }
-}
+//     public getHour(): number { return this.hour; }
+//     public getMinute(): number { return this.minute; }
+//     public getSecond(): number { return this.second; }
+// }

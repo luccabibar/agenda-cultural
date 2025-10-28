@@ -7,15 +7,16 @@ import { BuscarDados  } from '../../../../interfaces/buscar';
 import { DatetimeUtil } from '../../../../utils/datetime';
 import { CommonModule } from '@angular/common';
 import { NgForOf } from "../../../../../node_modules/@angular/common";
-import { CelulaAgendaComponent } from "./celula-agenda/celula-agenda.component";
-import { RouterLink } from "@angular/router";
+import { CelulaAgendaComponent } from "../celula-agenda/celula-agenda.component";
+import { Router, RouterLink } from "@angular/router";
 import { AgendaMode } from '../agendaMode';
 import { EventosFilterPipe } from '../../../../pipes/eventos-filter/eventos-filter.pipe';
+import { AgendaComponent } from '../agenda.component';
 
 @Component({
   selector: 'app-agenda-semanal',
   standalone: true,
-  imports: [NgForOf, CommonModule, CelulaAgendaComponent, RouterLink, EventosFilterPipe],
+  imports: [NgForOf, CommonModule, CelulaAgendaComponent, EventosFilterPipe],
   templateUrl: './agenda-semanal.component.html',
   styleUrl: './agenda-semanal.component.scss'
 })
@@ -42,7 +43,8 @@ export class AgendaSemanalComponent
 
 
   constructor(
-    private acService: AgendaCulturalService
+    private acService: AgendaCulturalService,
+    private router: Router
   ) {
 
     this.eventosKey = ([xx, yy]: [number, number]) => xx + '-' + yy
@@ -53,7 +55,6 @@ export class AgendaSemanalComponent
 
     // filtros
     this.filtros = new BuscarDados();
-    // this.filtros.regiao = 'Bauru';
 
     // HORARIOS
     this.horarios = [ ...Array(24).keys() ]; // 0, 1, ..., 23
@@ -172,10 +173,17 @@ export class AgendaSemanalComponent
 
     let mapa = new Map<string, EventosCell>();
 
-    eventos.forEach((ev) => {
+    for(let ev of eventos){
       
+      let evData: Date | null =  DatetimeUtil.toDate(ev.horarioInicio as string);
+    
+      if(!evData || isNaN(evData as unknown as number)){
+        console.log("formatEventos:  data invalida no evento", ev);
+        continue;
+      }
+
       let xx, yy;
-      [xx, yy] = this.getGridPostition(ev);
+      [xx, yy] = this.getGridPostition(evData);
 
       let key = mapKey([xx, yy]);
 
@@ -183,8 +191,8 @@ export class AgendaSemanalComponent
         (mapa.get(key) as EventosCell).eventos.push(ev);
       
       else
-        mapa.set(key, new EventosCell([ev], xx, yy));
-    });
+        mapa.set(key, new EventosCell([ev], xx, yy, evData));
+    }
 
     console.log(mapa);
     
@@ -203,19 +211,14 @@ export class AgendaSemanalComponent
   }
 
 
-  getGridPostition(ev: Evento): [number, number]
+  getGridPostition(data: Date): [number, number]
   {
-    let evData: Date | null =  DatetimeUtil.toDate(ev.horarioInicio as string);
-    
-    if(!evData || isNaN(evData as unknown as number))
-      return [-1, -1];
-
     // linha: horario
-    let xx: number = evData.getHours() + this.gridLinOffset
+    let xx: number = data.getHours() + this.gridLinOffset
 
     // coluna: data
-    let yy: number = this.diasMirr.has(this.diasMirrKey(evData)) ? 
-      (this.diasMirr.get(this.diasMirrKey(evData)) as number + this.gridColOffset) 
+    let yy: number = this.diasMirr.has(this.diasMirrKey(data)) ? 
+      (this.diasMirr.get(this.diasMirrKey(data)) as number + this.gridColOffset) 
       : -1;
     
     return [xx, yy];
@@ -230,9 +233,9 @@ export class AgendaSemanalComponent
     }
   }
 
-  queryParamsNavegaAgendaData(dd: Date): { 'modo': AgendaMode, 'data': String }
-  { 
-    return { 'modo': AgendaMode.DIARIA, 'data': DatetimeUtil.dateToISODate(dd) }; 
+  navegarAgendaDiaria(dd?: Date)
+  {
+    AgendaComponent.navegarParaAgenda(this.router, AgendaMode.DIARIA, dd);
   }
 }
 
@@ -246,10 +249,13 @@ export class EventosCell
   xx: number;
   yy: number;
 
-  constructor(evs: Evento[] = [], xi: number = -1, yi: number = -1)
+  data?: Date;
+
+  constructor(evs: Evento[] = [], xi: number = -1, yi: number = -1, dt?: Date)
   {
     this.eventos = evs;
     this.xx = xi;
     this.yy = yi;
+    this.data = dt;
   }
 }

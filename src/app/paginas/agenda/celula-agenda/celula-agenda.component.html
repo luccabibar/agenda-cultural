@@ -1,0 +1,10 @@
+<div class="celula-agenda">
+    <div class="celula-agenda--eventos">
+        <a *ngFor="let ev of eventos | slice: 0:maxSize" [routerLink]="ev.getEventoRoute()"
+        class="celula-agenda--eventos--item"> 
+            {{ev.nome}}   
+        </a>
+    </div>
+    
+    <p *ngIf="eventos.length > maxSize && mais" (click)="navegaAgendaDiaria()" class="celula-agenda--mais"> + </p>
+</div>

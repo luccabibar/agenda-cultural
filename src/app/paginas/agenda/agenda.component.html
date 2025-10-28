@@ -25,7 +25,7 @@
         </div>
 
         
-        <app-agenda-diaria [hidden]="currMode != getAgendaMode.DIARIA">
+        <app-agenda-diaria [hidden]="currMode != getAgendaMode.DIARIA" [filtros]="filtros" [data]="paramDate">
         </app-agenda-diaria>
         
         <app-agenda-semanal [hidden]="currMode != getAgendaMode.SEMANAL" [filtros]="filtros">
