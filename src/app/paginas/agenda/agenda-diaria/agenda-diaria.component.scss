@@ -1,0 +1,36 @@
+@import "../../../../variables.scss";
+
+.agenda-diaria {
+
+    margin: 0;
+    padding: 0;
+    
+
+    &--grid {    
+
+        display: grid;
+
+        grid-template-columns: repeat(12, 1fr); // 12x colunas, 12 horas (por linha
+        grid-template-rows: repeat(2, auto 1fr); // 2x cabecalho + linha 
+
+        gap: $spacing-tiny;
+
+        &--horarios {
+
+            font-family: $fonte-title;
+            font-size: $fonte-size-default;
+            font-weight: bold;
+            
+            background-color: inherit;
+            // background-color: blue; // debud
+            color: $cor-primary;
+
+            display: flex;
+            flex-direction: column;
+            justify-items: center;
+            align-items: center;
+
+            padding: $spacing-default 0 $spacing-half 0;
+        }
+    }
+}

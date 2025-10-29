@@ -4,6 +4,8 @@ import { NgForOf, SlicePipe, NgIf } from "@angular/common";
 import { Router, RouterLink } from "@angular/router";
 import { AgendaComponent } from '../agenda.component';
 import { AgendaMode } from '../agendaMode';
+import { BuscarDados } from '../../../../interfaces/buscar';
+import { DatetimeUtil } from '../../../../utils/datetime';
 
 @Component({
   selector: 'app-celula-agenda',
@@ -18,7 +20,7 @@ export class CelulaAgendaComponent
   
   @Input("mostrarMais") mais: boolean = true;
   
-  @Input("data") data?: Date;
+  @Input("dataMostrarMais") data?: Date;
 
   @Input("maxSize") maxSize: number = 255;
 
@@ -30,8 +32,26 @@ export class CelulaAgendaComponent
 
   navegaAgendaDiaria(): void
   {
-    if(!this.data) console.log("CelulaAgendaComponent: data indefinida ao navegar para agenda diaria");
-    
-    AgendaComponent.navegarParaAgenda(this.router, AgendaMode.DIARIA, this.data);
+    if(this.data){
+      let filtros = new BuscarDados()
+      
+      filtros.diaLower = DatetimeUtil.dateToISODate(this.data); 
+      filtros.diaUpper = DatetimeUtil.dateToISODate(this.data); 
+      
+      filtros.horaLower = DatetimeUtil.dateToISOTime(this.data); 
+      
+      if(this.data.getHours() < 23){
+        let dataBuff = new Date(this.data);
+        dataBuff.setHours(this.data.getHours() + 1);
+      
+        filtros.horaUpper = DatetimeUtil.dateToISOTime(dataBuff);
+      }
+
+      this.router.navigate(['/buscar'], { queryParams: filtros })
+    } 
+    else{
+      console.log("CelulaAgendaComponent: filtros indefinidos ao mostrar mais");
+      this.router.navigate(['/buscar'])
+    }
   }
 }

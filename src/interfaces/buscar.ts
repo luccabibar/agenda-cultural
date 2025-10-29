@@ -48,6 +48,20 @@ export class BuscarDados
     }
 
 
+    isEmpty(): boolean
+    {
+        return ! (this.texto != null 
+            || this.categoria != null
+            || this.diaUpper != null
+            || this.diaLower != null
+            || this.horaUpper != null
+            || this.horaLower != null
+            || this.regiao != null
+            || this.organizador != null
+            || this.status.length > 0)
+    }
+
+
     toObject(): { [key: string]: string | number | boolean | (string | number | boolean)[] }
     {
         let obj: { [key: string]: string | number | boolean | (string | number | boolean)[] } = {};

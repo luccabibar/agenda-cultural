@@ -1,1 +1,25 @@
-:3
+<div class="agenda-diaria">
+    <h3> {{ data | date : "EEEE, d 'de' MMMM" | uppercase  }} {{ eventos.size }}  </h3>
+
+    <div class="agenda-diaria--grid">
+        <!-- header Manha -->
+        <div *ngFor="let hr of horarios | slice: 0:12; let hi = index"
+        class="agenda-diaria--grid--horarios" [style]="styleGridPlacement(1, (hr % 12) + 1)"> 
+            {{ hr | number : '2.0'  }}h 
+        </div>
+
+        <!-- header Noite -->
+        <div *ngFor="let hr of horarios | slice: 12:24; let hi = index"
+        class="agenda-diaria--grid--horarios" [style]="styleGridPlacement(3, (hr % 12) + 1)"> 
+            {{ hr | number : '2.0'  }}h 
+        </div>
+
+        <!-- evenos -->
+         <app-celula-agenda 
+        *ngFor="let cell of eventos | keyvalue" 
+        [eventos]="cell.value.eventos | eventosFilter : filtros" [maxSize]="6" [dataMostrarMais]="cell.value.data"
+        [style]="styleGridPlacement(cell.value.xx, cell.value.yy)" 
+        class="agenda-diaria--grid--celula-eventos"> 
+        </app-celula-agenda>
+    </div>
+</div>

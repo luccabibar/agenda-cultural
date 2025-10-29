@@ -12,6 +12,7 @@ import { Router, RouterLink } from "@angular/router";
 import { AgendaMode } from '../agendaMode';
 import { EventosFilterPipe } from '../../../../pipes/eventos-filter/eventos-filter.pipe';
 import { AgendaComponent } from '../agenda.component';
+import { EventosCell } from '../EventosCell';
 
 @Component({
   selector: 'app-agenda-semanal',
@@ -176,11 +177,14 @@ export class AgendaSemanalComponent
     for(let ev of eventos){
       
       let evData: Date | null =  DatetimeUtil.toDate(ev.horarioInicio as string);
-    
+      
+      // data invalida
       if(!evData || isNaN(evData as unknown as number)){
         console.log("formatEventos:  data invalida no evento", ev);
         continue;
       }
+      
+      evData.setMinutes(0, 0, 0);
 
       let xx, yy;
       [xx, yy] = this.getGridPostition(evData);
@@ -236,26 +240,5 @@ export class AgendaSemanalComponent
   navegarAgendaDiaria(dd?: Date)
   {
     AgendaComponent.navegarParaAgenda(this.router, AgendaMode.DIARIA, dd);
-  }
-}
-
-
-// solucao bunda para um problema bunda
-// contador de problemas que nao existiriam numa linguagem de verdade: +1
-export class EventosCell
-{
-  eventos: Evento[];
-
-  xx: number;
-  yy: number;
-
-  data?: Date;
-
-  constructor(evs: Evento[] = [], xi: number = -1, yi: number = -1, dt?: Date)
-  {
-    this.eventos = evs;
-    this.xx = xi;
-    this.yy = yi;
-    this.data = dt;
   }
 }

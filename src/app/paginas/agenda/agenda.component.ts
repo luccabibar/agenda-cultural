@@ -31,7 +31,8 @@ export class AgendaComponent
     private activeRoute: ActivatedRoute
   ){
     this.paramDate = null;
-    this.currMode = AgendaMode.SEMANAL;
+    // this.currMode = AgendaMode.SEMANAL;
+    this.currMode = AgendaMode.DIARIA;
 
     this.filtros = new BuscarDados();
     this.dadosFiltros = new BuscarParams();
@@ -67,6 +68,8 @@ export class AgendaComponent
       
       if(pDateStr && DatetimeUtil.isDateValid(pDateStr)){
         let pDate = DatetimeUtil.toDate(pDateStr); 
+
+        console.log("QPN: ", pDateStr, pDate);       
 
         if(pDate)
           this.paramDate = pDate;

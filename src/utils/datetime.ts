@@ -152,7 +152,12 @@ export class DatetimeUtil
 
     static toDate(str: string): Date | null
     {
-        return new Date(Date.parse(str));
+        if(this.isDateTimeValid(str))
+            return new Date(Date.parse(str));
+        else if(this.isDateValid(str))
+            return new Date(Date.parse(str + 'T00:00:00'));
+        else
+            return null;
     }
 }
 

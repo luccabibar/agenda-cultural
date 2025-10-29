@@ -5,7 +5,7 @@
         (click)="navegarAgendaDiaria(dd)"
         class="agenda-semanal--grid--datas" [style]="styleGridPlacement(1, di + gridColOffset)"> 
             {{ dd | date : "EEE dd" | uppercase  }} 
-    </div>
+        </div>
         
         <!-- Sidebar -->
         <div *ngFor="let hr of horarios; let hi = index" class="agenda-semanal--grid--horarios"
@@ -16,7 +16,7 @@
         <!-- eventos -->
         <app-celula-agenda 
         *ngFor="let cell of eventos | keyvalue" 
-        [eventos]="cell.value.eventos | eventosFilter : filtros" [maxSize]="3" [data]="cell.value.data"
+        [eventos]="cell.value.eventos | eventosFilter : filtros" [maxSize]="3" [dataMostrarMais]="cell.value.data"
         [style]="styleGridPlacement(cell.value.xx, cell.value.yy)" 
         class="agenda-semanal--grid--celula-eventos"> 
         </app-celula-agenda>
