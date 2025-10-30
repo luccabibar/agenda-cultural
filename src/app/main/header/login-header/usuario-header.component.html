@@ -1,6 +1,10 @@
 <div class="usuario-header" *ngIf="user && user != null; else noLogin">
     <a [routerLink]="['/perfil']"> {{ user.usuario?.nome }} </a> |
+
+    <ng-container *ngIf="user.usuario?.tipoUsuario == getTipoUsuario.ORGANIZADOR">
     <a [routerLink]="['/evento', 'novo']"> Novo evento </a> | 
+    </ng-container>
+
     <button (click)="logout()"> Sair </button>
 </div>
 

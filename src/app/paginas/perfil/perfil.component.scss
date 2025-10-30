@@ -58,7 +58,7 @@
                     flex-grow: 1;
                 }
                 
-                &--botoes {
+                &--controles {
                 
                     display: flex;
                     flex-direction: column;
@@ -66,6 +66,12 @@
                     justify-content: space-between;
 
                     margin: $spacing-default;
+
+                    &:only-child {
+
+                        justify-content: center;
+                        align-items: center;
+                    }
                 }
             }
         }

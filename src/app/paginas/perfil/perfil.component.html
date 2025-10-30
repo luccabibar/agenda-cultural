@@ -16,7 +16,8 @@
             </p>
         </div>
 
-        <div *ngIf="eventos" class="perfil-page--content--eventos">
+        <div *ngIf="userDados?.tipoUsuario == getTipoUsuario.ORGANIZADOR" 
+        class="perfil-page--content--eventos">
             <h2> Seus Eventos: </h2>
 
             <div *ngFor="let ev of eventos"
@@ -25,12 +26,54 @@
                 class="perfil-page--content--eventos--item--card">
                 </app-evento-card>
 
-                <div class="perfil-page--content--eventos--item--botoes">
+                <div class="perfil-page--content--eventos--item--controles">
                     <button (click)="editarEvento(ev.id)" > Editar evento </button>
                     <button (click)="apagarEvento(ev.id)" > Apagar evento </button>
                 </div>
             </div>
         </div>
+
+
+        <div *ngIf="userDados?.tipoUsuario == getTipoUsuario.MODERADOR" 
+        class="perfil-page--content--eventos">
+            <!-- <h2> Seus Eventos: </h2>
+
+            <div *ngFor="let ev of eventos"
+            class="perfil-page--content--eventos--item">
+                <app-evento-card [evento]="ev"
+                class="perfil-page--content--eventos--item--card">
+                </app-evento-card>
+
+                <div class="perfil-page--content--eventos--item--controles">
+                    <button (click)="editarEvento(ev.id)" > Editar evento </button>
+                    <button (click)="apagarEvento(ev.id)" > Apagar evento </button>
+                </div>
+            </div> -->
+            <h2> A Analisar </h2>
+
+            <div *ngFor="let ev of eventos | eventosFilter : filtrosEmAnalise"
+            class="perfil-page--content--eventos--item">
+                <app-evento-card [evento]="ev"
+                class="perfil-page--content--eventos--item--card">
+                </app-evento-card>
+
+                <div class="perfil-page--content--eventos--item--controles">
+                    <button (click)="analisarEvento(ev.id)" > Analisar evento </button>
+                </div>
+            </div>
+
+            <h2> Já Analisados </h2>
+            
+            <div *ngFor="let ev of eventos | eventosFilter : filtrosJaAnalizados"
+            class="perfil-page--content--eventos--item">
+                <app-evento-card [evento]="ev"
+                class="perfil-page--content--eventos--item--card">
+                </app-evento-card>
+                
+                <div class="perfil-page--content--eventos--item--controles">
+                    <h4 class="color-light"> {{ statusEventoTexto(ev.status) }} </h4>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-d

@@ -13,11 +13,12 @@ import { Evento, StatusEvento } from '../../../interfaces/evento';
 import { BuscarDados } from '../../../interfaces/buscar';
 import { NgIf, CommonModule } from '@angular/common';
 import { EventoCardComponent } from "../../../components/evento-card/evento-card.component";
+import { EventosFilterPipe } from '../../../pipes/eventos-filter/eventos-filter.pipe';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [NgIf, EventoCardComponent, CommonModule],
+  imports: [NgIf, EventoCardComponent, CommonModule, EventosFilterPipe],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
 })
@@ -27,15 +28,27 @@ export class PerfilComponent
   userDados: Usuario | null = null;
   eventos: Evento[] = [];
 
+  getTipoUsuario = TipoUsuario;
+
   // Typescript eh uma linguagem de mentira
   orgDados: Organizador | null = null;
   modDados: Moderador | null = null;
+
+
+  filtrosEmAnalise: BuscarDados;
+  filtrosJaAnalizados: BuscarDados;
 
   constructor(
     private loginService: LoginService,
     private acService: AgendaCulturalService,
     private router: Router,
   ) {
+    this.filtrosEmAnalise = new BuscarDados();
+    this.filtrosEmAnalise.status = [StatusEvento.EMANALISE];
+
+    this.filtrosJaAnalizados = new BuscarDados();
+    this.filtrosJaAnalizados.status = [StatusEvento.APROVADO, StatusEvento.CANCELADO];
+
     // acessa usuario logado
     loginService
       .getSubject()
@@ -71,6 +84,7 @@ export class PerfilComponent
     }
     else if(this.userDados?.tipoUsuario == TipoUsuario.MODERADOR){
       this.orgDados = this.userDados as Moderador;
+      this.getModEventos();
     }
   }
 
@@ -95,6 +109,28 @@ export class PerfilComponent
     let busca: BuscarDados = new BuscarDados();
 
     busca.organizador = this.userDados.id
+    busca.status = [StatusEvento.APROVADO, StatusEvento.EMANALISE, StatusEvento.REPROVADO]
+
+    this.acService.buscarEventos(busca).subscribe({
+      next: this.eventosNext,
+      error: this.eventosErr
+    });
+  }
+
+
+  getModEventos(): void
+  {
+    if(
+      !this.userDados 
+      || !this.userDados.id
+      || this.userDados.tipoUsuario != TipoUsuario.MODERADOR
+    ){
+      return;
+    }
+
+    let busca: BuscarDados = new BuscarDados();
+
+    busca.moderador = this.userDados.id
     busca.status = [StatusEvento.APROVADO, StatusEvento.EMANALISE, StatusEvento.REPROVADO]
 
     this.acService.buscarEventos(busca).subscribe({
@@ -135,5 +171,40 @@ export class PerfilComponent
       this.router.navigate(['/evento', id, 'apagar']);
     else
       console.error("PerfilComponent.apagarEvento: id deste evento é null");
+  }
+
+
+  analisarEvento(id: number | null): void
+  {
+    if(id)
+      this.router.navigate(['/evento', id, 'analisar']);
+    else
+      console.error("PerfilComponent.analisarEvento: id deste evento é null");
+  }
+
+
+  statusEventoTexto(status: StatusEvento | null): string
+  {
+    switch(status){
+      case StatusEvento.APROVADO:
+        return 'Aprovado';
+        break;
+      
+      case StatusEvento.EMANALISE:
+        return 'Em Análise';
+        break;
+      
+      case StatusEvento.REPROVADO:
+        return 'Reprovado';
+        break;
+      
+      case StatusEvento.CANCELADO:
+        return 'Cancelado';
+        break;
+      
+      default:
+        return 'Sem Status definido';
+        break;
+    }
   }
 }

@@ -30,6 +30,7 @@ export class BuscarDados
     horaLower: string | null = null;
     regiao: string | null = null;
     organizador: number | null = null;
+    moderador: number | null = null;
     status: StatusEvento[] = [];
 
 

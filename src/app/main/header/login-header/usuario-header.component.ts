@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from '../../../../services/login-service/login.service';
 import { Router, RouterLink } from '@angular/router';
 import { UsuarioAutenticado } from '../../../../interfaces/usuario/usuairo-autenticado';
+import { TipoUsuario } from '../../../../interfaces/usuario/tipo-usuario';
 
 @Component({
   selector: 'app-usuario-header',
@@ -14,6 +15,7 @@ import { UsuarioAutenticado } from '../../../../interfaces/usuario/usuairo-auten
 export class UsuarioHeaderComponent
 {
   user: UsuarioAutenticado | null = null;
+  getTipoUsuario = TipoUsuario;
 
   constructor(
     private loginService: LoginService,
