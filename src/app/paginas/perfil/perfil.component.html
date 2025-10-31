@@ -18,15 +18,28 @@
 
         <div *ngIf="userDados?.tipoUsuario == getTipoUsuario.ORGANIZADOR" 
         class="perfil-page--content--eventos">
-            <h2> Seus Eventos: </h2>
+            <div class="perfil-page--content--eventos--header">
+                <h2> Seus Eventos: </h2>
 
-            <div *ngFor="let ev of eventos"
+                <select name="status" [(ngModel)]="filtrosCurr.status">
+                    <option [ngValue]="[]" selected> Status... </option> <!-- TODO: Fix selected -->
+                    <option [ngValue]="[getStatusEvento.APROVADO]"> {{ statusEventoTexto(getStatusEvento.APROVADO) }} </option>
+                    <option [ngValue]="[getStatusEvento.EMANALISE]"> {{ statusEventoTexto(getStatusEvento.EMANALISE) }} </option>
+                    <option [ngValue]="[getStatusEvento.REPROVADO]"> {{ statusEventoTexto(getStatusEvento.REPROVADO) }} </option>
+                </select>
+            </div>
+
+            <div *ngFor="let ev of eventos | eventosFilter : filtrosCurr"
             class="perfil-page--content--eventos--item">
                 <app-evento-card [evento]="ev"
                 class="perfil-page--content--eventos--item--card">
                 </app-evento-card>
 
                 <div class="perfil-page--content--eventos--item--controles">
+                    <p class="perfil-page--content--eventos--item--controles--texto"> 
+                        {{ statusEventoTexto(ev.status) }}
+                    </p>
+
                     <button (click)="editarEvento(ev.id)" > Editar evento </button>
                     <button (click)="apagarEvento(ev.id)" > Apagar evento </button>
                 </div>
@@ -36,20 +49,9 @@
 
         <div *ngIf="userDados?.tipoUsuario == getTipoUsuario.MODERADOR" 
         class="perfil-page--content--eventos">
-            <!-- <h2> Seus Eventos: </h2>
-
-            <div *ngFor="let ev of eventos"
-            class="perfil-page--content--eventos--item">
-                <app-evento-card [evento]="ev"
-                class="perfil-page--content--eventos--item--card">
-                </app-evento-card>
-
-                <div class="perfil-page--content--eventos--item--controles">
-                    <button (click)="editarEvento(ev.id)" > Editar evento </button>
-                    <button (click)="apagarEvento(ev.id)" > Apagar evento </button>
-                </div>
-            </div> -->
-            <h2> A Analisar </h2>
+            <div class="perfil-page--content--eventos--header">
+                <h2> A Analisar </h2>
+            </div>
 
             <div *ngFor="let ev of eventos | eventosFilter : filtrosEmAnalise"
             class="perfil-page--content--eventos--item">
@@ -58,11 +60,17 @@
                 </app-evento-card>
 
                 <div class="perfil-page--content--eventos--item--controles">
+                    <p class="perfil-page--content--eventos--item--controles--texto"> 
+                        {{ statusEventoTexto(ev.status) }}
+                    </p>
+
                     <button (click)="analisarEvento(ev.id)" > Analisar evento </button>
                 </div>
             </div>
 
-            <h2> Já Analisados </h2>
+            <div class="perfil-page--content--eventos--header">
+                <h2> Já Analisados </h2>
+            </div>
             
             <div *ngFor="let ev of eventos | eventosFilter : filtrosJaAnalizados"
             class="perfil-page--content--eventos--item">
@@ -71,7 +79,7 @@
                 </app-evento-card>
                 
                 <div class="perfil-page--content--eventos--item--controles">
-                    <h4 class="color-light"> {{ statusEventoTexto(ev.status) }} </h4>
+                    <p class="perfil-page--content--eventos--item--controles--texto"> {{ statusEventoTexto(ev.status) }} </p>
                 </div>
             </div>
         </div>

@@ -9,12 +9,12 @@ import { BuscarDados } from '../../interfaces/buscar';
 })
 export class EventosFilterPipe implements PipeTransform
 {
-  transform(eventos: Evento[], filtros: BuscarDados): Evento[]
+  transform(eventos: Evento[], filtros: BuscarDados | null): Evento[]
   {
-    let result: Evento[] = [];
+    if(!filtros)
+      return eventos;
 
-    // console.log(filtros);
-    
+    let result: Evento[] = [];
 
     for(let ev of eventos){
       // TODO: Outros filtros

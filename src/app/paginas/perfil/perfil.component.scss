@@ -38,6 +38,15 @@
 
             width: 70%;
 
+            &--header {
+
+                display: flex;
+                flex-direction: row;
+
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+
             &--item {
                 
                 display: flex;
@@ -64,13 +73,26 @@
                     flex-direction: column;
                     // justify-content: space-evenly;
                     justify-content: space-between;
+                    align-items: stretch;
 
-                    margin: $spacing-default;
+                    // margin: $spacing-default;
+                    margin: $spacing-half;
 
-                    &:only-child {
+                    // &:only-child {
 
-                        justify-content: center;
-                        align-items: center;
+                    //     justify-content: center;
+                    //     align-items: center;
+                    // }
+                    & > * {
+                        margin: 0;
+                    }
+
+                    &--texto {
+
+                        text-align: center;
+                        color: $cor-texto-inv;
+                        font-size: $fonte-size-small;
+                        font-weight: bold;
                     }
                 }
             }

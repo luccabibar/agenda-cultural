@@ -14,11 +14,12 @@ import { BuscarDados } from '../../../interfaces/buscar';
 import { NgIf, CommonModule } from '@angular/common';
 import { EventoCardComponent } from "../../../components/evento-card/evento-card.component";
 import { EventosFilterPipe } from '../../../pipes/eventos-filter/eventos-filter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [NgIf, EventoCardComponent, CommonModule, EventosFilterPipe],
+  imports: [NgIf, EventoCardComponent, CommonModule, EventosFilterPipe, FormsModule],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
 })
@@ -29,26 +30,30 @@ export class PerfilComponent
   eventos: Evento[] = [];
 
   getTipoUsuario = TipoUsuario;
+  getStatusEvento = StatusEvento;
 
   // Typescript eh uma linguagem de mentira
   orgDados: Organizador | null = null;
   modDados: Moderador | null = null;
 
+  filtrosCurr: BuscarDados;
 
-  filtrosEmAnalise: BuscarDados;
   filtrosJaAnalizados: BuscarDados;
+  filtrosEmAnalise: BuscarDados;
 
   constructor(
     private loginService: LoginService,
     private acService: AgendaCulturalService,
     private router: Router,
   ) {
+    this.filtrosCurr  = new BuscarDados();
+
     this.filtrosEmAnalise = new BuscarDados();
     this.filtrosEmAnalise.status = [StatusEvento.EMANALISE];
 
     this.filtrosJaAnalizados = new BuscarDados();
-    this.filtrosJaAnalizados.status = [StatusEvento.APROVADO, StatusEvento.CANCELADO];
-
+    this.filtrosJaAnalizados.status = [StatusEvento.APROVADO, StatusEvento.REPROVADO];
+    
     // acessa usuario logado
     loginService
       .getSubject()
