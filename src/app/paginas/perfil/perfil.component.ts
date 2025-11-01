@@ -182,7 +182,7 @@ export class PerfilComponent
   analisarEvento(id: number | null): void
   {
     if(id)
-      this.router.navigate(['/evento', id, 'analisar']);
+      this.router.navigate(['/evento', id, 'analise']);
     else
       console.error("PerfilComponent.analisarEvento: id deste evento é null");
   }

@@ -14,6 +14,7 @@ import { NovoEventoBody } from '../../interfaces/request-body/evento';
 import { Usuario } from '../../interfaces/usuario/usuarios';
 import { NovaAtualizacaoBody } from '../../interfaces/request-body/atualizacao-evento';
 import { EdicaoEventoBody } from '../../interfaces/request-body/edicao-evento';
+import { AnaliseEventoBody } from '../../interfaces/request-body/analise-evento';
 
 @Injectable({
   providedIn: 'root'
@@ -126,6 +127,19 @@ export class AgendaCulturalService extends HttpHandler
 
     return this.httpDelete<boolean>(url, headers)
       .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
+  }
+
+
+  analiseEvento(dados: AnaliseEventoBody, id: number, user: UsuarioAutenticado): Observable<Resposta<boolean>>
+  {
+    let url: string = Configs.endpoints.eventoAnalise(id);
+    let headers: { [name: string]: string } = {
+      ...this.defaultHeaders(), ...this.authHeader(user.authToken)
+    };
+
+    return this.httpPost<boolean>(url, dados, headers)
+      .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
+
   }
 
 

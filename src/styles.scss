@@ -76,6 +76,10 @@ body {
     min-width: 100vw;
 }
 
+img {
+    object-fit: scale-down;
+}
+
 // filtro na imagem
 img.no-filter { 
     image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */

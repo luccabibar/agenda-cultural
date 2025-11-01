@@ -1,0 +1,113 @@
+<div class="evento-analisar-page">
+    <div class="evento-analisar-page--content">
+        <h2> {{ evento?.nome }} </h2>
+
+        <div *ngIf="evento" class="evento-analisar-page--content--evento">
+            <!-- coluna 1 -->
+            <div class="evento-analisar-page--content--evento--col">
+                <div class="evento-analisar-page--content--evento--col--group">
+                    <p class="evento-analisar-page--content--evento--col--group--title"> 
+                        Descricao: 
+                    </p>
+                    
+                    <p class="evento-analisar-page--content--evento--col--group--dados">
+                        {{ evento.descricao }}
+                    </p>
+                </div>
+
+                <div class="evento-analisar-page--content--evento--col--group">
+                    <p class="evento-analisar-page--content--evento--col--group--title"> 
+                        Categoria: 
+                    </p>
+                    
+                    <p class="evento-analisar-page--content--evento--col--group--dados">
+                        {{ evento.categoria }}
+                    </p>
+                </div>
+                
+                <div class="evento-analisar-page--content--evento--col--group">
+                    <p class="evento-analisar-page--content--evento--col--group--title"> 
+                        Imagem: 
+                    </p>
+                    
+                    <img src="/images/joia.png" height="256px">
+                </div>
+            </div>
+            
+            <!-- coluna 2 -->
+            <div class="evento-analisar-page--content--evento--col">
+                <div class="evento-analisar-page--content--evento--col--group">
+                    <p class="evento-analisar-page--content--evento--col--group--title"> 
+                        Organizado por: 
+                    </p>
+                    
+                    <p class="evento-analisar-page--content--evento--col--group--dados">
+                        {{ evento.organizador?.nome }}
+                    </p>
+                </div>
+
+                <div class="evento-analisar-page--content--evento--col--group">
+                    <p class="evento-analisar-page--content--evento--col--group--title"> 
+                        URL de contato: 
+                    </p>
+                    
+                    <p class="evento-analisar-page--content--evento--col--group--dados">
+                        {{ evento.contato }}
+                    </p>
+                </div>
+                
+                <div class="evento-analisar-page--content--evento--col--group">
+                    <p class="evento-analisar-page--content--evento--col--group--title"> 
+                        Horários: 
+                    </p>
+                    
+                    <p class="evento-analisar-page--content--evento--col--group--dados">
+                        <img src="images/calendario.png" class="no-filter">  {{ evento.horarioInicio | date : "EEEE d 'de' MMMM" | titlecase }} <br>
+                        <img src="images/relogio.png" class="no-filter">  {{ evento.horarioInicio | date : "H:mm" | titlecase }}
+                    </p>
+                    
+                    <p class="evento-analisar-page--content--evento--col--group--dados">
+                        <img src="images/calendario.png" class="no-filter">  {{ evento.horarioFim | date : "EEEE d 'de' MMMM" | titlecase }} <br>
+                        <img src="images/relogio.png" class="no-filter">  {{ evento.horarioFim | date : "H:mm" | titlecase }}
+                    </p>
+                </div>
+                
+                <div class="evento-analisar-page--content--evento--col--group">
+                    <p class="evento-analisar-page--content--evento--col--group--title"> 
+                        Endereço: 
+                    </p>
+                    
+                    <p class="evento-analisar-page--content--evento--col--group--dados">
+                        {{ evento.endereco }}
+                    </p>
+                    
+                    <p class="evento-analisar-page--content--evento--col--group--dados">
+                        {{ evento.enderecoLink }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <h2> Opções de Análise </h2>
+        <p> Aprove ou Reprove este evento com base nos termos de conteúdo. </p>
+
+        <div class="evento-analisar-page--content--controls">
+            <div class="evento-analisar-page--content--controls--botoes">
+                <button (click)="voltar()"> Voltar </button>
+                <button (click)="reprovarEvento()"> Reprovar </button>
+                <button (click)="aprovarEvento()"> Aprovar </button>
+            </div>
+
+            <div class="evento-analisar-page--content--controls--message-box">
+                <div *ngIf="successMessage" class="evento-analisar-page--content--controls--message-box--message"> 
+                    <p class="evento-analisar-page--content--controls--message-box--message--text"> {{ successMessage }} </p>  
+                </div>
+                
+                <div *ngIf="errorMessage" class="evento-analisar-page--content--controls--message-box--message__error"> 
+                    <p class="evento-analisar-page--content--controls--message-box--message__error--text"> {{ errorMessage }} </p>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
