@@ -10,8 +10,8 @@
     </div>
     
     <div class='header--pesquisa'>
-        <input type="text" placeholder="Pesquise um Evento"> 
-        <button> Buscar </button>
+        <input type="text" placeholder="Pesquise um Evento" [(ngModel)]="textoBusca"> 
+        <button (click)="buscar()"> Buscar </button>
     </div>
     
     <app-usuario-header class='header--usuario'>
