@@ -54,8 +54,8 @@ export class AgendaDiariaComponent
     let dateBuff: Date = new Date(this.data); 
     
     dateBuff.setHours(0, 0, 0, 0);
-    params.diaLower = DatetimeUtil.dateToISODate(dateBuff); 
-    params.diaUpper = DatetimeUtil.dateToISODate(dateBuff);
+    // params.diaLower = DatetimeUtil.dateToISODate(dateBuff); 
+    // params.diaUpper = DatetimeUtil.dateToISODate(dateBuff);
 
     console.log("dateNext:", params);   
 
