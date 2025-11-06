@@ -1,6 +1,11 @@
 <div class="home-page">
-    <div class="home-page--content">
-        
-        <a [routerLink]="['evento', 'novo']"> Novo Evento</a>
-    </div>
+    <form class="home-page--content" #formImagem="ngForm" enctype="multipart/form-data">
+        <label for="texto"> Texto: </label>
+        <input type="text" name="texto" ngModel>
+
+        <label for="imagem">Imagem: </label>
+        <input type="file" name="imagem" id="" ngModel (change)="uploadImagem($event)">
+
+        <button (click)="submit(formImagem)"> Submeter </button>
+    </form>
 </div>

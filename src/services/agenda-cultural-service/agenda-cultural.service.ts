@@ -15,6 +15,7 @@ import { Usuario } from '../../interfaces/usuario/usuarios';
 import { NovaAtualizacaoBody } from '../../interfaces/request-body/atualizacao-evento';
 import { EdicaoEventoBody } from '../../interfaces/request-body/edicao-evento';
 import { AnaliseEventoBody } from '../../interfaces/request-body/analise-evento';
+import { UploadImagem } from '../../interfaces/imagem';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,11 @@ export class AgendaCulturalService extends HttpHandler
     return { 'content-type': 'application/json' }
   }
 
+  private multipartFormDataHeaders(): { [name: string]: string }
+  {
+    return { 'content-type': 'multipart/form-data' }
+  }
+
   private authHeader(token: string | null): { [name: string]: string }
   {
     return { 'Authorization': 'bearer ' + token }
@@ -43,6 +49,16 @@ export class AgendaCulturalService extends HttpHandler
 
     return this.httpGet<string>(url, { }, this.defaultHeaders())
       .pipe(map((res: Resposta<string>) => Resposta.of<string>(res)));
+  }
+
+
+  pingImagem(dados: UploadImagem): Observable<Resposta<string>>
+  {
+    let url: string = Configs.endpoints.ping() + '/imagem';
+
+    return this.httpPostWithFormData<string>(url, dados, { /* headers vazios */ })
+      .pipe(map((res: Resposta<string>) => Resposta.of<string>(res)));
+
   }
 
 
