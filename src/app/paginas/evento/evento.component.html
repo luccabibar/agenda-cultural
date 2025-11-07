@@ -25,7 +25,7 @@
             </div>
     
             <div class="evento-page--content--left--body">
-                <img src="images/joia.png" alt="imagem da silva" width="540" height="540">
+                <img [src]="evento.getEventoImageUrl()" alt="imagem da silva" width="540" height="540">
             </div>
             
             <div *ngIf="evento && evento.contato" 

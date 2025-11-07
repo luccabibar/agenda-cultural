@@ -9,7 +9,7 @@ import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

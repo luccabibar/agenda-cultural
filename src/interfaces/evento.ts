@@ -1,5 +1,7 @@
 import { Organizador, Moderador } from "./usuario/usuarios"; 
 
+import { Configs } from "../services/agenda-cultural-service/agenda-cultural-configs";
+
 export class Evento 
 {
     id: number | null = null;
@@ -30,6 +32,17 @@ export class Evento
         
         else
             return ['/home'];
+    }
+
+
+    // nao tenho capacidade de julgar se ha uma maneira melhor de fazer isso
+    public getEventoImageUrl(): String
+    {
+        if(this.id)
+           return `http://${ Configs.url }:${ Configs.port }${ Configs.endpoints.eventoImagem(this.id) }`;
+
+        else
+           return `http://${ Configs.url }:${ Configs.port }${ Configs.endpoints.eventoImagem(0) }`;
     }
     
 

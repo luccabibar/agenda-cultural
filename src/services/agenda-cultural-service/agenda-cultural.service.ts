@@ -54,7 +54,7 @@ export class AgendaCulturalService extends HttpHandler
 
   pingImagem(dados: UploadImagem): Observable<Resposta<string>>
   {
-    let url: string = Configs.endpoints.ping() + '/imagem';
+    let url: string = Configs.endpoints.ping();
 
     return this.httpPostWithFormData<string>(url, dados, { /* headers vazios */ })
       .pipe(map((res: Resposta<string>) => Resposta.of<string>(res)));
