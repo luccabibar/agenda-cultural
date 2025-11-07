@@ -1,3 +1,4 @@
+import { Configs } from "../services/agenda-cultural-service/agenda-cultural-configs";
 import { Organizador, Moderador } from "./usuario/usuarios"; 
 
 export class Evento 
@@ -32,6 +33,15 @@ export class Evento
             return ['/home'];
     }
     
+    // nao tenho capacidade de julgar se ha uma maneira melhor de fazer isso
+    public getEventoImageUrl(): String
+    {
+        if(this.id)
+           return `http://${ Configs.url }:${ Configs.port }${ Configs.endpoints.eventoImagem(this.id) }`;
+        else
+           return `http://${ Configs.url }:${ Configs.port }${ Configs.endpoints.eventoImagem(0) }`;
+    }
+
 
     static of(source: Evento): Evento
     {
