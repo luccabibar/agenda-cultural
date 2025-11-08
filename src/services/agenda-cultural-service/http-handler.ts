@@ -106,6 +106,32 @@ export class HttpHandler {
   }
 
 
+  protected httpPatchWithFormData<T>(
+    endpoint: string, 
+    dados?: ToFormDataInterface | FormData, 
+    headers?: { [name: string]: string }
+  ): Observable<Resposta<T>> 
+  {
+    let options: { headers?: HttpHeaders } = { };
+    
+    let formData: FormData | null;
+    
+    if(dados)
+      formData = (dados instanceof FormData) ? dados : dados.toFormData();
+    else
+      formData = null;
+
+
+    if(headers)
+      options.headers = new HttpHeaders(headers);
+
+    // console.log(endpoint, body);
+
+    return this.http
+      .patch<Resposta<T>>(this.address + endpoint, formData, options);
+  }
+
+
   protected httpDelete<T>(
     endpoint: string, 
     headers?: { [name: string]: string }

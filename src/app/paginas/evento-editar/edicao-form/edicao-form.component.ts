@@ -23,6 +23,8 @@ export class EdicaoFormComponent
   successMessage: string | null;
   errorMessage: string | null;
 
+  currImagem: File | null;
+
   dropdowns: BuscarParams;
   
 
@@ -54,6 +56,8 @@ export class EdicaoFormComponent
     this.errorMessage = null;
 
     this.dropdowns = new BuscarParams();
+
+    this.currImagem = null;
 
     this.id = null;
     this.evento = null;
@@ -88,12 +92,37 @@ export class EdicaoFormComponent
   }
 
 
-  filterFormData(dados: { [key: string]: any }, evento: Evento): { [key: string]: any }
+  setImagem(ev: Event)
+  {
+    this.errorMessage = '';
+    let arquivo: File | null | undefined;    
+    
+    try {
+      arquivo = (ev?.target as HTMLInputElement).files?.item(0);      
+      
+      if(arquivo && arquivo.type.match(/image\/[\w]+/)){
+        console.log(arquivo);
+        this.currImagem = arquivo; 
+      }
+      else {
+        this.errorMessage = "Arquivo selecionado não é valido";
+      }
+    }
+    catch(ex){
+      console.log(ex);
+    } 
+  }
+
+
+  filterFormData(dados: { [key: string]: any }, imagem: File | null, evento: Evento): { [key: string]: any }
   {
     let obj: { [key: string]: any } = {}
     
     if(dados['descricao'] && dados['descricao'] != evento.descricao)
       obj['descricao'] = dados['descricao'];
+
+    if(imagem)
+      obj['imagem'] = imagem;
     
     if(dados['contato'] && dados['contato'] != evento.contato)
       obj['contato'] = dados['contato'];
@@ -136,7 +165,7 @@ export class EdicaoFormComponent
     }
 
     // trata dados
-    let dadosFiltrados = this.filterFormData(dados.value, this.evento);
+    let dadosFiltrados = this.filterFormData(dados.value, this.currImagem, this.evento);
 
     // valida body
     let res: boolean
@@ -188,6 +217,10 @@ export class EdicaoFormComponent
     {
     case 409:
       this.errorMessage = "Algum parametro é inválido";
+      break;
+
+    case 415:
+      this.errorMessage = "MediaType da imagem é invalido";
       break;
 
     case 401:

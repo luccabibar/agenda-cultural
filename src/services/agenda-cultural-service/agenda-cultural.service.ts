@@ -107,11 +107,8 @@ export class AgendaCulturalService extends HttpHandler
   patchEvento(id: number, dados: EdicaoEventoBody, user: UsuarioAutenticado): Observable<Resposta<boolean>>
   {
     let url: string = Configs.endpoints.eventoById(id);
-    let headers: { [name: string]: string } = {
-      ...this.defaultHeaders(), ...this.authHeader(user.authToken)
-    };
 
-    return this.httpPatch<boolean>(url, dados, headers)
+    return this.httpPatchWithFormData<boolean>(url, dados, this.authHeader(user.authToken))
       .pipe(map((res: Resposta<boolean>) => Resposta.of<boolean>(res)));
   }
 

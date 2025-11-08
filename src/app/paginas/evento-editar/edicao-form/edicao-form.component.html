@@ -15,6 +15,13 @@
         [class]="(dadosEdicao.value.contato != evento?.contato) ? 'changed' : ''">
     </div>
 
+    <div class="edicao-form--parameter">
+        <label class="bold"> Link para contato: </label>
+
+        <input type="file" name="imagem" (change)="setImagem($event)"
+        [class]="(currImagem) ? 'changed' : ''">
+    </div>
+
     
     <div class="edicao-form--parameter">
         <label class="bold"> Início do evento: </label>
