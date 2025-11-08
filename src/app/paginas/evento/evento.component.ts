@@ -53,6 +53,7 @@ export class EventoComponent
 
   eventoNext = (res: Resposta<Evento>): void =>
   {
+    console.log(res);
     // TODO: resolver essa bucha aqui NO BACK
     // verificar se nao eh dono do evento acessando esse?
     if(res.response && res.response.status == StatusEvento.APROVADO.valueOf())
@@ -66,6 +67,6 @@ export class EventoComponent
   eventoError = (res: HttpResponse<unknown>): void =>
   {
     console.log("error: ", res);
-      NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.EVENTO, this.id);
+    NotfoundComponent.navegarParaNotFound(this.router, NotFoundMode.EVENTO, this.id);
   }
 }

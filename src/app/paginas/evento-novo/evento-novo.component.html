@@ -18,6 +18,12 @@
             
                     <textarea type="text" name="descricao" rows="3" ngModel></textarea>
                 </div>
+
+                <div class="evento-novo-page--content--form-inputs--left--parameter">
+                    <label class="bold"> Imagem: </label>
+            
+                    <input type="file" name="imagem" (change)="setImagem($event)">
+                </div>
                 
                 <div class="evento-novo-page--content--form-inputs--left--parameter">
                     <label class="bold"> Categoria: </label>

@@ -3,7 +3,7 @@ import { DatetimeUtil } from "../../../utils/datetime";
 
 export class EventoValidation
 {
-  public static isEventoValid(dadosEvento: { [key: string]: any }, dadosDropdown: BuscarParams): [boolean, string] 
+  public static isEventoValid(dadosEvento: { [key: string]: any }, imagem: File | null, dadosDropdown: BuscarParams): [boolean, string] 
   {
     try{
       // nome
@@ -34,7 +34,7 @@ export class EventoValidation
       
       let cmpIniFim: number = DatetimeUtil.compareDateTime(horaIni, horaFim); 
       let cmpIniNow: number = DatetimeUtil.compareDateTime(horaIni, DatetimeUtil.agora()); 
-      if (isNaN(cmpIniFim) || isNaN(cmpIniFim)) return [false, "Erro inesperado ao validar valor dos Horáirios"];
+      if (isNaN(cmpIniFim) || isNaN(cmpIniFim)) return [false, "Erro inesperado ao validar valor dos Horários"];
       if (cmpIniFim >= 0)                       return [false, "O início do evento não pode ser agendado para depois de seu fim"];
       if (cmpIniNow <= 0)                       return [false, "O início do evento não pode ser agendado para uma data que já passada"];
       
@@ -46,6 +46,11 @@ export class EventoValidation
       let endereco = dadosEvento['endereco'];
       if(endereco.length <= 0)  return [false, "Endereco do evento não deve ser vazio"];
       if(endereco.length > 64)  return [false, "Endereco do evento deve ter, no máximo, 64 caracteres"]; 
+
+      // imagem
+      if(imagem == null || imagem.size <= 0)                  return [false, 'A imagem não deve ser vazia'];
+      if(imagem.size > 1 * 1000 * 1000)                       return [false, 'A imagem deve ter, no máximo, 1Mb'];
+      if(!['image/png', 'image/jpeg'].includes(imagem.type))  return [false, 'A imagem deve ser um arquivo tipo PNG ou JPEG'];
     }
     catch(ex: any)  {
       return [false, "EventoValidation: erro inesperado ao validar dados do form: " + ex];

@@ -28,6 +28,8 @@ export class EventoNovoComponent
 
   dropdowns: BuscarParams;
   user: UsuarioAutenticado | null;
+
+  currImage: File | null
   
   errorMsg: string;
 
@@ -38,6 +40,8 @@ export class EventoNovoComponent
   ) {
     this.locked = false;
     this.errorMsg = '';
+
+    this.currImage = null;
 
     this.user = null;
     this.dropdowns = new BuscarParams();
@@ -68,6 +72,28 @@ export class EventoNovoComponent
   }
 
 
+  setImagem(ev: Event)
+  {
+    this.errorMsg = '';
+    let arquivo: File | null | undefined;    
+    
+    try {
+      arquivo = (ev?.target as HTMLInputElement).files?.item(0);      
+      
+      if(arquivo && arquivo.type.match(/image\/[\w]+/)){
+        console.log(arquivo);
+        this.currImage = arquivo; 
+      }
+      else {
+        this.errorMsg = "Arquivo selecionado não é valido";
+      }
+    }
+    catch(ex){
+      console.log(ex);
+    } 
+  }
+
+
   enviar(dados: NgForm): void
   {
     this.locked = true;
@@ -85,7 +111,7 @@ export class EventoNovoComponent
     let res: boolean
     let msg: string
     
-    [res, msg] = EventoValidation.isEventoValid(dados.value, this.dropdowns);  
+    [res, msg] = EventoValidation.isEventoValid(dados.value, this.currImage, this.dropdowns);  
 
     if(!res){
       this.errorMsg = msg;
@@ -94,6 +120,7 @@ export class EventoNovoComponent
     }
 
     let body: NovoEventoBody = NovoEventoBody.of(dados.value);
+    body.imagem = this.currImage;
 
     this.acService.postEvento(body, this.user).subscribe({
       next: this.enviarNext,
@@ -127,11 +154,19 @@ export class EventoNovoComponent
       this.errorMsg = "Algum parametro é inválido";
       break;
 
+    case 415:
+      this.errorMsg = "MediaType da imagem é invalido";
+      break;
+
     case 401:
     case 403:
       this.errorMsg = "Você precisa estar Logado como um organizador para criar um evento";
       break;
     
+    case 500:
+      this.errorMsg = "Erro inesperado do servidor ao criar o evento";
+      break;
+
     default:
       this.errorMsg = "Erro ao realizar a criação do evento";
     }

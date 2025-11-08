@@ -97,11 +97,9 @@ export class AgendaCulturalService extends HttpHandler
   postEvento(dados: NovoEventoBody, user: UsuarioAutenticado): Observable<Resposta<number>>
   {
     let url: string = Configs.endpoints.eventos();
-    let headers: { [name: string]: string } = {
-      ...this.defaultHeaders(), ...this.authHeader(user.authToken)
-    };
 
-    return this.httpPost<number>(url, dados, headers)
+
+    return this.httpPostWithFormData<number>(url, dados, this.authHeader(user.authToken))
       .pipe(map((res: Resposta<number>) => Resposta.of<number>(res)));
   }
 
