@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Resposta } from '../../interfaces/resposta';
+import { ToFormDataInterface } from '../../interfaces/to-form-data';
 
 
 export class HttpHandler {
@@ -55,6 +56,32 @@ export class HttpHandler {
 
     return this.http
       .post<Resposta<T>>(this.address + endpoint, body, options);
+  }
+
+
+  protected httpPostWithFormData<T>(
+    endpoint: string, 
+    dados?: ToFormDataInterface | FormData, 
+    headers?: { [name: string]: string }
+  ): Observable<Resposta<T>> 
+  {
+    let options: { headers?: HttpHeaders } = { };
+    
+    let formData: FormData | null;
+    
+    if(dados)
+      formData = (dados instanceof FormData) ? dados : dados.toFormData();
+    else
+      formData = null;
+
+
+    if(headers)
+      options.headers = new HttpHeaders(headers);
+
+    // console.log(endpoint, body);
+
+    return this.http
+      .post<Resposta<T>>(this.address + endpoint, formData, options);
   }
 
 
