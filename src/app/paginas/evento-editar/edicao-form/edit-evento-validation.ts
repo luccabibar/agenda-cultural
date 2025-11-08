@@ -32,17 +32,17 @@ export class EditEventoValidation
       }
 
       // horario
-      // let horaIni: string = (dadosEdit['horaIni']) ? dadosEdit['horaIni'] : dadosEvento.horarioInicio; // usa valor ja existente no evento se nao foi definido um novo
-      // if (!DatetimeUtil.isDateTimeValid(horaIni)) return [false, "Data/Horário de início do evento é inválido"];
+      let horaIni: string = (dadosEdit['horaIni']) ? dadosEdit['horaIni'] : dadosEvento.horarioInicio; // usa valor ja existente no evento se nao foi definido um novo
+      if (!DatetimeUtil.isDateTimeValid(horaIni)) return [false, "Data/Horário de início do evento é inválido"];
       
-      // let horaFim: string = (dadosEdit['horaFim']) ? dadosEdit['horaFim'] : dadosEvento.horarioFim; // usa valor ja existente no evento se nao foi definido um novo
-      // if (!DatetimeUtil.isDateTimeValid(horaFim)) return [false, "Data/Horário de fim do evento é inválido"];
+      let horaFim: string = (dadosEdit['horaFim']) ? dadosEdit['horaFim'] : dadosEvento.horarioFim; // usa valor ja existente no evento se nao foi definido um novo
+      if (!DatetimeUtil.isDateTimeValid(horaFim)) return [false, "Data/Horário de fim do evento é inválido"];
 
-      // let cmpIniFim: number = DatetimeUtil.compareDateTime(horaIni, horaFim); 
-      // let cmpIniNow: number = DatetimeUtil.compareDateTime(horaIni, DatetimeUtil.agora()); 
-      // if (isNaN(cmpIniFim) || isNaN(cmpIniFim)) return [false, "Erro inesperado ao validar valor dos Horáirios"];
-      // if (cmpIniFim >= 0)                       return [false, "O início do evento não pode ser agendado para depois de seu fim"];
-      // if (cmpIniNow <= 0)                       return [false, "O início do evento não pode ser agendado para uma data que já passada"];
+      let cmpIniFim: number = DatetimeUtil.compareDateTime(horaIni, horaFim); 
+      let cmpIniNow: number = DatetimeUtil.compareDateTime(horaIni, DatetimeUtil.agora()); 
+      if (isNaN(cmpIniFim) || isNaN(cmpIniFim)) return [false, "Erro inesperado ao validar valor dos Horáirios"];
+      if (cmpIniFim >= 0)                       return [false, "O início do evento não pode ser agendado para depois de seu fim"];
+      if (cmpIniNow <= 0)                       return [false, "O início do evento não pode ser agendado para uma data que já passada"];
       
       // regiao
       if(dadosEdit['regiao']){
