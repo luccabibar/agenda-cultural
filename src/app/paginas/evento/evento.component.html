@@ -25,7 +25,8 @@
             </div>
     
             <div class="evento-page--content--left--body">
-                <img [src]="evento.getEventoImageUrl()" alt="imagem da silva" width="540" height="540">
+                <img [src]="evento.getEventoImageUrl()" alt="" width="540" height="540">
+                <!-- alt deliberadamente vazio pois nao eh possivel prover uma descricao adequada -->
             </div>
             
             <div *ngIf="evento && evento.contato" 
@@ -56,13 +57,15 @@
                 </h3>
     
                 <p class="evento-page--content--right--content--text">
-                    <img src="images/calendario.png" class="no-filter">  {{ evento.horarioInicio | date : "EEEE d 'de' MMMM" | titlecase }} <br>
-                    <img src="images/relogio.png" class="no-filter">  {{ evento.horarioInicio | date : "H:mm" | titlecase }}
+                    <img src="images/calendario.png" alt="" class="no-filter">  {{ evento.horarioInicio | date : "EEEE d 'de' MMMM" | titlecase }} <br>
+                    <img src="images/relogio.png" alt="" class="no-filter">  {{ evento.horarioInicio | date : "H:mm" | titlecase }}
+                    <!-- alt deliberadamente vazio pois imagem tem papel decorativo -->
                 </p>
     
                 <p class="evento-page--content--right--content--text">
-                    <img src="images/calendario.png" class="no-filter">  {{ evento.horarioFim | date : "EEEE d 'de' MMMM" | titlecase }} <br>
-                    <img src="images/relogio.png" class="no-filter">  {{ evento.horarioFim | date : "H:mm" | titlecase }}
+                    <img src="images/calendario.png" alt="" class="no-filter">  {{ evento.horarioFim | date : "EEEE d 'de' MMMM" | titlecase }} <br>
+                    <img src="images/relogio.png" alt="" class="no-filter">  {{ evento.horarioFim | date : "H:mm" | titlecase }}
+                    <!-- alt deliberadamente vazio pois imagem tem papel decorativo -->
                 </p>
             </div>
     

@@ -1,10 +1,12 @@
 <div class='header'>
     <div class='header--logo'>
-        <img src="/images/logo-mock.png" alt="QUAL A BOA" height="55px" class='no-filter'>
+        <a [routerLink]="['/home']">
+            <img src="/images/logo-mock.png" alt="Home Page" height="55px" class='no-filter'>
+        </a>
     </div>
 
     <div class='header--nav'>
-        <a [routerLink]="['/home']">Página principal</a> |
+        <!-- <a [routerLink]="['/home']">Página principal</a> | -->
         <a [routerLink]="['/agenda']">Agenda de eventos</a> |
         <a [routerLink]="['/buscar']">Buscar um evento</a>
     </div>

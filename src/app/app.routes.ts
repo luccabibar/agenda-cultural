@@ -24,6 +24,6 @@ export const routes: Routes =
     { path: 'login',                component: LoginCadastroComponent },
     { path: 'cadastro',             component: LoginCadastroComponent },
     { path: 'home',                 redirectTo: '' },
-    { path: '',                     component: HomeComponent },
+    { path: '',                     component: /* HomeComponent */ AgendaComponent},
     { path: '**',                   component: NotfoundComponent },
 ];

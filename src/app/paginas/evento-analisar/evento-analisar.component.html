@@ -30,7 +30,8 @@
                         Imagem: 
                     </p>
                     
-                    <img [src]="evento.getEventoImageUrl()" height="256px" class="scale">
+                    <img [src]="evento.getEventoImageUrl()" alt="" height="256px" class="scale">
+                    <!-- alt deliberadamente vazio pois nao eh possivel prover uma descricao adequada -->
                 </div>
             </div>
             
@@ -62,13 +63,15 @@
                     </p>
                     
                     <p class="evento-analisar-page--content--evento--col--group--dados">
-                        <img src="images/calendario.png" class="no-filter">  {{ evento.horarioInicio | date : "EEEE d 'de' MMMM" | titlecase }} <br>
-                        <img src="images/relogio.png" class="no-filter">  {{ evento.horarioInicio | date : "H:mm" | titlecase }}
+                        <img src="images/calendario.png" alt="" class="no-filter">  {{ evento.horarioInicio | date : "EEEE d 'de' MMMM" | titlecase }} <br>
+                        <img src="images/relogio.png" alt="" class="no-filter">  {{ evento.horarioInicio | date : "H:mm" | titlecase }}
+                        <!-- alt deliberadamente vazio pois imagem tem papel decorativo -->
                     </p>
                     
                     <p class="evento-analisar-page--content--evento--col--group--dados">
-                        <img src="images/calendario.png" class="no-filter">  {{ evento.horarioFim | date : "EEEE d 'de' MMMM" | titlecase }} <br>
-                        <img src="images/relogio.png" class="no-filter">  {{ evento.horarioFim | date : "H:mm" | titlecase }}
+                        <img src="images/calendario.png" alt="" class="no-filter">  {{ evento.horarioFim | date : "EEEE d 'de' MMMM" | titlecase }} <br>
+                        <img src="images/relogio.png" alt="" class="no-filter">  {{ evento.horarioFim | date : "H:mm" | titlecase }}
+                        <!-- alt deliberadamente vazio pois imagem tem papel decorativo -->
                     </p>
                 </div>
                 

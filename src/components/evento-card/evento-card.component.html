@@ -17,8 +17,9 @@
             </p>
             
             <p class="evento-card--content--right--text text-align-right"> 
-                {{ evento.horarioInicio | date : "EEEE d 'de' MMMM" | titlecase }} <img src="images/calendario.png" class="no-filter"> <br>
-                {{ evento.horarioInicio | date : "H:mm" | titlecase }} <img src="images/relogio.png" class="no-filter"> 
+                {{ evento.horarioInicio | date : "EEEE d 'de' MMMM" | titlecase }} <img src="images/calendario.png" alt="" class="no-filter"> <br>
+                {{ evento.horarioInicio | date : "H:mm" | titlecase }} <img src="images/relogio.png" alt="" class="no-filter"> 
+                <!-- alt deliberadamente vazio pois imagem tem papel decorativo -->
             </p>
         </div>
     </div>
