@@ -5,6 +5,15 @@ Desenvolvido como Trabalho de Conclusão de Curso, para a FC - UNESP Bauru, no c
 
 ---
 
+## Navegação do Projeto
+
+Este é o Componente Front-End. Confira também as outras partes que compõem esse projeto:
+
+- [Componente Back-End](https://github.com/luccabibar/agenda-cultural-servidor)
+- [Monografia](https://repositorio.unesp.br/entities/publication/b2c4e54c-8c8a-43c5-8375-044d63c8ba24)
+  
+---
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
 
 ### Development server
